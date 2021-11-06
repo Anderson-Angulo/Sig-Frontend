@@ -1,0 +1,24 @@
+.public-layout {
+  background: url('./images/layout-bg.png') 100% center / cover no-repeat;
+  &:before {
+    background-color: rgba(0, 70, 128, 0.55);
+    content: '';
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+  .container {
+    display: flex;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  @media (max-width: 991.98px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  & div[class$='form'] {
+    z-index: 2;
+  }
+}

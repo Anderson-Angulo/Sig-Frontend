@@ -1,0 +1,50 @@
+@import '../base/settings';
+
+.form-custom,
+.form-modal {
+  background-color: $c-white;
+  border-radius: 10px;
+  padding: 2rem;
+  @media (max-width: 767.98px) {
+    padding: 1.6rem;
+  }
+
+  .header {
+    color: $c-primary;
+    // margin-bottom: 0.5rem;
+    text-align: center;
+
+    img {
+      margin: auto;
+      max-width: 200px;
+    }
+    .title h3 {
+      border-bottom: 1px solid $c-gray-500;
+      line-height: 2.4rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .actions {
+    margin-top: 1.8rem;
+    /*     button {
+      display: block;
+    } */
+  }
+  .header,
+  .actions {
+    text-align: center;
+  }
+}
+.form-modal {
+  padding: 0;
+}
+.form-dashboard {
+  padding: 1.5rem;
+  max-width: 750px;
+
+  & .actions {
+    display: flex;
+    justify-content: center;
+  }
+}

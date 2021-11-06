@@ -9,20 +9,18 @@ export const AppRouting = () => {
   return (
     <>
       <Router>
-        <div>
-          <Switch>
-            <PrivatesRouting
-              path="/rrhh"
-              isAuthenticated={loggedIn}
-              component={Privates}
-            />
-            <PublicRouting
-              path="/"
-              isAuthenticated={loggedIn}
-              component={Public}
-            />
-          </Switch>
-        </div>
+        <Switch>
+          <PrivatesRouting
+            path="/rrhh"
+            isAuthenticated={loggedIn}
+            component={Privates}
+          />
+          <PublicRouting
+            path="/"
+            isAuthenticated={loggedIn}
+            component={Public}
+          />
+        </Switch>
       </Router>
     </>
   );
