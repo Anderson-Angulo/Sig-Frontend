@@ -8,7 +8,7 @@ export const Public = () => {
     <Switch>
       <Route exact path="/inicio-sesion" component={LoginPage} />
       <Route exact path="/nueva-contrasena" component={NewPassword} />
-      <Redirect to="/rrhh" />
+      {/* <Redirect to="/rrhh" /> */}
     </Switch>
   );
 };
