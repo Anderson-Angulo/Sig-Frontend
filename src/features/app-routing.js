@@ -1,31 +1,29 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, useRouteMatch } from "react-router-dom";
-import RequireAuth from "../core/routes/required-auth";
-import DefaultComponent from "../shared/components/default-layout/default.component";
-import LoginPage from "./publico/pages/login/login.page";
-import PublicoRouting from "./publico/publico-routing";
-import PersonaPage from "./rrhh/pages/personas/persona/persona.page";
-import RrhhRouting from "./rrhh/rrhh-routing";
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
-export default function AppRouting() {
-  //const { path } = useRouteMatch();
+import { PrivatesRouting, PublicRouting } from 'core/routes/routing';
+import { Public } from './public/public';
+import { Privates } from './privates/privates';
+
+export const AppRouting = () => {
+  const loggedIn = false;
   return (
     <>
       <Router>
-        <Switch>
-
-          <Route path={`/publico`} component={PublicoRouting} />
-          <DefaultComponent>
-            <RequireAuth>
-              <Route path={`/rrhh`} component={RrhhRouting} />
-            </RequireAuth>
-          </DefaultComponent>
-
-
-        </Switch>
+        <div>
+          <Switch>
+            <PrivatesRouting
+              path="/rrhh"
+              isAuthenticated={loggedIn}
+              component={Privates}
+            />
+            <PublicRouting
+              path="/"
+              isAuthenticated={loggedIn}
+              component={Public}
+            />
+          </Switch>
+        </div>
       </Router>
-      {/* </Route> */}
     </>
-
   );
-}
+};
