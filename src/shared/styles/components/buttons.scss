@@ -1,0 +1,21 @@
+@import '../base/settings';
+
+button {
+  border-radius: 6px;
+  outline: none;
+  padding: 10px 1rem;
+  transition: background-color 0.3s ease;
+
+  &:disabled {
+    cursor: auto;
+    opacity: 0.6;
+  }
+
+  &.p-button.btn.btn-primary {
+    background-color: $c-primary;
+    border: 1px solid $c-primary;
+    &:hover {
+      background-color: darken($color: $c-primary, $amount: 10);
+    }
+  }
+}

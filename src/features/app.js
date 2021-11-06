@@ -3,9 +3,9 @@ import { AppRouting } from './app-routing';
 
 function App() {
   return (
-    <div>
+    <>
       <AppRouting />
-    </div>
+    </>
   );
 }
 
