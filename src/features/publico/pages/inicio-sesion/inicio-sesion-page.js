@@ -57,7 +57,7 @@ const InicioSesion = () => {
             <Button label="Ingresar" className="btn btn-primary mt-4" />
           </div>
         </form>
-        <ModalRecuperarContrasenaComponent />
+        {/* <ModalRecuperarContrasenaComponent /> */}
       </Fragment>
     </PublicoLayout>
   );
