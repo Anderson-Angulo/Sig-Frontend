@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export const PublicRouting = ({
+export const PublicoRouting = ({
   isAuthenticated,
   component: Component,
   ...rest
@@ -16,7 +16,7 @@ export const PublicRouting = ({
   );
 };
 
-PublicRouting.propTypes = {
+PublicoRouting.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   component: PropTypes.func.isRequired,
 };

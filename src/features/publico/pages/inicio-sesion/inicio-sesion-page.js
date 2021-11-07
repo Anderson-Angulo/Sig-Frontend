@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import PublicLayout from 'shared/components/public-layout/public-layout';
+import PublicoLayout from 'shared/components/publico-layout/publico-layout';
 
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 
-import './login.page.scss';
+import './inicio-sesion-page.scss';
 
-const LoginPage = () => {
+const InicioSesion = () => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <PublicLayout page="login">
+    <PublicoLayout page="login">
       <form className="form-custom">
         <header className="header">
           <img
@@ -54,8 +54,8 @@ const LoginPage = () => {
           />
         </div>
       </form>
-    </PublicLayout>
+    </PublicoLayout>
   );
 };
 
-export default LoginPage;
+export default InicioSesion;

@@ -1,4 +1,4 @@
-import { PrivatesRouting } from './privates-routing';
-import { PublicRouting } from './public-routing';
+import { PrivadoRouting } from './privado-routing';
+import { PublicoRouting } from './publico-routing';
 
-export { PrivatesRouting, PublicRouting };
+export { PrivadoRouting, PublicoRouting };

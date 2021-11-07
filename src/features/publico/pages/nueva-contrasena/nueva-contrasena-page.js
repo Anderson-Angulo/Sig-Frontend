@@ -1,6 +1,6 @@
 // import PropTypes from 'prop-types';
 
-const NewPassword = (props) => {
+const NuevaContrasena = (props) => {
   return (
     <div>
       <h1>Recuperar contraseña</h1>
@@ -8,6 +8,6 @@ const NewPassword = (props) => {
   );
 };
 
-// PasswordRecoveryPage.propTypes = {};
+// NuevaContrasena.propTypes = {};
 
-export default NewPassword;
+export default NuevaContrasena;

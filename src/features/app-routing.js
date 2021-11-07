@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
-import { PrivatesRouting, PublicRouting } from 'core/routes/routing';
-import { Public } from './public/public';
-import { Privates } from './privates/privates';
+import { PrivadoRouting, PublicoRouting } from 'core/routes/routing';
+import { Privado } from './publico/privado-routing';
+import { Publico } from './publico/publico-routing';
 
 export const AppRouting = () => {
   const loggedIn = false;
@@ -10,15 +10,15 @@ export const AppRouting = () => {
     <>
       <Router>
         <Switch>
-          <PrivatesRouting
+          <PrivadoRouting
             path="/rrhh"
             isAuthenticated={loggedIn}
-            component={Privates}
+            component={Privado}
           />
-          <PublicRouting
+          <PublicoRouting
             path="/"
             isAuthenticated={loggedIn}
-            component={Public}
+            component={Publico}
           />
         </Switch>
       </Router>
