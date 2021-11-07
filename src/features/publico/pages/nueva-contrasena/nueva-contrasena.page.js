@@ -1,10 +1,10 @@
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
-import './nueva-contrasena-page.scss';
+import './nueva-contrasena.page.scss';
 
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 
-const NuevaContrasena = () => {
+const NuevaContrasenaPage = () => {
   return (
     <PublicoLayout page="new-password">
       <form className="form-custom">
@@ -51,4 +51,4 @@ const NuevaContrasena = () => {
   );
 };
 
-export default NuevaContrasena;
+export default NuevaContrasenaPage;

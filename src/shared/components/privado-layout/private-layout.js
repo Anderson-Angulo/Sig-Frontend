@@ -3,6 +3,7 @@ import HeaderComponent from './header/header-component';
 import SidebarComponent from './sidebar/sidebar.component';
 
 export default function PrivateLayout({ children }) {
+  console.log("PrivateLayout");
   return (
     <>
       <HeaderComponent />

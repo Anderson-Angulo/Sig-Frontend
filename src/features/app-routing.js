@@ -1,25 +1,32 @@
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-
-import { PrivadoRouting, PublicoRouting } from 'core/routes/routing';
-import { Privado } from './publico/privado-routing';
-import { Publico } from './publico/publico-routing';
+import { BrowserRouter as Router, Switch, Route, useRouteMatch } from "react-router-dom";
+import PrivateLayout from 'shared/components/privado-layout/private-layout';
+import { PublicoRouting } from "./publico/publico-routing";
+import RrhhRouting from "./rrhh/rrhh-routing";
+import RequireAuth from "../core/routes/required-auth";
+import InicioPage from "./dashboard/pages/inicio/inicio.page";
 
 export const AppRouting = () => {
   const loggedIn = false;
+  console.log("AppRouting");
   return (
     <>
       <Router>
         <Switch>
-          <PrivadoRouting
-            path="/rrhh"
-            isAuthenticated={loggedIn}
-            component={Privado}
-          />
-          <PublicoRouting
-            path="/"
-            isAuthenticated={loggedIn}
-            component={Publico}
-          />
+
+          <Route path={`/publico`} component={PublicoRouting} />
+
+          <RequireAuth>
+            <PrivateLayout>
+              <Route path={`/rrhh`} component={RrhhRouting} />
+              <Route component={InicioPage} />
+            </PrivateLayout>
+          </RequireAuth>
+
+
+
+
+
+
         </Switch>
       </Router>
     </>

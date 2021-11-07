@@ -1,14 +1,13 @@
 import { Fragment, useState } from 'react';
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
-import './inicio-sesion-page.scss';
+import './inicio-sesion.page.scss';
 
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
-import ModalRecuperarContrasenaComponent from 'features/publico/components/modal-recuperar-contrasena-component';
 
-const InicioSesion = () => {
+const InicioSesionPage = () => {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -63,4 +62,4 @@ const InicioSesion = () => {
   );
 };
 
-export default InicioSesion;
+export default InicioSesionPage;
