@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import './public-layout.scss';
-import 'shared/styles/components/forms.scss';
-import 'shared/styles/components/fields.scss';
-import 'shared/styles/components/buttons.scss';
+import './publico-layout.scss';
+import 'shared/styles/components/formularios.scss';
+import 'shared/styles/components/campos.scss';
+import 'shared/styles/components/botones.scss';
 
-const PublicLayout = ({ page, children }) => {
+const PublicoLayout = ({ page, children }) => {
   return (
     <main className={`view-${page} public-layout`}>
       <div className="container mx-auto">
@@ -14,13 +14,13 @@ const PublicLayout = ({ page, children }) => {
   );
 };
 
-PublicLayout.defaultProps = {
+PublicoLayout.defaultProps = {
   page: '',
 };
 
-PublicLayout.propTypes = {
+PublicoLayout.propTypes = {
   page: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-export default PublicLayout;
+export default PublicoLayout;
