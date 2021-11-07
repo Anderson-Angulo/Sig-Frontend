@@ -7,16 +7,9 @@ export const PrivadoRouting = ({
   ...rest
 }) => {
   return (
-    <Route
-      {...rest}
-      component={(props) =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/inicio-sesion" />
-        )
-      }
-    ></Route>
+    <Route {...rest} component={(props) =>
+      isAuthenticated ? (<Component {...props} />) : (<Redirect to="/inicio-sesion" />)
+    }></Route>
   );
 };
 

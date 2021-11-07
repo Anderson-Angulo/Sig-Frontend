@@ -7,12 +7,9 @@ export const PublicoRouting = ({
   ...rest
 }) => {
   return (
-    <Route
-      {...rest}
-      component={(props) =>
-        !isAuthenticated ? <Component {...props} /> : <Redirect to="/rrhh" />
-      }
-    ></Route>
+    <Route {...rest} component={(props) =>
+      !isAuthenticated ? <Component {...props} /> : <Redirect to="/rrhh" />
+    }></Route>
   );
 };
 
