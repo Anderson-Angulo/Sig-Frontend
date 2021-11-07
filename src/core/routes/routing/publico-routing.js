@@ -13,4 +13,7 @@ export const PublicoRouting = ({
   );
 };
 
-PublicRouting.propTypes = { isAuthenticated: PropTypes.bool.isRequired, component: PropTypes.func.isRequired };
+PublicoRouting.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  component: PropTypes.func.isRequired,
+};

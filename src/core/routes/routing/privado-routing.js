@@ -13,4 +13,7 @@ export const PrivadoRouting = ({
   );
 };
 
-PrivatesRouting.propTypes = { isAuthenticated: PropTypes.bool.isRequired, component: PropTypes.func.isRequired };
+PrivadoRouting.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  component: PropTypes.func.isRequired,
+};
