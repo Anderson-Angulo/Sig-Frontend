@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
+import './inicio-sesion-page.scss';
 
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
-
-import './inicio-sesion-page.scss';
 
 const InicioSesion = () => {
   const [checked, setChecked] = useState(false);
@@ -23,21 +22,26 @@ const InicioSesion = () => {
           />
         </header>
         <div className="fields">
-          <span className="p-float-label p-input-icon-right field">
+          <span className="p-float-label p-input-icon-right field w-full">
             <i className="pi pi-user" />
             <InputText id="email" name="email" />
             <label htmlFor="email">Usuario</label>
           </span>
 
           <span className="p-float-label field">
-            <Password id="password" name="password" toggleMask />
+            <Password
+              id="password"
+              name="password"
+              className="w-full"
+              toggleMask
+            />
             <label htmlFor="password">Contraseña</label>
           </span>
         </div>
 
         <div className="actions">
           <p className="link">Olvidé mi contraseña</p>
-          <div className="p-field-checkbox field field-checkbox">
+          <div className="p-field-checkbox field field-checkbox mt-2 w-full">
             <Checkbox
               inputId="remember"
               checked={checked}
@@ -50,7 +54,7 @@ const InicioSesion = () => {
           </div>
           <Button
             label="Ingresar"
-            className="btn btn-primary" /* loading={loading2} onClick={onLoadingClick2} */
+            className="btn btn-primary mt-4" /* loading={loading2} onClick={onLoadingClick2} */
           />
         </div>
       </form>
