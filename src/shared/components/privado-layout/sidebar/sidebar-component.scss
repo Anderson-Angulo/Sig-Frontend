@@ -1,0 +1,20 @@
+.sidebar {
+  .p-menu {
+    height: 100%;
+    max-width: 18rem;
+    padding: 12px;
+    width: 100%;
+    & .p-menuitem-icon,
+    & .p-menuitem-text {
+      color: #004680 !important;
+      font-size: 0.9rem;
+    }
+    & a {
+      padding: 12px 5px;
+      margin-bottom: 6px;
+      &:hover {
+        border-radius: 6px;
+      }
+    }
+  }
+}

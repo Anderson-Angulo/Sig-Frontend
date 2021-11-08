@@ -1,0 +1,11 @@
+.private-layout {
+  background-color: #edf1f5;
+  max-height: 100vh;
+  overflow: hidden;
+  & main {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    gap: 1rem;
+    min-height: 100vh;
+  }
+}

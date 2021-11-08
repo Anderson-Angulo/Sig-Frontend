@@ -5,7 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import 'shared/styles/components/modales.scss';
 
-const ModalRecuperarContrasenaComponent = ({ isOpen }) => {
+const RecuperarContrasenaPage = ({ isOpen }) => {
   const onHide = () => {};
   return (
     <Dialog
@@ -44,12 +44,12 @@ const ModalRecuperarContrasenaComponent = ({ isOpen }) => {
   );
 };
 
-ModalRecuperarContrasenaComponent.defaultProps = {
+RecuperarContrasenaPage.defaultProps = {
   isOpen: true,
 };
 
-ModalRecuperarContrasenaComponent.propTypes = {
+RecuperarContrasenaPage.propTypes = {
   isOpen: PropTypes.bool,
 };
 
-export default ModalRecuperarContrasenaComponent;
+export default RecuperarContrasenaPage;
