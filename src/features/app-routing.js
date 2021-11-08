@@ -4,31 +4,30 @@ import { PublicoRouting } from "./publico/publico-routing";
 import RrhhRouting from "./rrhh/rrhh-routing";
 import RequireAuth from "../core/routes/required-auth";
 import InicioPage from "./dashboard/pages/inicio/inicio.page";
-
+import { Provider } from "react-redux";
+import publicoStore from './publico/store/publico.store';
 export const AppRouting = () => {
   const loggedIn = false;
   console.log("AppRouting");
   return (
     <>
-      <Router>
-        <Switch>
+      <Provider store={publicoStore}>
+        <Router>
+          <Switch>
 
-          <Route path={`/publico`} component={PublicoRouting} />
+            <Route path={`/publico`} component={PublicoRouting} />
 
-          <RequireAuth>
-            <PrivateLayout>
-              <Route path={`/rrhh`} component={RrhhRouting} />
-              <Route component={InicioPage} />
-            </PrivateLayout>
-          </RequireAuth>
+            <RequireAuth>
+              <PrivateLayout>
+                <Route path={`/rrhh`} component={RrhhRouting} />
+                <Route component={InicioPage} />
+              </PrivateLayout>
+            </RequireAuth>
 
+          </Switch>
+        </Router>
+      </Provider>
 
-
-
-
-
-        </Switch>
-      </Router>
     </>
   );
 };

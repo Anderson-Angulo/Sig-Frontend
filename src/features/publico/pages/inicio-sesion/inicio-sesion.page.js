@@ -1,4 +1,7 @@
 import { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
 import './inicio-sesion.page.scss';
 
@@ -6,14 +9,29 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
+import { authAction } from 'features/publico/store/actions/auth.action';
 
 const InicioSesionPage = () => {
   const [checked, setChecked] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const loggedIn = useSelector(state => state.authReducer.loggedIn);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+
+    const { from } = location.state || { from: { pathname: "/" } };
+    dispatch(authAction.login("username", "password", from));
+  }
+
 
   return (
     <PublicoLayout page="login">
       <Fragment>
-        <form className="form-custom">
+        <form className="form-custom" onSubmit={handleSubmit}>
           <header className="header">
             <img
               src="/images/logos/main-dark-logo.png"
@@ -53,7 +71,7 @@ const InicioSesionPage = () => {
                 Recuérdame
               </label>
             </div>
-            <Button label="Ingresar" className="btn btn-primary mt-4" />
+            <Button type="submit" loading={loggedIn} label="Ingresar" className="btn btn-primary mt-4" />
           </div>
         </form>
         {/* <ModalRecuperarContrasenaComponent /> */}
