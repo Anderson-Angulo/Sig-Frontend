@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 const HeaderComponent = (props) => {
-  return <div></div>;
+  return <header>Header</header>;
 };
 
 // HeaderComponent.propTypes = {};

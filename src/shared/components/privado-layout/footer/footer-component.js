@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 const FooterComponent = (props) => {
-  return <div></div>;
+  return <footer>Footer</footer>;
 };
 
 // FooterComponent.propTypes = {};
