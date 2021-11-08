@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
 import './inicio-sesion.page.scss';
+import RecuperarContrasenaPage from 'features/publico/pages/recuperar-contrasena/recuperar-contrasena.page';
 
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
@@ -56,7 +57,7 @@ const InicioSesionPage = () => {
             <Button label="Ingresar" className="btn btn-primary mt-4" />
           </div>
         </form>
-        {/* <ModalRecuperarContrasenaComponent /> */}
+        <RecuperarContrasenaPage />
       </Fragment>
     </PublicoLayout>
   );
