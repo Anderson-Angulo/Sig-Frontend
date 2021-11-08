@@ -1,12 +1,25 @@
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { recuperarContrasenaAction } from 'features/publico/store/actions/recupera-contrasena.action';
 import 'shared/styles/components/modales.scss';
 
+
 const RecuperarContrasenaPage = ({ isOpen }) => {
-  const onHide = () => {};
+
+  const dispatch = useDispatch();
+
+  function handleOcultarContrasena(e) {
+    e.preventDefault();
+
+  }
+
+  const onHide = () => {
+    dispatch(recuperarContrasenaAction.ocultar());
+
+  };
   return (
     <Dialog
       visible={isOpen}

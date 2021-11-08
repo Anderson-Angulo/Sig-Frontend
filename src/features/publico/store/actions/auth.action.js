@@ -1,9 +1,9 @@
-import { createBrowserHistory } from 'history';
+// import { browserHistory } from 'react-router';
 
 const { PublicoConstants } = require("features/publico/commons/publico-constants");
 const { authService } = require("features/publico/services/auth.service");
 
-function login(email, password, from) {
+function login(email, password) {
 
     return dispatch => {
 
@@ -11,8 +11,9 @@ function login(email, password, from) {
         authService.login(email, password)
             .then(
                 model => {
+
                     dispatch({ type: PublicoConstants.Login.SUCCESS, model });
-                    createBrowserHistory().push(from)
+                    // browserHistory.push("/inicio");
                 },
                 error => {
                     dispatch({ type: PublicoConstants.Login.FAILURE, error });

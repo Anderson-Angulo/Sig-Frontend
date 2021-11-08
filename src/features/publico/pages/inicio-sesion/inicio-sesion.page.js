@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
 import './inicio-sesion.page.scss';
@@ -11,28 +11,44 @@ import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { authAction } from 'features/publico/store/actions/auth.action';
+import { recuperarContrasenaAction } from 'features/publico/store/actions/recupera-contrasena.action';
 
 const InicioSesionPage = () => {
-  const [checked, setChecked] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+
+
   const location = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [checked, setChecked] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const loggedIn = useSelector(state => state.authReducer.loggedIn);
 
-  function handleSubmit(e) {
+  useSelector(state => {
+    if (state.authReducer.loggedIn)
+      history.push("/inicio");
+  });
+
+  const loading = useSelector(state => state.authReducer.loading);
+  const mostrarRecuperarContrasena = useSelector(state => state.recuperarContrasenaReducer.mostrarRecuperarContrasena);
+
+  function onSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
 
     const { from } = location.state || { from: { pathname: "/" } };
     dispatch(authAction.login("username", "password", from));
+    // history.push("/inicio");
+  }
+
+  function onMostrarContrasena(e) {
+    dispatch(recuperarContrasenaAction.mostrar());
   }
 
 
   return (
     <PublicoLayout page="login">
       <Fragment>
-        <form className="form-custom" onSubmit={handleSubmit}>
+        <form className="form-custom" onSubmit={onSubmit}>
           <header className="header">
             <img
               src="/images/logos/main-dark-logo.png"
@@ -60,7 +76,7 @@ const InicioSesionPage = () => {
           </div>
 
           <div className="actions">
-            <p className="link">Olvidé mi contraseña</p>
+            <a className="link" onClick={() => onMostrarContrasena(this)}>Olvidé mi contraseña</a>
             <div className="p-field-checkbox field field-checkbox mt-2 w-full">
               <Checkbox
                 inputId="remember"
@@ -72,10 +88,10 @@ const InicioSesionPage = () => {
                 Recuérdame
               </label>
             </div>
-            <Button type="submit" loading={loggedIn} label="Ingresar" className="btn btn-primary mt-4" />
+            <Button type="submit" loading={loading} label="Ingresar" className="btn btn-primary mt-4" />
           </div>
         </form>
-        <RecuperarContrasenaPage />
+        <RecuperarContrasenaPage isOpen={mostrarRecuperarContrasena} />
       </Fragment>
     </PublicoLayout>
   );

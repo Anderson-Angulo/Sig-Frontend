@@ -8,7 +8,6 @@ import publicoStore from './publico/store/publico.store';
 import PrivadoLayout from "shared/components/privado-layout/privado-layout";
 export const AppRouting = () => {
   const loggedIn = false;
-  console.log('AppRouting');
   return (
     <>
       <Provider store={publicoStore}>
@@ -17,9 +16,9 @@ export const AppRouting = () => {
 
             <Route path={`/publico`} component={PublicoRouting} />
 
-            <RequireAuth>
+            <RequireAuth >
               <PrivadoLayout>
-                <Route path={`/rrhh`} component={RrhhRouting} />
+                {/* <Route path={`/rrhh`} component={RrhhRouting} /> */}
                 <Route component={InicioPage} />
               </PrivadoLayout>
             </RequireAuth>
