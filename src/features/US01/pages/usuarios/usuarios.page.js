@@ -6,7 +6,7 @@ import './usuarios.page.scss';
 import { Fragment } from 'react';
 import CambiarContrasenaPage from './pages/cambiar-contrasena/cambiar-contrasena.page';
 
-const SistemaPage = () => {
+const UsuarioPage = () => {
   const roles = [{ rol: 'Rol 1' }, { rol: 'Rol 2' }, { rol: 'Rol 3' }];
   return (
     <Fragment>
@@ -42,4 +42,4 @@ const SistemaPage = () => {
   );
 };
 
-export default SistemaPage;
+export default UsuarioPage;
