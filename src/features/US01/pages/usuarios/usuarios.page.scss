@@ -1,0 +1,12 @@
+fieldset {
+  .p-fieldset-legend.p-unselectable-text {
+    background: #00bcd4;
+    &:hover {
+      background-color: darken($color: #00bcd4, $amount: 10) !important;
+    }
+    & > a {
+      padding: 12px !important;
+      color: #fff !important;
+    }
+  }
+}

@@ -19,4 +19,13 @@ button {
       background-color: darken($color: $c-primary, $amount: 10);
     }
   }
+  &.p-button.btn-secondary {
+    border: 1px solid $c-gray-300 !important;
+    background-color: $c-white;
+    color: gray;
+    &:hover {
+      background-color: $c-gray-300;
+      color: $c-white;
+    }
+  }
 }
