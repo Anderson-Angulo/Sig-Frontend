@@ -5,7 +5,7 @@ import PersonasPage from "./pages/personas/personas.page";
 import PuestoTrabajoPage from "./pages/puesto-trabajo/puesto-trabajo.page";
 
 export default function RrhhRouting() {
-
+  
     const { path } = useRouteMatch();
     return (
         <>
