@@ -12,20 +12,17 @@ import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { authAction } from 'features/publico/store/actions/auth.action';
 import { recuperarContrasenaAction } from 'features/publico/store/actions/recupera-contrasena.action';
+import SeleccionarPage from '../seleccionar/seleccionar.page';
 
 const InicioSesionPage = () => {
-
-
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
   const [checked, setChecked] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-
-  useSelector(state => {
-    if (state.authReducer.loggedIn)
-      history.push("/inicio");
+  useSelector((state) => {
+    if (state.authReducer.loggedIn) history.push('/inicio');
   });
 
   dispatch(authAction.validarSesion());
@@ -49,7 +46,6 @@ const InicioSesionPage = () => {
   function onMostrarContrasena(e) {
     dispatch(recuperarContrasenaAction.mostrar());
   }
-
 
   return (
     <PublicoLayout page="login">
@@ -82,7 +78,9 @@ const InicioSesionPage = () => {
           </div>
 
           <div className="actions">
-            <a className="link" onClick={() => onMostrarContrasena(this)}>Olvidé mi contraseña</a>
+            <a className="link" onClick={() => onMostrarContrasena(this)}>
+              Olvidé mi contraseña
+            </a>
             <div className="p-field-checkbox field field-checkbox mt-2 w-full">
               <Checkbox
                 inputId="remember"
@@ -94,10 +92,16 @@ const InicioSesionPage = () => {
                 Recuérdame
               </label>
             </div>
-            <Button type="submit" loading={loading} label="Ingresar" className="btn btn-primary mt-4" />
+            <Button
+              type="submit"
+              loading={loading}
+              label="Ingresar"
+              className="btn btn-primary mt-4"
+            />
           </div>
         </form>
         <RecuperarContrasenaPage isOpen={mostrarRecuperarContrasena} />
+        <SeleccionarPage isOpen={false} />
       </Fragment>
     </PublicoLayout>
   );

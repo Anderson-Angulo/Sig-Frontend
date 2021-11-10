@@ -5,6 +5,7 @@ import { Dropdown } from 'primereact/dropdown';
 import './usuarios.page.scss';
 import { Fragment } from 'react';
 import CambiarContrasenaPage from './pages/cambiar-contrasena/cambiar-contrasena.page';
+import UsuarioTabla from 'features/US01/components/usuarios/usuario-tabla-component';
 
 const UsuarioPage = () => {
   const roles = [{ rol: 'Rol 1' }, { rol: 'Rol 2' }, { rol: 'Rol 3' }];
@@ -37,6 +38,10 @@ const UsuarioPage = () => {
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div>
       </Fieldset>
+      <div className="mt-5 flex items-center justify-end">
+        <Button type="button" label="Nuevo" className="btn btn-dark" />
+      </div>
+      {/* <UsuarioTabla /> */}
       <CambiarContrasenaPage />
     </Fragment>
   );
