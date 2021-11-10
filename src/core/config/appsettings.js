@@ -1,5 +1,5 @@
 export default class AppSettings {
 
-    static get API_URL() { return "https://localhost:44318/api/"; };
+    static get API_URL() { return "http://calidar-sig-api.azurewebsites.net/api/"; };
 
 }

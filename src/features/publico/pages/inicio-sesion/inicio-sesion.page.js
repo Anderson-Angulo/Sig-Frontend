@@ -25,18 +25,22 @@ const InicioSesionPage = () => {
     if (state.authReducer.loggedIn) history.push('/inicio');
   });
 
-  const loading = useSelector((state) => state.authReducer.loading);
-  const mostrarRecuperarContrasena = useSelector(
-    (state) => state.recuperarContrasenaReducer.mostrarRecuperarContrasena
-  );
+  dispatch(authAction.validarSesion());
+  
+  const loading = useSelector(state => state.authReducer.loading);
+  const mostrarRecuperarContrasena = useSelector(state => state.recuperarContrasenaReducer.mostrarRecuperarContrasena);
+
+
+
+
+ 
 
   function onSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
 
-    const { from } = location.state || { from: { pathname: '/' } };
-    dispatch(authAction.login('username', 'password', from));
-    // history.push("/inicio");
+    const { from } = location.state || { from: { pathname: "/" } };
+    dispatch(authAction.login("username", "password", from));
   }
 
   function onMostrarContrasena(e) {
