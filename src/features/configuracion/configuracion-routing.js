@@ -7,7 +7,6 @@ import {
 import SistemaPage from './pages/sistema/sistema.page';
 import UsuariosPage from './pages/usuarios/usuarios.page';
 import UsuarioPage from './pages/usuarios/usuario/usuario.page';
-import RolesPrivilegioPage from './pages/roles-privilegio/roles-privilegio.page';
 import RolPrivilegioPage from './pages/roles-privilegio/rol-privilegio/rol-privilegio.page';
 
 export const ConfiguracionRouting = (reducerRegistry) => {
@@ -26,7 +25,7 @@ export const ConfiguracionRouting = (reducerRegistry) => {
         <Route
           exact
           path={`${path}/rol-privilegios`}
-          component={RolesPrivilegioPage}
+          component={RolPrivilegioPage}
         ></Route>
         <Route exact path={`${path}/`} component={SistemaPage} />
       </Switch>
