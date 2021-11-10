@@ -8,8 +8,8 @@ const SidebarComponent = () => {
     { label: 'Configuración de Sistema', icon: 'pi pi-cog' },
   ];
   return (
-    <div className="sidebar ">
-      <Menu model={items} className="shadow-md" />
+    <div className="sidebar">
+      <Menu model={items} className="shadow-md rounded-md" />
     </div>
   );
 };

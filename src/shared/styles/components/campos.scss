@@ -8,7 +8,8 @@
 
 input,
 select,
-textarea {
+textarea,
+.p-dropdown {
   border-radius: 6px !important;
   font-size: 0.9rem !important;
   width: 100% !important;
@@ -28,7 +29,10 @@ textarea {
   border-color: $c-primary !important;
 }
 
-.p-float-label label {
+.p-float-label label,
+span.p-dropdown-label {
   font-size: 0.8rem;
+}
+.p-float-label label {
   margin-top: -0.3rem !important;
 }
