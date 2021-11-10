@@ -11,9 +11,8 @@ function login(email, password) {
         authService.login(email, password)
             .then(
                 model => {
-
-                    dispatch({ type: PublicoConstants.Login.SUCCESS, model });
-                    // browserHistory.push("/inicio");
+                    var userInformation = model.data.data;
+                    dispatch({ type: PublicoConstants.Login.SUCCESS, userInformation });
                 },
                 error => {
                     dispatch({ type: PublicoConstants.Login.FAILURE, error });
@@ -22,6 +21,16 @@ function login(email, password) {
     };
 }
 
+function validarSesion() {
+    return dispatch => {
+        const userInformation = JSON.parse(localStorage.getItem('sig-session'));
+        if (userInformation != null)
+            dispatch({ type: PublicoConstants.Login.SUCCESS, userInformation });
+
+    };
+}
+
 export const authAction = {
-    login
+    login,
+    validarSesion
 };

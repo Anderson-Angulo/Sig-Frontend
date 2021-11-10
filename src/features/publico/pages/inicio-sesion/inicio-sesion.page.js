@@ -28,8 +28,15 @@ const InicioSesionPage = () => {
       history.push("/inicio");
   });
 
+  dispatch(authAction.validarSesion());
+  
   const loading = useSelector(state => state.authReducer.loading);
   const mostrarRecuperarContrasena = useSelector(state => state.recuperarContrasenaReducer.mostrarRecuperarContrasena);
+
+
+
+
+ 
 
   function onSubmit(e) {
     e.preventDefault();
@@ -37,7 +44,6 @@ const InicioSesionPage = () => {
 
     const { from } = location.state || { from: { pathname: "/" } };
     dispatch(authAction.login("username", "password", from));
-    // history.push("/inicio");
   }
 
   function onMostrarContrasena(e) {

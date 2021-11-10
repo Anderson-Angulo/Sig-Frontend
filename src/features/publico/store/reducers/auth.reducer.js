@@ -22,10 +22,12 @@ export default (state = initialState, action) => {
                 loading: true
             }
         case PublicoConstants.Login.SUCCESS:
+            
+            localStorage.setItem("sig-session", JSON.stringify(action.userInformation))
             return {
                 loading: false,
                 loggedIn: true,
-                user: action.user
+                user: action.userInformation
             }
         default: {
             return state;
