@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 const PersonasPage = (props) => {
-  return <div></div>;
+  return <div>Personas</div>;
 };
 
 // PersonasPage.propTypes = {};
