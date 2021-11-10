@@ -28,4 +28,12 @@ button {
       color: $c-white;
     }
   }
+  &.btn-dark {
+    background-color: #000;
+    border: 1px solid #000 !important;
+    &:hover {
+      background-color: lighten($color: #000, $amount: 15) !important;
+      color: $c-white;
+    }
+  }
 }
