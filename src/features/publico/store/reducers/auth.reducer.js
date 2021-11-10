@@ -6,9 +6,6 @@ const initialState = {
     user: {},
 };
 
-// function validarSesion() {
-//     return false || initialState.loggedIn;
-// }
 export default (state = initialState, action) => {
 
     switch (action.type) {
@@ -19,10 +16,10 @@ export default (state = initialState, action) => {
             }
         case PublicoConstants.Login.FAILURE:
             return {
-                loading: true
+                loading: false
             }
         case PublicoConstants.Login.SUCCESS:
-            
+
             localStorage.setItem("sig-session", JSON.stringify(action.userInformation))
             return {
                 loading: false,
