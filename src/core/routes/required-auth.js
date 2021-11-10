@@ -5,8 +5,14 @@ import { useLocation, Redirect, } from "react-router-dom";
 export default function RequireAuth({ children }) {
     let auth = { user: null };// useAuth();
     let location = useLocation();
-    const loggedIn = useSelector(state => state.authReducer.loggedIn);
-   
+
+    const loggedIn = useSelector(state => {
+        return state.authReducer.loggedIn;
+
+    }
+
+    );
+
     if (!loggedIn) {
         //console.log("==");
         return <Redirect to="/publico/inicio-sesion" state={{ from: location }} />;
@@ -14,11 +20,3 @@ export default function RequireAuth({ children }) {
 
     return children;
 }
-
-// RequireAuth.defaultProps = {
-//     isOpen: true,
-// };
-
-// RequireAuth.propTypes = {
-//     isOpen: PropTypes.bool,
-// };
