@@ -1,9 +1,9 @@
+import { Fragment } from 'react';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
-import { Fragment } from 'react';
 
-const RolPrivilegioPage = () => {
+const RolesPrivilegioPage = () => {
   return (
     <Fragment>
       <Fieldset legend="Filtro por" toggleable>
@@ -20,7 +20,6 @@ const RolPrivilegioPage = () => {
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div>
       </Fieldset>
-
       <div className="mt-5 flex items-center justify-end">
         <Button type="button" label="Nueva" className="btn btn-dark" />
       </div>
@@ -28,4 +27,4 @@ const RolPrivilegioPage = () => {
   );
 };
 
-export default RolPrivilegioPage;
+export default RolesPrivilegioPage;
