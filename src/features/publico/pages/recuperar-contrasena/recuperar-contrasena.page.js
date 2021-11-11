@@ -18,8 +18,8 @@ const RecuperarContrasenaPage = ({ isOpen }) => {
 
   const onHide = () => {
     dispatch(recuperarContrasenaAction.ocultar());
-
   };
+  
   return (
     <Dialog
       visible={isOpen}

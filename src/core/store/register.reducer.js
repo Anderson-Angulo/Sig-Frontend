@@ -5,10 +5,8 @@ export default class ReducerRegistry {
     }
     register(newReducers) {
         this._reducers = { ...this._reducers, ...newReducers }
-        if (this._emitChange != null) {
-            console.log(this.getReducers());
+        if (this._emitChange != null)
             this._emitChange(this.getReducers())
-        }
     }
     getReducers() {
         return { ...this._reducers }

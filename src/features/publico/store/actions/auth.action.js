@@ -11,8 +11,17 @@ function login(email, password) {
         authService.login(email, password)
             .then(
                 model => {
-                    var userInformation = model.data.data;
-                    dispatch({ type: PublicoConstants.Login.SUCCESS, userInformation });
+
+                    const userInformation = model.data.data;
+                    console.log(userInformation);
+                    if (userInformation.empresas.length > 1)
+                        dispatch({ type: PublicoConstants.SeleccionarEmpresaSede.MOSTRAR, userInformation });
+                    if (userInformation.empresas[0].sedes.length > 1)
+                        dispatch({ type: PublicoConstants.SeleccionarEmpresaSede.MOSTRAR, userInformation });
+                    else
+                        dispatch({ type: PublicoConstants.Login.SUCCESS, userInformation });
+
+                    dispatch({ type: PublicoConstants.Login.DONE, userInformation });
                 },
                 error => {
                     dispatch({ type: PublicoConstants.Login.FAILURE, error });
