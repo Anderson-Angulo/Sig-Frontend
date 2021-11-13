@@ -1,4 +1,5 @@
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -7,17 +8,19 @@ import { selecEmpresaSedeAction } from 'features/publico/store/actions/selec-emp
 const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
 
     const dispatch = useDispatch();
+    const { register, control, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const [mostrarEmpresa, setMostrarEmpresa] = useState(true);
     const [empresas, setEmpresas] = useState([]);
     const [sedes, setSedes] = useState([]);
-    const [currentEmpresa, setCurrentEmpresa] = useState(null);
-    const [currentSede, setCurrentSede] = useState(null);
+    const empresaControl = useWatch({ control, name: 'empresa' });
 
     const usuarioInformation = useSelector(state => state.authReducer.user);
-    // const empresas = useSelector(state => state.selecEmpresaSedeReducer.empresas);
+    const emailUser = useSelector(state => state.selecEmpresaSedeReducer.email);
+    const passwordUser = useSelector(state => state.selecEmpresaSedeReducer.password);
 
     useEffect(() => validarVisibilidad(), [usuarioInformation]);
+    useEffect((e) => onSelectEmpresa(empresaControl), [empresaControl]);
 
     function validarVisibilidad() {
 
@@ -33,27 +36,26 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
         }
     }
 
-    const onSelectSede = (e) => {
-        setCurrentSede(e.value);
-    }
-
     const onSelectEmpresa = (e) => {
-        const currentEmpresa = empresas.filter(c => { return c.id === e.value.id });
-        setCurrentEmpresa(currentEmpresa[0]);
-        setSedes(currentEmpresa[0].sedes);
+        if (e !== null && e !== undefined) {
+            const currentEmpresa = empresas.filter(c => { return c.id === e.id });
+            setSedes(currentEmpresa[0].sedes);
+        }
+        else {
+            setSedes([]);
+            setValue('sede', null, { shouldValidate: true });
+        }
     }
 
     const onHide = () => {
         dispatch(selecEmpresaSedeAction.ocultar());
     };
 
-    const onContinuar = () => {
-        usuarioInformation.empresas = null;
-        currentEmpresa.sedes = null;
-        currentEmpresa.sedes = [currentSede];
-        usuarioInformation.empresas = [currentEmpresa];
-        dispatch(selecEmpresaSedeAction.seleccionar(usuarioInformation));
-    }
+    const onSubmit = (data) => {
+        usuarioInformation.empresaId = data.empresa.id;
+        usuarioInformation.sedeId = data.sede.id;
+        dispatch(selecEmpresaSedeAction.seleccionar(usuarioInformation, emailUser, passwordUser));
+    };
 
     return (
         <Dialog
@@ -63,43 +65,98 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
             className="modal-custom"
             breakpoints={{ '1200px': '45vw', '640px': '80vw' }}
         >
-            <div className="form-modal">
-                <header className="header">
-                    <div className="title">
-                        <h3 className="mb-2 font-bold">SELECCIONE</h3>
+            <form className="form-custom" onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-modal">
+                    <header className="header">
+                        <div className="title">
+                            <h3 className="mb-2 font-bold">SELECCIONE</h3>
+                        </div>
+                    </header>
+
+                    <div className="fields flex flex-col gap-4 mt-4">
+
+                        {mostrarEmpresa &&
+
+                            <Controller
+                                control={control}
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                    fieldState: { invalid, isTouched, isDirty, error },
+                                }) => (
+                                    <Dropdown
+                                        options={empresas}
+                                        optionLabel="nombre"
+                                        filter
+                                        showClear
+                                        filterBy="nombre"
+                                        value={value}
+                                        className="w-full"
+                                        onChange={onChange}
+                                        onBlur={onBlur}
+                                        placeholder="Seleccione una empresa"
+                                        className={errors.empresa ? "p-invalid" : ""}
+                                        inputRef={ref}
+                                        {...register("empresa", {
+                                            required: "La empresa es un campo requerido"
+                                        })}
+                                    />
+                                )}
+                                name="empresa"
+                                control={control}
+                            />
+                        }
+
+
+                        <Controller
+                            control={control}
+                            render={({
+                                field: { onChange, onBlur, value, name, ref },
+                                fieldState: { invalid, isTouched, isDirty, error },
+                            }) => (
+                                <Dropdown
+                                    options={sedes}
+                                    optionLabel="nombre"
+                                    filter
+                                    showClear
+                                    filterBy="nombre"
+                                    value={value}
+                                    placeholder="Seleccione una sede"
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    className={errors.sede ? "p-invalid w-full" : "w-full"}
+                                    inputRef={ref}
+                                    {...register("sede", {
+                                        required: "La sede es un campo requerido"
+                                    })}
+                                />
+                            )}
+                            name="sede"
+                            control={control}
+                        />
+
                     </div>
-                </header>
 
-                <div className="fields flex flex-col gap-4 mt-4">
+                    {errors.empresa ? (
+                        <>
+                            <small className="p-error">{errors.empresa.message}</small>
+                            <br />
+                        </>
+                    ) : null}
+                    {errors.sede ? (
+                        <>
+                            <small className="p-error">{errors.sede.message}</small>
+                            <br />
+                        </>
+                    ) : null}
 
-                    {mostrarEmpresa && <Dropdown
-                        options={empresas}
-                        optionLabel="nombre"
-                        filter
-                        showClear
-                        filterBy="nombre"
-                        className="w-full"
-                        onChange={onSelectEmpresa}
-                        placeholder="Seleccione una empresa"
-                    />}
-
-                    <Dropdown
-                        options={sedes}
-                        optionLabel="nombre"
-                        filter
-                        showClear
-                        filterBy="nombre"
-                        className="w-full"
-                        onChange={onSelectSede}
-                        placeholder="Seleccione una sede"
-                    />
+                    <div className="flex gap-2 mt-6 justify-center">
+                        <Button label="Cancelar" type="button" className="btn btn-secondary" />
+                        <Button label="Continuar" type="submit" className="btn btn-primary" />
+                    </div>
                 </div>
 
-                <div className="flex gap-2 mt-6 justify-center">
-                    <Button label="Cancelar" onClick={() => onHide()} className="btn btn-secondary" />
-                    <Button label="Continuar" onClick={() => onContinuar()} className="btn btn-primary" />
-                </div>
-            </div>
+            </form>
+
         </Dialog>
     );
 };

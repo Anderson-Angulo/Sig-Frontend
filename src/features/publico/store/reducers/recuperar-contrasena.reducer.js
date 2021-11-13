@@ -9,11 +9,11 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
 
-        case PublicoConstants.RecuperapContrasena.MOSTRAR:
+        case PublicoConstants.Accion.RecuperapContrasena.MOSTRAR:
             return {
                 mostrarRecuperarContrasena: true
             }
-        case PublicoConstants.RecuperapContrasena.OCULTAR:
+        case PublicoConstants.Accion.RecuperapContrasena.OCULTAR:
             return {
                 mostrarRecuperarContrasena: false
             }

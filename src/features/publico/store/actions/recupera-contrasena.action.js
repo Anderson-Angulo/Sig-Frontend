@@ -2,12 +2,12 @@ import { PublicoConstants } from "features/publico/commons/publico-constants";
 
 function mostrar() {
     return dispatch => {
-        dispatch({ type: PublicoConstants.RecuperapContrasena.MOSTRAR });
+        dispatch({ type: PublicoConstants.Accion.RecuperapContrasena.MOSTRAR });
     }
 }
 function ocultar() {
     return dispatch => {
-        dispatch({ type: PublicoConstants.RecuperapContrasena.OCULTAR });
+        dispatch({ type: PublicoConstants.Accion.RecuperapContrasena.OCULTAR });
     }
 }
 

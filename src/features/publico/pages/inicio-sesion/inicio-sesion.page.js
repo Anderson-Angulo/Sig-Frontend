@@ -1,44 +1,55 @@
-import { Fragment, useState } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { useHistory, useLocation, Redirect } from 'react-router-dom';
-
-import PublicoLayout from 'shared/components/publico-layout/publico-layout';
-import './inicio-sesion.page.scss';
-import RecuperarContrasenaPage from 'features/publico/pages/recuperar-contrasena/recuperar-contrasena.page';
-
+import { Fragment, useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useForm, Controller } from "react-hook-form";
+import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
+
+import PublicoLayout from 'shared/components/publico-layout/publico-layout';
+import RecuperarContrasenaPage from 'features/publico/pages/recuperar-contrasena/recuperar-contrasena.page';
+
 import { authAction } from 'features/publico/store/actions/auth.action';
 import { recuperarContrasenaAction } from 'features/publico/store/actions/recupera-contrasena.action';
 import SelecEmpresaSedeComponent from 'features/publico/components/selec-empresa-sede/selec-empresa-sede.component';
 
+import './inicio-sesion.page.scss';
+
 const InicioSesionPage = () => {
-  
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [checked, setChecked] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const { control, handleSubmit, formState: { errors } } = useForm();
+  const toast = useRef(null);
 
-  useSelector((state) => {
-    if (state.authReducer.loggedIn)
-      history.push('/inicio');
-  });
-
-  dispatch(authAction.validarSesion());
-
+  const loggedIn = useSelector(state => state.authReducer.loggedIn);
   const loading = useSelector(state => state.authReducer.loading);
+
   const mostrarRecuperarContrasena = useSelector(state => state.recuperarContrasenaReducer.mostrarRecuperarContrasena);
   const mostrarSeleccionEmpresaSede = useSelector(state => state.selecEmpresaSedeReducer.mostrarSeleccionarEmpresaSede);
 
+  useEffect(() => { dispatch(authAction.validarSesion()); }, []);
+  useEffect(() => {
+    if (loggedIn)
+      history.push('/inicio');
+  }, [loggedIn]);
 
-  function onSubmit(e) {
-    e.preventDefault();
-    setSubmitted(true);
 
-    dispatch(authAction.login("username", "password"));
-  }
+
+  
+  // useEffect(() => {
+  //   if (mensaje !== null)
+  //     toast.current.show({ severity: mensaje.severity, summary: mensaje.summary, detail: mensaje.detail });
+  //   //dispatch(authAction.validarSesion());
+  // }, [mensaje]);
+
+
+  const onSubmit = (data) => {
+    dispatch(authAction.login(data.email, data.password));
+  };
 
   function onMostrarContrasena(e) {
     dispatch(recuperarContrasenaAction.mostrar());
@@ -47,7 +58,8 @@ const InicioSesionPage = () => {
   return (
     <PublicoLayout page="login">
       <Fragment>
-        <form className="form-custom" onSubmit={onSubmit}>
+
+        <form className="form-custom" onSubmit={handleSubmit(onSubmit)}>
           <header className="header">
             <img
               src="/images/logos/main-dark-logo.png"
@@ -59,16 +71,57 @@ const InicioSesionPage = () => {
           <div className="fields">
             <span className="p-float-label p-input-icon-right field w-full">
               <i className="pi pi-user" />
-              <InputText id="email" name="email" />
-              <label htmlFor="email">Usuario</label>
+              <Controller
+                control={control}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                }) => (
+                  <InputText
+                    className={errors.email ? "p-invalid" : ""}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    inputRef={ref}
+                  />
+                )}
+                name="email"
+                control={control}
+                rules={
+                  {
+                    required: "El correo eléctronico es requerido",
+                    pattern: {
+                      value: /^\S+@\S+\.\S+$/,
+                      message: "El correo eléctronico no tiene un formato correcto"
+                    }
+                  }
+                }
+              />
+              <label htmlFor="email">Correo eléctronico</label>
             </span>
 
-            <span className="p-float-label field">
-              <Password
-                id="password"
+            <span className="p-float-label field p-input-icon-right w-full">
+              <Controller
+                control={control}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                }) => (
+                  <Password
+                    type="password"
+                    toggleMask
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    className={errors.password ? "p-invalid w-full" : "w-full"}
+                    inputRef={ref}
+                  />
+                )}
                 name="password"
-                className="w-full"
-                toggleMask
+                control={control}
+                rules={
+                  {
+                    required: "La contraseña es requerida",
+                  }
+                }
               />
               <label htmlFor="password">Contraseña</label>
             </span>
@@ -84,23 +137,41 @@ const InicioSesionPage = () => {
                 checked={checked}
                 onChange={(e) => setChecked(e.checked)}
               />
+
               <label htmlFor="remember" className="label-checkbox">
                 {' '}
                 Recuérdame
               </label>
             </div>
+
+            {errors.email ? (
+              <>
+                <small className="p-error">{errors.email.message}</small>
+                <br />
+              </>
+            ) : null}
+
+            {errors.password ? (
+              <>
+                <small className="p-error">{errors.password.message}</small>
+                <br />
+              </>
+            ) : null}
+
             <Button
               type="submit"
               loading={loading}
               label="Ingresar"
               className="btn btn-primary mt-4"
             />
+
           </div>
         </form>
         <RecuperarContrasenaPage isOpen={mostrarRecuperarContrasena} />
         <SelecEmpresaSedeComponent isOpen={mostrarSeleccionEmpresaSede} />
+      
       </Fragment>
-    </PublicoLayout>
+    </PublicoLayout >
   );
 };
 

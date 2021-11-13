@@ -2,23 +2,26 @@ import { PublicoConstants } from "features/publico/commons/publico-constants";
 
 const initialState = {
     mostrarSeleccionarEmpresaSede: false,
-
+    emailUser: null,
+    passwordUser: null
 };
 
 export default (state = initialState, action) => {
 
     switch (action.type) {
 
-        case PublicoConstants.SeleccionarEmpresaSede.MOSTRAR:
- //debugger;
+        case PublicoConstants.Accion.SelecEmpresaSede.MOSTRAR:
             return {
                 mostrarSeleccionarEmpresaSede: true,
-                userInformation: action.userInformation
+                emailUser: action.email,
+                passwordUser: action.password
             }
-        case PublicoConstants.SeleccionarEmpresaSede.OCULTAR:
+        case PublicoConstants.Accion.SelecEmpresaSede.OCULTAR:
             return {
-                mostrarSeleccionarEmpresaSede: false
-            }        
+                mostrarSeleccionarEmpresaSede: false,
+                emailUser: null,
+                passwordUser: null
+            }
 
         default:
             return state;

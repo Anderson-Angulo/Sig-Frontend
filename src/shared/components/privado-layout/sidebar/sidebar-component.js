@@ -1,7 +1,9 @@
+
 import { Menu } from 'primereact/menu';
 import './sidebar-component.scss';
 
 const SidebarComponent = () => {
+
   let items = [
     { label: 'Gestión de Usuarios', icon: 'pi pi-user-edit' },
     { label: 'Roles y Privilegios', icon: 'pi pi-users' },

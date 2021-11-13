@@ -4,35 +4,38 @@ const initialState = {
     loading: false,
     loggedIn: false,
     user: {},
+    mensaje: null
 };
 
 export default (state = initialState, action) => {
 
     switch (action.type) {
 
-        case PublicoConstants.Login.REQUEST:
+        case PublicoConstants.Accion.Login.REQUEST:
             return {
                 loading: true,
+                loggedIn: false,
             }
-        case PublicoConstants.Login.FAILURE:
-            //debugger;
+        case PublicoConstants.Accion.Login.FAILURE:
             return {
+                loggedIn: false,
                 loading: false
             }
-        case PublicoConstants.Login.SUCCESS:
-            //debugger;
-            localStorage.setItem("sig-session", JSON.stringify(action.userInformation))
-            return {
+        case PublicoConstants.Accion.Login.SUCCESS:
+            const userInformation = action.userInformation;
+            let response = {
                 loading: false,
                 loggedIn: true,
-                user: action.userInformation
+                user: userInformation
+            };
+            if (userInformation?.empresas && (userInformation.empresas.length > 1 || userInformation.empresas[0].sedes.length > 1)) {
+                userInformation.empresaId = userInformation.empresas[0].id;
+                userInformation.sedeId = userInformation.empresas[0].sedes[0].id;
+                localStorage.setItem("sig-session", JSON.stringify(userInformation));
+                response.loggedIn = false;
             }
-        case PublicoConstants.Login.DONE:
 
-            return {
-                loading: false,
-                user: action.userInformation
-            }
+            return response;
         default: {
             return state;
         }
