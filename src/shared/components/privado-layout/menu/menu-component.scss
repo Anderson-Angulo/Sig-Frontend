@@ -5,7 +5,7 @@
   display: flex;
   height: 64px;
   justify-content: space-between;
-  overflow: hidden;
+  // overflow: hidden;
   padding: 0 12px;
 
   & .icon-w-logo {
@@ -16,11 +16,67 @@
     }
   }
   & .user-options {
+    position: relative;
     img {
       max-width: 34px;
     }
     .user-avatar img {
       border-radius: 50%;
+    }
+    .user-sub-options {
+      min-width: 250px;
+      position: absolute;
+      right: 1rem;
+      top: 4.2rem;
+      width: 100%;
+      overflow: hidden;
+      z-index: 10;
+      &-header {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+        cursor: auto;
+        & .user-picture img {
+          border-radius: 50%;
+          max-width: 44px;
+          width: 100%;
+        }
+        & .user-info {
+          h1 {
+            font-size: 1rem;
+            font-weight: bold;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+      &-items {
+        background-color: #fff;
+        padding: 8px;
+        & .item {
+          display: grid;
+          grid-template-columns: 1.5rem 1fr;
+          padding: 8px 12px;
+          border-bottom: 0.1px solid #d6d6d652;
+          p,
+          i {
+            font-size: 13.5px;
+          }
+          &:hover {
+            background: #e9ecef;
+            border-radius: 3px;
+            border: 0;
+          }
+          &.item-logout {
+            grid-template-columns: 1fr;
+            border: 0;
+            &:hover {
+              background-color: transparent;
+            }
+          }
+        }
+      }
     }
   }
   & .icon-w-logo,
@@ -31,7 +87,8 @@
     cursor: pointer;
     padding: 1rem;
     height: 100%;
-    &:hover {
+    &:hover,
+    &.activated {
       background-color: #005ca9;
     }
   }
