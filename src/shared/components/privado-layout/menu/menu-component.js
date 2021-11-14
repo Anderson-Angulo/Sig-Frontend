@@ -60,7 +60,7 @@ const MenuComponent = () => {
       <div className="user-options flex justify-between items-center">
         <div
           className="menu-option user-avatar relative"
-          onClick={(e) => subItems.current.toggle(e)}
+          onClick={(e) => subItems?.current.toggle(e)}
           aria-haspopup
           aria-controls="overlay_panel"
         >
@@ -95,8 +95,8 @@ const MenuComponent = () => {
               >
                 {items.map(({ item, icono, route }, i) => (
                   <div
-                    className="item"
                     key={i}
+                    className="item"
                     onClick={() => cambiarPagina(route)}
                   >
                     <i className={icono}></i>

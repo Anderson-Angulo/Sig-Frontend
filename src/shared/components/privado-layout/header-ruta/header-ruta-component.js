@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import './header-ruta-component.scss';
 
-const HeaderRutaComponent = ({ paginaActual }) => {
+const HeaderRutaComponent = () => {
+  const [paginaActual, setPaginaActual] = useState('');
+
   return (
     <header
       className="header-route rounded-md"
