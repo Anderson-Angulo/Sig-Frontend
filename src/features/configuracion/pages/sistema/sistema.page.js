@@ -5,11 +5,11 @@ import './sistema.page.scss';
 const SistemaPage = () => {
   return (
     <div className="card tabs-roles">
-      <TabView className="tabview-custom">
+      <TabView className="tabview-custom" orientation="bottom">
         <TabPanel header="Logo de Empresa" leftIcon="pi pi-calendar">
           <LogoEmpresaComponent />
         </TabPanel>
-        <TabPanel header="Color Corporativo" rightIcon="pi pi-palette">
+        <TabPanel header="Color Corporativo" leftIcon="pi pi-palette">
           <p>Color Corporativo</p>
         </TabPanel>
         <TabPanel header="Tipo de Moneda" leftIcon="pi pi-money-bill">

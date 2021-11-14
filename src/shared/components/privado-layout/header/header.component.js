@@ -2,7 +2,7 @@
 import './header.component.scss';
 
 const HeaderComponent = ({ paginaActual }) => {
-
+  const [paginaActual, setPaginaActual] = useState('');
 
 
 

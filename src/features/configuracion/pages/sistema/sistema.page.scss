@@ -1,7 +1,17 @@
 .tabs-roles {
+  .tabview-custom {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+
+    & ul {
+      display: flex;
+      flex-direction: column;
+    }
+  }
   .p-tabview-nav-link {
     gap: 12px;
     box-shadow: none !important;
+    border: 0 !important;
   }
   .p-tabview-title,
   i {
