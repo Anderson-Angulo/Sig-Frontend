@@ -66,11 +66,8 @@ const MenuComponent = () => {
               </div>
             </header>
             <div className="user-sub-options rounded-md">
-              <div
-                className="user-sub-options-items shadow-xl"
-                style={{ color: '#004680' }}
-              >
-                {usuarioInformation?.menuAdministrador.map(({ codigo, icono, descripcion, url }, i) => (
+              <div className="user-sub-options-items shadow-xl" style={{ color: '#004680' }}>
+                { usuarioInformation?.menuAdministrador?.map(({ codigo, icono, descripcion, url }, i) => (
                   <div key={codigo} className="item" onClick={() => history.push(url)}>
                     <i className={icono}></i>
                     <p>{descripcion}</p>
