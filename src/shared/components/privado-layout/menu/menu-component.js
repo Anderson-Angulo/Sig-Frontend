@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Button } from 'primereact/button';
@@ -12,8 +12,14 @@ const MenuComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const usuarioInformation = useSelector(state => state.authReducer.user);
+  const [menu, setMenu] = useState([]);
 
   const op = useRef(null);
+
+  useEffect(() => {
+    if (usuarioInformation?.menuAdministrador)
+      setMenu(usuarioInformation?.menuAdministrador[0].subMenus);
+  }, [usuarioInformation]);
 
   const onLogout = (e) => {
     op.current.hide();
@@ -43,7 +49,7 @@ const MenuComponent = () => {
           aria-haspopup
           aria-controls="overlay_panel"
         >
-          <img src={usuarioInformation.avatar} alt={usuarioInformation.nombreCompleto} />
+          <img src={usuarioInformation?.avatar} alt={usuarioInformation?.nombreCompleto} />
 
           <OverlayPanel
             ref={op}
@@ -56,18 +62,18 @@ const MenuComponent = () => {
               style={{ backgroundColor: '#004680' }}
             >
               <div className="user-picture">
-                <img src={usuarioInformation.avatar} alt={usuarioInformation.nombreCompleto} ></img>
+                <img src={usuarioInformation?.avatar} alt={usuarioInformation?.nombreCompleto} ></img>
               </div>
               <div className="user-info">
-                <h1 title={usuarioInformation.nombreCompleto}>
-                  {limiteCaracteres(usuarioInformation.nombreCompleto)}
+                <h1 title={usuarioInformation?.nombreCompleto}>
+                  {limiteCaracteres(usuarioInformation?.nombreCompleto)}
                 </h1>
-                <p>{limiteCaracteres(usuarioInformation.correo, 20)}</p>
+                <p>{limiteCaracteres(usuarioInformation?.correo, 20)}</p>
               </div>
             </header>
             <div className="user-sub-options rounded-md">
               <div className="user-sub-options-items shadow-xl" style={{ color: '#004680' }}>
-                { usuarioInformation?.menuAdministrador?.map(({ codigo, icono, descripcion, url }, i) => (
+                {menu?.map(({ codigo, icono, descripcion, url }, i) => (
                   <div key={codigo} className="item" onClick={() => history.push(url)}>
                     <i className={icono}></i>
                     <p>{descripcion}</p>

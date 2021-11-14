@@ -1,5 +1,4 @@
 import { CoreConstants } from "core/commons/core.constants";
-import { PublicoConstants } from "features/publico/commons/publico-constants";
 
 const initialState = {
     loading: false,

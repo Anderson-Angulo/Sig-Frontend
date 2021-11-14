@@ -1,13 +1,21 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import './usuarios.page.scss';
 import CambiarContrasenaPage from './cambiar-contrasena/cambiar-contrasena.page';
+import { useDispatch, useSelector } from 'react-redux';
+import { breadcrumpAction } from 'core/store/actions/breadcrump.action';
 
 const UsuariosPage = () => {
   const roles = [{ rol: 'Rol 1' }, { rol: 'Rol 2' }, { rol: 'Rol 3' }];
+
+  const dispatch = useDispatch();
+  const usuarioInformation = useSelector(state => state.authReducer.user);
+  useEffect(() => { dispatch(breadcrumpAction.setTitlePage('GESUSU', usuarioInformation.menuAdministrador)); }, []);
+
+
   return (
     <Fragment>
       <Fieldset legend="Filtro por" toggleable>

@@ -1,11 +1,18 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import tablaRoles from './datos/roles';
 import 'shared/styles/components/tablas.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { breadcrumpAction } from 'core/store/actions/breadcrump.action';
 
 const RolesPrivilegioPage = () => {
+
+  const dispatch = useDispatch();
+  const usuarioInformation = useSelector(state => state.authReducer.user);
+  useEffect(() => { dispatch(breadcrumpAction.setTitlePage('ROLPRI', usuarioInformation.menuAdministrador)); }, []);
+
   return (
     <Fragment>
       <Fieldset legend="Filtro por" toggleable>

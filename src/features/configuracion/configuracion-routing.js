@@ -9,6 +9,7 @@ import UsuariosPage from './pages/usuarios/usuarios.page';
 import UsuarioPage from './pages/usuarios/usuario/usuario.page';
 import RolPrivilegioPage from './pages/roles-privilegio/rol-privilegio/rol-privilegio.page';
 import MiCuentaPage from './pages/mi-cuenta/mi-cuenta-page';
+import RolesPrivilegioPage from './pages/roles-privilegio/roles-privilegio.page';
 
 export const ConfiguracionRouting = (reducerRegistry) => {
   const { path } = useRouteMatch();
@@ -23,7 +24,7 @@ export const ConfiguracionRouting = (reducerRegistry) => {
           <Route path={`${path}/usuarios/:id`} component={UsuarioPage} />
         </Route>
 
-        <Route exact path={`${path}/rol-privilegios`} component={RolPrivilegioPage}></Route>
+        <Route exact path={`${path}/rol-privilegios`} component={RolesPrivilegioPage}></Route>
         <Route path={`${path}/`} component={MiCuentaPage} />
       </Switch>
     </>
