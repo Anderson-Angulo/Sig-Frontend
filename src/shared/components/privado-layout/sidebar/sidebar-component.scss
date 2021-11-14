@@ -1,20 +1,15 @@
 .sidebar {
-  .p-menu {
+  .p-tree.p-component {
     height: 100%;
-    max-width: 18rem;
     padding: 12px;
     width: 100%;
-    & .p-menuitem-icon,
-    & .p-menuitem-text {
-      color: #004680 !important;
-      font-size: 0.9rem;
-    }
-    & a {
-      padding: 12px 5px;
-      margin-bottom: 6px;
-      &:hover {
-        border-radius: 6px;
-      }
-    }
+  }
+  .p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content
+    .p-tree-toggler:focus,
+  .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
+    box-shadow: none !important;
   }
 }
