@@ -36,6 +36,16 @@ export default (state = initialState, action) => {
             return response;
         case CoreConstants.Accion.Login.DONE:
             return { loading: false }
+
+        case CoreConstants.Accion.Login.LOGOUT:
+            localStorage.removeItem("sig-session");
+            return {
+                loading: false,
+                loggedIn: false,
+                user: {},
+                mensaje: null
+            }
+
         default: {
             return state;
         }

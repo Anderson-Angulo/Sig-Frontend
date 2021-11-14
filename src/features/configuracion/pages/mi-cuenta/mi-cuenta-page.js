@@ -1,5 +1,5 @@
 const MiCuentaPage = (props) => {
-    debugger;
+    //debugger;
     return <div>MI CUENTA</div>;
 };
 

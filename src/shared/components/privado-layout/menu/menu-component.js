@@ -1,57 +1,35 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Button } from 'primereact/button';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import LogoComponent from 'shared/components/logo/logo-component';
 import './menu-component.scss';
+import { authAction } from 'core/store/actions/auth.action';
 
 const MenuComponent = () => {
 
+  const dispatch = useDispatch();
   const history = useHistory();
-  const subItems = useRef(null);
+  const usuarioInformation = useSelector(state => state.authReducer.user);
 
-  const usuarioId = 1;
-  const items = [
-    {
-      item: 'Perfil',
-      icono: 'pi pi-user',
-      route: `/panel/configuracion/usuario/${usuarioId}`,
-    },
-    {
-      item: 'Gestión de Usuarios',
-      icono: 'pi pi-user-edit',
-      route: '/panel/configuracion/usuarios',
-    },
-    {
-      item: 'Roles y Privilegios',
-      icono: 'pi pi-users',
-      route: '/panel/configuracion/rol-privilegios',
-    },
-    {
-      item: 'Configuración de Sistema',
-      icono: 'pi pi-cog',
-      route: '/panel/configuracion/sistema',
-    },
-  ];
+  const op = useRef(null);
 
-  const cambiarPagina = (route) => {
-    history.push(route);
+  const onLogout = (e) => {
+    op.current.hide();
+    dispatch(authAction.logout());
   };
 
   const limiteCaracteres = (texto, limite = 20) => {
+    if (texto === undefined || texto === null)
+      return '';
     if (texto.length < limite) return texto;
     else return texto.slice(0, limite) + '...';
   };
 
-  const cerrarSesion = () => {
-    console.log('cerrando sesión');
-  };
 
   return (
-    <div
-      className="menu-component"
-      style={{ backgroundColor: '#004680', color: '#fff' }}
-    >
+    <div className="menu-component" style={{ backgroundColor: '#004680', color: '#fff' }}    >
       <div className="icon-w-logo flex justify-between items-center">
         <LogoComponent />
         <div className="menu-option">
@@ -61,14 +39,15 @@ const MenuComponent = () => {
       <div className="user-options flex justify-between items-center">
         <div
           className="menu-option user-avatar relative"
-          onClick={(e) => subItems?.current.toggle(e)}
+          onClick={(e) => op.current.toggle(e)}
           aria-haspopup
           aria-controls="overlay_panel"
         >
-          <img src="/images/decorations/avatar.jpg" alt="Juan Carlos Tenorio" />
+          <img src={usuarioInformation.avatar} alt={usuarioInformation.nombreCompleto} />
 
           <OverlayPanel
-            ref={subItems}
+            ref={op}
+            dismissable
             id="overlay_panel"
             className="user-sub-options rounded-md"
           >
@@ -77,16 +56,13 @@ const MenuComponent = () => {
               style={{ backgroundColor: '#004680' }}
             >
               <div className="user-picture">
-                <img
-                  src="/images/decorations/avatar.jpg"
-                  alt="Juan Carlos Tenorio"
-                ></img>
+                <img src={usuarioInformation.avatar} alt={usuarioInformation.nombreCompleto} ></img>
               </div>
               <div className="user-info">
-                <h1 title="Juan Carlos Tenorio">
-                  {limiteCaracteres('Juan Carlos Tenorio')}
+                <h1 title={usuarioInformation.nombreCompleto}>
+                  {limiteCaracteres(usuarioInformation.nombreCompleto)}
                 </h1>
-                <p>{limiteCaracteres('juancarlosdev@gmail.com', 18)}</p>
+                <p>{limiteCaracteres(usuarioInformation.correo, 20)}</p>
               </div>
             </header>
             <div className="user-sub-options rounded-md">
@@ -94,31 +70,26 @@ const MenuComponent = () => {
                 className="user-sub-options-items shadow-xl"
                 style={{ color: '#004680' }}
               >
-                {items.map(({ item, icono, route }, i) => (
-                  <div
-                    key={i}
-                    className="item"
-                    onClick={() => cambiarPagina(route)}
-                  >
+                {usuarioInformation?.menuAdministrador.map(({ codigo, icono, descripcion, url }, i) => (
+                  <div key={codigo} className="item" onClick={() => history.push(url)}>
                     <i className={icono}></i>
-                    <p>{item}</p>
+                    <p>{descripcion}</p>
                   </div>
                 ))}
 
-                <div className="item item-logout mt-2" onClick={cerrarSesion}>
+                <div className="item item-logout mt-2" >
                   <Button
                     type="button"
+                    onClick={(e) => onLogout(e)}
                     label="Cerrar Sesión"
                     className="btn btn-primary"
                   />
                 </div>
               </div>
             </div>
+
           </OverlayPanel>
-          {false &&
-          {
-            /*  */
-          }}
+
         </div>
         <div className="menu-option countries">
           <img src="/images/decorations/peru.png" alt="Bandera de Perú" />

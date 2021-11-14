@@ -10,6 +10,7 @@ export class CoreConstants {
             static get REQUEST() { return '@AUTH.LOGIN_REQUEST'; }
             static get SUCCESS() { return '@AUTH.LOGIN_SUCCESS'; }
             static get FAILURE() { return '@AUTH.LOGIN_FAILURE'; }
+            static get LOGOUT() { return '@AUTH.LOGOUT'; }
             static get DONE() { return '@AUTH.DONE'; }
         }
 

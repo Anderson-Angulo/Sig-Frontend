@@ -1,7 +1,7 @@
-
+import { useEffect, useState } from 'react';
 import './header.component.scss';
 
-const HeaderComponent = ({ paginaActual }) => {
+const HeaderComponent = () => {
   const [paginaActual, setPaginaActual] = useState('');
 
 

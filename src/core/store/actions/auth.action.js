@@ -15,11 +15,9 @@ function login(email, password) {
     };
 }
 
-function ocultarCargando() {
-
-    return dispatch => {
-
-        dispatch({ type: CoreConstants.Accion.Login.DONE });
+function logout() {
+    return dispatch => {      
+        dispatch({ type: CoreConstants.Accion.Login.LOGOUT });
     };
 }
 
@@ -44,7 +42,7 @@ function evaluarLogin(dispatch, model, email, password) {
             else if (userInformation.empresas[0].sedes.length > 1)
                 dispatch({ type: PublicoConstants.Accion.SelecEmpresaSede.MOSTRAR, userInformation, email, password });
             else {
-                debugger;
+
                 dispatch({ type: PublicoConstants.Accion.Login.SUCCESS, userInformation });
             }
 
@@ -70,5 +68,5 @@ function evaluarLogin(dispatch, model, email, password) {
 export const authAction = {
     login,
     validarSesion,
-    ocultarCargando
+    logout
 };
