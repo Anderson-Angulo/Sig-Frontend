@@ -1,12 +1,13 @@
-import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useHistory } from 'react-router';
+import { Button } from 'primereact/button';
+import { OverlayPanel } from 'primereact/overlaypanel';
 import LogoComponent from 'shared/components/logo/logo-component';
 import './menu-component.scss';
 
 const MenuComponent = () => {
   const history = useHistory();
-  const [showItems, setShowItems] = useState(false);
+  const subItems = useRef(null);
 
   const usuarioId = 1;
   const items = [
@@ -33,7 +34,6 @@ const MenuComponent = () => {
   ];
 
   const cambiarPagina = (route) => {
-    setShowItems(false);
     history.push(route);
   };
 
@@ -59,36 +59,36 @@ const MenuComponent = () => {
       </div>
       <div className="user-options flex justify-between items-center">
         <div
-          className={`menu-option user-avatar relative ${
-            showItems ? 'activated' : ''
-          }`}
-          id="user-avatar"
-          onClick={() => setShowItems(!showItems)}
+          className="menu-option user-avatar relative"
+          onClick={(e) => subItems.current.toggle(e)}
+          aria-haspopup
+          aria-controls="overlay_panel"
         >
           <img src="/images/decorations/avatar.jpg" alt="Juan Carlos Tenorio" />
-          {showItems && (
-            <div
-              className="user-sub-options rounded-md"
-              style={{ border: '1px solid #004680' }}
-            >
-              <header
-                className="user-sub-options-header"
-                style={{ backgroundColor: '#004680' }}
-              >
-                <div className="user-picture">
-                  <img
-                    src="/images/decorations/avatar.jpg"
-                    alt="Juan Carlos Tenorio"
-                  ></img>
-                </div>
-                <div className="user-info">
-                  <h1 title="Juan Carlos Tenorio">
-                    {limiteCaracteres('Juan Carlos Tenorio')}
-                  </h1>
-                  <p>{limiteCaracteres('juancarlosdev@gmail.com', 18)}</p>
-                </div>
-              </header>
 
+          <OverlayPanel
+            ref={subItems}
+            id="overlay_panel"
+            className="user-sub-options rounded-md"
+          >
+            <header
+              className="user-sub-options-header"
+              style={{ backgroundColor: '#004680' }}
+            >
+              <div className="user-picture">
+                <img
+                  src="/images/decorations/avatar.jpg"
+                  alt="Juan Carlos Tenorio"
+                ></img>
+              </div>
+              <div className="user-info">
+                <h1 title="Juan Carlos Tenorio">
+                  {limiteCaracteres('Juan Carlos Tenorio')}
+                </h1>
+                <p>{limiteCaracteres('juancarlosdev@gmail.com', 18)}</p>
+              </div>
+            </header>
+            <div className="user-sub-options rounded-md">
               <div
                 className="user-sub-options-items shadow-xl"
                 style={{ color: '#004680' }}
@@ -113,7 +113,11 @@ const MenuComponent = () => {
                 </div>
               </div>
             </div>
-          )}
+          </OverlayPanel>
+          {false &&
+            {
+              /*  */
+            }}
         </div>
         <div className="menu-option countries">
           <img src="/images/decorations/peru.png" alt="Bandera de Perú" />
