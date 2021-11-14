@@ -1,0 +1,43 @@
+.table-main {
+  .table {
+    &-header {
+      background-color: #dee2e6;
+      color: #4f5467;
+      font-weight: 500;
+      & .header-title {
+        display: flex;
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+    }
+    &-header,
+    &-item {
+      padding: 14px;
+      align-items: center;
+      display: grid;
+      & h3,
+      & p {
+        font-size: 14px;
+      }
+    }
+
+    &-item {
+      border-bottom: 1px solid #dfe1e2;
+      text-align: center;
+      color: #4f5467;
+      position: relative;
+      &:nth-child(odd) {
+        background: #f3f3f3;
+      }
+      &:nth-child(even) {
+        background: #fff;
+      }
+    }
+  }
+  &.table-roles .table-header,
+  &.table-roles .table-item {
+    grid-template-columns: repeat(4, 1fr) 5rem;
+  }
+}
