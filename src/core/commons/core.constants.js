@@ -6,10 +6,12 @@ export class CoreConstants {
 
     }
     static Accion = class {
-        // static Core = class {
-        //     static get MOSTRAR_MENSAJE() { return '@CORE.MOSTRAR_MENSAJE'; }
-        //     static get OCULTAR_MENSAJE() { return '@CORE.OCULTAR_MENSAJE'; }
-        // }
+        static Login = class {
+            static get REQUEST() { return '@AUTH.LOGIN_REQUEST'; }
+            static get SUCCESS() { return '@AUTH.LOGIN_SUCCESS'; }
+            static get FAILURE() { return '@AUTH.LOGIN_FAILURE'; }
+            static get DONE() { return '@AUTH.DONE'; }
+        }
 
         static Toast = class {
             static get MOSTRAR_MENSAJE() { return '@CORE.TOAST.MOSTRAR'; }

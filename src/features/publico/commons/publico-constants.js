@@ -1,12 +1,7 @@
 export class PublicoConstants {
 
     static Accion = class {
-        static Login = class {
-            static get REQUEST() { return '@AUTH.LOGIN_REQUEST'; }
-            static get SUCCESS() { return '@AUTH.LOGIN_SUCCESS'; }
-            static get FAILURE() { return '@AUTH.LOGIN_FAILURE'; }
-            // static get DONE() { return '@AUTH.DONE'; }
-        }
+      
         static RecuperapContrasena = class {
             static get MOSTRAR() { return '@RECUPERAR-CONTRASENA.MOSTRAR'; }
             static get OCULTAR() { return '@RECUPERAR-CONTRASENA.OCULTAR'; }

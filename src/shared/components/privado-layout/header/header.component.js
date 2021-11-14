@@ -1,6 +1,11 @@
-import './header-ruta-component.scss';
 
-const HeaderRutaComponent = ({ paginaActual }) => {
+import './header.component.scss';
+
+const HeaderComponent = ({ paginaActual }) => {
+
+
+
+
   return (
     <header
       className="header-route rounded-md"
@@ -23,4 +28,4 @@ const HeaderRutaComponent = ({ paginaActual }) => {
   );
 };
 
-export default HeaderRutaComponent;
+export default HeaderComponent;

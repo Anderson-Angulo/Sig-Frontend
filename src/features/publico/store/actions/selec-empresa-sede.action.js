@@ -1,6 +1,6 @@
 import { CoreConstants } from "core/commons/core.constants";
 import { PublicoConstants } from "features/publico/commons/publico-constants";
-const { authService } = require("features/publico/services/auth.service");
+import { usuarioService } from "features/publico/services/usuario.service";
 
 function mostrar() {
     return dispatch => {
@@ -16,24 +16,34 @@ function ocultar() {
 function seleccionar(userInformation, email, password) {
     return dispatch => {
         dispatch({ type: PublicoConstants.Accion.SelecEmpresaSede.REQUEST });
-        authService.selecEmpresaSede(email, password, userInformation.empresaId, userInformation.sedeId)
+        usuarioService.selecEmpresaSede(email, password, userInformation.empresaId, userInformation.sedeId)
             .then(
                 model => {
                     switch (model.data.status) {
                         case CoreConstants.HttpResponse.OK:
-                            dispatch({ type: PublicoConstants.Accion.Login.SUCCESS, userInformation });
+
+                            const userInformation = model.data.data;
+                            dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });
+                            break;
+                        case CoreConstants.HttpResponse.ERROR_FUNTIONAL:
+                            dispatch({
+                                type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
+                                toast: { titulo: 'Autencicación', mensaje: 'Las credenciales ingresadas son incorrectas', severidad: 'warn' }
+                            });
                             break;
                         default:
-
+                            if (model.data.status > 1)
+                                dispatch({
+                                    type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
+                                    toast: { titulo: 'Autencicación', mensaje: model.data.message, severidad: 'warn' }
+                                });
                             break;
                     }
                 },
                 error => {
-                    dispatch({ type: PublicoConstants.SeleccionarEmpresaSede.FAILURE, error });
+                    dispatch({ type: PublicoConstants.Accion.SelecEmpresaSede.FAILURE, error });
                 }
             );
-
-        dispatch({ type: PublicoConstants.Login.SUCCESS, userInformation });
     }
 }
 

@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Toast } from 'primereact/toast';
 import SidebarComponent from './sidebar/sidebar-component';
 import MenuComponent from './menu/menu-component';
-import HeaderRutaComponent from './header-ruta/header-ruta-component';
 import './privado-layout.scss';
+import HeaderComponent from './header/header.component';
 
 export default function PrivadoLayout({ children }) {
 
   const toast = useRef(null);
   const mensaje = useSelector(state => state.toastReducer.toast);
 
-  useEffect((c) => { if (mensaje != null) toast.current.show(mensaje); }, [mensaje]);
+  useEffect(() => { if (mensaje != null) toast.current.show(mensaje); }, [mensaje]);
 
   return (
     <Fragment>
@@ -19,7 +19,7 @@ export default function PrivadoLayout({ children }) {
         <MenuComponent />
         <main className="private-layout-content">
           <SidebarComponent />
-          <HeaderRutaComponent />
+          <HeaderComponent />
           <div>
             <section className="content rounded-md">{children}</section>
           </div>

@@ -1,34 +1,38 @@
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import LogoComponent from 'shared/components/logo/logo-component';
 import './menu-component.scss';
 
 const MenuComponent = () => {
+
   const history = useHistory();
   const [showItems, setShowItems] = useState(false);
+  const userInformation = useSelector(state => state.authReducer.user);
+
 
   const usuarioId = 1;
   const items = [
     {
       item: 'Perfil',
       icono: 'pi pi-user',
-      route: `/configuracion/usuario/${usuarioId}`,
+      route: `/panel/configuracion/usuario/${usuarioId}`,
     },
     {
       item: 'Gestión de Usuarios',
       icono: 'pi pi-user-edit',
-      route: '/configuracion/usuarios',
+      route: '/panel/configuracion/usuarios',
     },
     {
       item: 'Roles y Privilegios',
       icono: 'pi pi-users',
-      route: '/configuracion/rol-privilegios',
+      route: '/panel/configuracion/rol-privilegios',
     },
     {
       item: 'Configuración de Sistema',
       icono: 'pi pi-cog',
-      route: '/configuracion/sistema',
+      route: '/panel/configuracion/sistema',
     },
   ];
 
@@ -59,9 +63,8 @@ const MenuComponent = () => {
       </div>
       <div className="user-options flex justify-between items-center">
         <div
-          className={`menu-option user-avatar relative ${
-            showItems ? 'activated' : ''
-          }`}
+          className={`menu-option user-avatar relative ${showItems ? 'activated' : ''
+            }`}
           id="user-avatar"
           onClick={() => setShowItems(!showItems)}
         >
@@ -82,10 +85,10 @@ const MenuComponent = () => {
                   ></img>
                 </div>
                 <div className="user-info">
-                  <h1 title="Juan Carlos Tenorio">
-                    {limiteCaracteres('Juan Carlos Tenorio')}
+                  <h1 title={userInformation.nombreCompleto}>
+                    {limiteCaracteres(userInformation.nombreCompleto)}
                   </h1>
-                  <p>{limiteCaracteres('juancarlosdev@gmail.com', 18)}</p>
+                  <p>{limiteCaracteres(userInformation.correo, 20)}</p>
                 </div>
               </header>
 

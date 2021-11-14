@@ -1,3 +1,4 @@
+import { CoreConstants } from "core/commons/core.constants";
 import { PublicoConstants } from "features/publico/commons/publico-constants";
 
 const initialState = {
@@ -11,31 +12,30 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
 
-        case PublicoConstants.Accion.Login.REQUEST:
+        case CoreConstants.Accion.Login.REQUEST:
             return {
                 loading: true,
                 loggedIn: false,
             }
-        case PublicoConstants.Accion.Login.FAILURE:
+        case CoreConstants.Accion.Login.FAILURE:
             return {
                 loggedIn: false,
                 loading: false
             }
-        case PublicoConstants.Accion.Login.SUCCESS:
+        case CoreConstants.Accion.Login.SUCCESS:
+
             const userInformation = action.userInformation;
             let response = {
                 loading: false,
                 loggedIn: true,
                 user: userInformation
             };
-            if (userInformation?.empresas && (userInformation.empresas.length > 1 || userInformation.empresas[0].sedes.length > 1)) {
-                userInformation.empresaId = userInformation.empresas[0].id;
-                userInformation.sedeId = userInformation.empresas[0].sedes[0].id;
-                localStorage.setItem("sig-session", JSON.stringify(userInformation));
-                response.loggedIn = false;
-            }
+
+            localStorage.setItem("sig-session", JSON.stringify(userInformation));
 
             return response;
+        case CoreConstants.Accion.Login.DONE:
+            return { loading: false }
         default: {
             return state;
         }

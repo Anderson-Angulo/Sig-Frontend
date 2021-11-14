@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useForm, Controller } from "react-hook-form";
-import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
@@ -11,7 +10,7 @@ import { Button } from 'primereact/button';
 import PublicoLayout from 'shared/components/publico-layout/publico-layout';
 import RecuperarContrasenaPage from 'features/publico/pages/recuperar-contrasena/recuperar-contrasena.page';
 
-import { authAction } from 'features/publico/store/actions/auth.action';
+import { authAction } from 'core/store/actions/auth.action';
 import { recuperarContrasenaAction } from 'features/publico/store/actions/recupera-contrasena.action';
 import SelecEmpresaSedeComponent from 'features/publico/components/selec-empresa-sede/selec-empresa-sede.component';
 
@@ -23,7 +22,6 @@ const InicioSesionPage = () => {
   const history = useHistory();
   const [checked, setChecked] = useState(false);
   const { control, handleSubmit, formState: { errors } } = useForm();
-  const toast = useRef(null);
 
   const loggedIn = useSelector(state => state.authReducer.loggedIn);
   const loading = useSelector(state => state.authReducer.loading);
@@ -34,17 +32,8 @@ const InicioSesionPage = () => {
   useEffect(() => { dispatch(authAction.validarSesion()); }, []);
   useEffect(() => {
     if (loggedIn)
-      history.push('/inicio');
+      history.push('/configuracion/mi-cuenta');
   }, [loggedIn]);
-
-
-
-  
-  // useEffect(() => {
-  //   if (mensaje !== null)
-  //     toast.current.show({ severity: mensaje.severity, summary: mensaje.summary, detail: mensaje.detail });
-  //   //dispatch(authAction.validarSesion());
-  // }, [mensaje]);
 
 
   const onSubmit = (data) => {
@@ -81,7 +70,7 @@ const InicioSesionPage = () => {
                     className={errors.email ? "p-invalid" : ""}
                     onChange={onChange}
                     onBlur={onBlur}
-                    inputRef={ref}
+
                   />
                 )}
                 name="email"
@@ -112,7 +101,7 @@ const InicioSesionPage = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     className={errors.password ? "p-invalid w-full" : "w-full"}
-                    inputRef={ref}
+
                   />
                 )}
                 name="password"
@@ -169,7 +158,7 @@ const InicioSesionPage = () => {
         </form>
         <RecuperarContrasenaPage isOpen={mostrarRecuperarContrasena} />
         <SelecEmpresaSedeComponent isOpen={mostrarSeleccionEmpresaSede} />
-      
+
       </Fragment>
     </PublicoLayout >
   );

@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { selecEmpresaSedeAction } from 'features/publico/store/actions/selec-empresa-sede.action';
+import { authAction, authSedeAction } from 'core/store/actions/auth.action';
 const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
 
     const dispatch = useDispatch();
@@ -15,15 +16,15 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
     const [sedes, setSedes] = useState([]);
     const empresaControl = useWatch({ control, name: 'empresa' });
 
-    const usuarioInformation = useSelector(state => state.authReducer.user);
+    const loading = useSelector(state => state.selecEmpresaSedeReducer.loading);
+    const usuarioInformation = useSelector(state => state.selecEmpresaSedeReducer.user);
     const emailUser = useSelector(state => state.selecEmpresaSedeReducer.email);
     const passwordUser = useSelector(state => state.selecEmpresaSedeReducer.password);
 
     useEffect(() => validarVisibilidad(), [usuarioInformation]);
-    useEffect((e) => onSelectEmpresa(empresaControl), [empresaControl]);
+    useEffect(() => onSelectEmpresa(empresaControl), [empresaControl]);
 
     function validarVisibilidad() {
-
         if (usuarioInformation?.empresas !== null && usuarioInformation?.empresas !== undefined) {
 
             setEmpresas(usuarioInformation.empresas);
@@ -48,11 +49,17 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
     }
 
     const onHide = () => {
+     
         dispatch(selecEmpresaSedeAction.ocultar());
+        dispatch(authAction.ocultarCargando());
     };
 
     const onSubmit = (data) => {
-        usuarioInformation.empresaId = data.empresa.id;
+        
+        if (data.empresa)
+            usuarioInformation.empresaId = data.empresa.id;
+        else
+            usuarioInformation.empresaId = usuarioInformation.empresas[0].id;
         usuarioInformation.sedeId = data.sede.id;
         dispatch(selecEmpresaSedeAction.seleccionar(usuarioInformation, emailUser, passwordUser));
     };
@@ -150,8 +157,15 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
                     ) : null}
 
                     <div className="flex gap-2 mt-6 justify-center">
-                        <Button label="Cancelar" type="button" className="btn btn-secondary" />
-                        <Button label="Continuar" type="submit" className="btn btn-primary" />
+                        <Button label="Cancelar"
+                            type="button"
+                            onClick={() => onHide()}
+                            className="btn btn-secondary" />
+                        <Button
+                            label="Continuar"
+                            type="submit"
+                            loading={loading}
+                            className="btn btn-primary" />
                     </div>
                 </div>
 

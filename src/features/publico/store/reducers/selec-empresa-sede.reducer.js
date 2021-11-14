@@ -1,9 +1,11 @@
 import { PublicoConstants } from "features/publico/commons/publico-constants";
 
 const initialState = {
+    loading: true,
     mostrarSeleccionarEmpresaSede: false,
     emailUser: null,
-    passwordUser: null
+    passwordUser: null,
+    user: null
 };
 
 export default (state = initialState, action) => {
@@ -12,17 +14,26 @@ export default (state = initialState, action) => {
 
         case PublicoConstants.Accion.SelecEmpresaSede.MOSTRAR:
             return {
+                loading: false,
                 mostrarSeleccionarEmpresaSede: true,
                 emailUser: action.email,
-                passwordUser: action.password
+                passwordUser: action.password,
+                user: action.userInformation
             }
         case PublicoConstants.Accion.SelecEmpresaSede.OCULTAR:
             return {
+                loading: false,
                 mostrarSeleccionarEmpresaSede: false,
                 emailUser: null,
-                passwordUser: null
+                passwordUser: null,
+                user: null
             }
-
+        case PublicoConstants.Accion.SelecEmpresaSede.REQUEST:
+            return { ...state, loading: true }
+        case PublicoConstants.Accion.SelecEmpresaSede.FAILURE:
+            return { ...state, loading: false }
+        case PublicoConstants.Accion.SelecEmpresaSede.SUCCESS:
+            return { ...state, loading: false };
         default:
             return state;
             break;

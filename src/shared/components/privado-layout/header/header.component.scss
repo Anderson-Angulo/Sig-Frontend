@@ -1,0 +1,22 @@
+.header-route {
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem;
+    position: sticky;
+    top: 3rem;
+    z-index: 6;
+    & h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1rem;
+      margin-bottom: 12px;
+    }
+    &-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      & .current-page-small {
+        color: gray;
+      }
+    }
+  }
+  
