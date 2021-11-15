@@ -7,11 +7,12 @@ import './privado-layout.scss';
 import HeaderComponent from './header/header.component';
 
 export default function PrivadoLayout({ children }) {
-
   const toast = useRef(null);
-  const mensaje = useSelector(state => state.toastReducer.toast);
+  const mensaje = useSelector((state) => state.toastReducer.toast);
 
-  useEffect(() => { if (mensaje != null) toast.current.show(mensaje); }, [mensaje]);
+  useEffect(() => {
+    if (mensaje != null) toast.current.show(mensaje);
+  }, [mensaje]);
 
   return (
     <Fragment>
@@ -21,13 +22,13 @@ export default function PrivadoLayout({ children }) {
           <SidebarComponent />
           <HeaderComponent />
           <div>
-            <section className="content rounded-md">{children}</section>
+            <section className="content rounded-md scroll" id="content-main">
+              {children}
+            </section>
           </div>
         </main>
         <Toast ref={toast}></Toast>
       </div>
     </Fragment>
-
-
   );
 }

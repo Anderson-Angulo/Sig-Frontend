@@ -36,8 +36,29 @@
       }
     }
   }
+
   &.table-roles .table-header,
   &.table-roles .table-item {
     grid-template-columns: repeat(4, 1fr) 5rem;
+  }
+}
+
+.table-pagination {
+  select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #607d8b;
+    outline: none;
+    color: #607d8b;
+  }
+}
+
+.table-empty {
+  background: #f7f7f7;
+  border: 1px solid #dee2e6;
+  padding: 1rem;
+  text-align: center;
+  & h1 {
+    color: #4f5467;
+    font-weight: bold;
   }
 }
