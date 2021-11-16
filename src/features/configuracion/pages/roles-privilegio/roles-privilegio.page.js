@@ -16,6 +16,7 @@ import {
 import DATA from './datos/data.json';
 import { COLUMNS } from './datos/columnas';
 import InputFilterComponent from '../../components/roles-privilegios/input-filter/input-filter-component';
+import IconBarComponent from 'features/configuracion/components/roles-privilegios/icon-bar/icon-bar-component';
 
 const RolesPrivilegioPage = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,21 @@ const RolesPrivilegioPage = () => {
     useFilters,
     useSortBy,
     usePagination,
-    useRowSelect
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        ...columns,
+        {
+          id: 'selection',
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <IconBarComponent {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }) => (
+            <IconBarComponent {...row.getToggleRowSelectedProps()} />
+          ),
+        },
+      ]);
+    }
   );
   const {
     getTableProps,

@@ -10,6 +10,9 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
+        &:last-child {
+          display: none;
+        }
       }
     }
     &-header,
