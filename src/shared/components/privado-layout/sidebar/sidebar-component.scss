@@ -1,8 +1,18 @@
 .sidebar {
   .p-tree.p-component {
     height: 100%;
-    padding: 12px;
+    padding: 0px;
     width: 100%;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    border-left: 3px solid #58b8ff;
+  }
+  .p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content
+    .p-tree-toggler:enabled:hover {
+    background-color: transparent;
   }
   .p-tree
     .p-tree-container
@@ -11,5 +21,28 @@
     .p-tree-toggler:focus,
   .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
     box-shadow: none !important;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-treenode-icon {
+    font-size: 1.2rem;
+  }
+  .p-treenode-selectable.p-treenode-content {
+    justify-content: space-between;
+    padding: 4.5px 10px !important;
+    button {
+      order: 2;
+      margin: 0;
+    }
+  }
+  & ul.p-treenode-children {
+    padding: 0;
+  }
+  & ul.p-treenode-children .p-treenode-content {
+    justify-content: flex-start;
+    gap: 4px;
+    max-height: 34px;
+    padding-left: 2.6rem !important;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+    margin-right: 0;
   }
 }

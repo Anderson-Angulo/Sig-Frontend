@@ -135,9 +135,9 @@ const RolesPrivilegioPage = () => {
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div> */}
       </Fieldset>
-      <pre>
+      {/* <pre>
         <code>{JSON.stringify(usuarioSeleccionado, null, 3)}</code>
-      </pre>
+      </pre> */}
       <div className="mt-5 flex items-center justify-end">
         <Button type="button" label="Nueva" className="btn btn-dark" />
       </div>
