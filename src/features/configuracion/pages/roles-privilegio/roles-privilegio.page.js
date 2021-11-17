@@ -2,7 +2,6 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
-
 import { breadcrumpAction } from 'core/store/actions/breadcrump.action';
 import 'shared/styles/components/tablas.scss';
 
@@ -20,6 +19,7 @@ import IconBarComponent from 'features/configuracion/components/roles-privilegio
 
 const RolesPrivilegioPage = () => {
   const dispatch = useDispatch();
+
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   useEffect(() => {
     dispatch(
@@ -39,6 +39,7 @@ const RolesPrivilegioPage = () => {
     []
   );
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({});
+  const [filaSeleccionada, setFilaSeleccionada] = useState('');
   const tableInstance = useTable(
     {
       columns,
@@ -57,9 +58,16 @@ const RolesPrivilegioPage = () => {
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <IconBarComponent {...getToggleAllRowsSelectedProps()} />
           ),
-          Cell: ({ row }) => (
-            <IconBarComponent {...row.getToggleRowSelectedProps()} />
-          ),
+          Cell: ({ row }) => {
+            return (
+              <IconBarComponent
+                {...row.getToggleRowSelectedProps()}
+                filaSeleccionada={filaSeleccionada}
+                setFilaSeleccionada={setFilaSeleccionada}
+                value={row.id}
+              />
+            );
+          },
         },
       ]);
     }
@@ -79,8 +87,13 @@ const RolesPrivilegioPage = () => {
     gotoPage,
     pageCount,
     setPageSize,
-    selectedFlatRows,
   } = tableInstance;
+
+  useEffect(() => {
+    if (filaSeleccionada !== '') {
+      setUsuarioSeleccionado(data[filaSeleccionada]);
+    }
+  }, [filaSeleccionada]);
   const { pageIndex, pageSize } = state;
 
   const scroll = () => {
@@ -89,6 +102,14 @@ const RolesPrivilegioPage = () => {
       left: 100,
       behavior: 'smooth',
     });
+  };
+
+  const editarRol = () => {
+    console.log('Editando rol de usuario ', usuarioSeleccionado);
+  };
+
+  const cambiarContrasena = () => {
+    console.log('Cambiar contraseña de usuario ', usuarioSeleccionado);
   };
 
   return (
@@ -114,6 +135,9 @@ const RolesPrivilegioPage = () => {
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div> */}
       </Fieldset>
+      <pre>
+        <code>{JSON.stringify(usuarioSeleccionado, null, 3)}</code>
+      </pre>
       <div className="mt-5 flex items-center justify-end">
         <Button type="button" label="Nueva" className="btn btn-dark" />
       </div>
@@ -147,13 +171,38 @@ const RolesPrivilegioPage = () => {
 
         <div className="table-body relative" {...getTableBodyProps()}>
           {page.length > 0 ? (
-            page.map((row) => {
+            page.map((row, index) => {
               prepareRow(row);
               return (
-                <div className="table-item" {...row.getRowProps()}>
+                <div
+                  className={`table-item ${
+                    filaSeleccionada === index ? 'activated' : ''
+                  }`}
+                  {...row.getRowProps()}
+                >
                   {row.cells.map((cell) => (
                     <p {...cell.getCellProps()}>{cell.render('Cell')}</p>
                   ))}
+                  {filaSeleccionada === index && (
+                    <div class="table-actions shadow-md rounded-md">
+                      <div
+                        className="icon-close"
+                        onClick={() => {
+                          setFilaSeleccionada('');
+                          setUsuarioSeleccionado({});
+                        }}
+                      >
+                        <i className="pi pi-times"></i>
+                      </div>
+
+                      <div className="items">
+                        <button onClick={editarRol}>Editar</button>
+                        <button onClick={cambiarContrasena}>
+                          Cambiar contraseña
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })
@@ -182,6 +231,8 @@ const RolesPrivilegioPage = () => {
               onChange={(e) => {
                 scroll();
                 setPageSize(Number(e.target.value));
+                /*                 setFilaSeleccionada('');
+                setUsuarioSeleccionado({}); */
               }}
             >
               {[10, 25, 50].map((pageSize, index) => (
@@ -197,6 +248,8 @@ const RolesPrivilegioPage = () => {
               onClick={() => {
                 scroll();
                 gotoPage(0);
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
               }}
               disabled={!canPreviousPage}
               className="p-button-secondary p-button-outlined"
@@ -207,6 +260,8 @@ const RolesPrivilegioPage = () => {
               onClick={() => {
                 scroll();
                 previousPage();
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
               }}
               disabled={!canPreviousPage}
               className="p-button-secondary p-button-outlined"
@@ -216,6 +271,8 @@ const RolesPrivilegioPage = () => {
               onClick={() => {
                 scroll();
                 nextPage();
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
               }}
               disabled={!canNextPage}
               className="p-button-secondary p-button-outlined"
@@ -226,6 +283,8 @@ const RolesPrivilegioPage = () => {
               onClick={() => {
                 scroll();
                 gotoPage(pageCount - 1);
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
               }}
               disabled={!canPreviousPage}
               className="p-button-secondary p-button-outlined"
