@@ -14,8 +14,8 @@ import {
 } from 'react-table';
 import DATA from './datos/data.json';
 import { COLUMNS } from './datos/columnas';
-import InputFilterComponent from '../../components/roles-privilegios/input-filter/input-filter-component';
-import IconBarComponent from 'features/configuracion/components/roles-privilegios/icon-bar/icon-bar-component';
+import TablaFilaSeleccionadaComponent from 'features/configuracion/components/tabla-fila-seleccionada/tabla-fila-seleccionada-component';
+import InputFiltroComponent from 'features/configuracion/components/input-filtro/input-filtro-component';
 
 const RolesPrivilegioPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const RolesPrivilegioPage = () => {
   const data = useMemo(() => DATA, []);
   const defaultColumn = useMemo(
     () => ({
-      Filter: InputFilterComponent,
+      Filter: InputFiltroComponent,
     }),
     []
   );
@@ -56,11 +56,13 @@ const RolesPrivilegioPage = () => {
         {
           id: 'selection',
           Header: ({ getToggleAllRowsSelectedProps }) => (
-            <IconBarComponent {...getToggleAllRowsSelectedProps()} />
+            <TablaFilaSeleccionadaComponent
+              {...getToggleAllRowsSelectedProps()}
+            />
           ),
           Cell: ({ row }) => {
             return (
-              <IconBarComponent
+              <TablaFilaSeleccionadaComponent
                 {...row.getToggleRowSelectedProps()}
                 filaSeleccionada={filaSeleccionada}
                 setFilaSeleccionada={setFilaSeleccionada}
@@ -106,10 +108,6 @@ const RolesPrivilegioPage = () => {
 
   const editarRol = () => {
     console.log('Editando rol de usuario ', usuarioSeleccionado);
-  };
-
-  const cambiarContrasena = () => {
-    console.log('Cambiar contraseña de usuario ', usuarioSeleccionado);
   };
 
   return (
@@ -198,9 +196,6 @@ const RolesPrivilegioPage = () => {
 
                       <div className="items">
                         <button onClick={editarRol}>Editar</button>
-                        <button onClick={cambiarContrasena}>
-                          Cambiar contraseña
-                        </button>
                       </div>
                     </div>
                   )}
