@@ -80,6 +80,20 @@
   &.table-roles .table-item {
     grid-template-columns: repeat(4, 1fr) 5rem;
   }
+  &.table-users .table-header,
+  &.table-users .table-item {
+    grid-template-columns: repeat(8, 1fr) 3rem;
+  }
+  &.table-users {
+    .table-header,
+    .table-item {
+      padding: 4px;
+      h3,
+      i {
+        font-size: 10px;
+      }
+    }
+  }
 }
 
 .table-pagination {
@@ -101,3 +115,7 @@
     font-weight: bold;
   }
 }
+
+/* padding: 4
+px
+; */
