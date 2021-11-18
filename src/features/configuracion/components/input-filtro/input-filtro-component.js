@@ -1,6 +1,6 @@
 import { InputText } from 'primereact/inputtext';
 
-const InputFilterComponent = ({ column }) => {
+const InputFiltroComponent = ({ column }) => {
   const { filterValue, setFilter } = column;
   return (
     <InputText
@@ -10,4 +10,4 @@ const InputFilterComponent = ({ column }) => {
   );
 };
 
-export default InputFilterComponent;
+export default InputFiltroComponent;
