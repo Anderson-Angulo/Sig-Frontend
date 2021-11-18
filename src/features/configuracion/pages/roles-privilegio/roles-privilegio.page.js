@@ -64,7 +64,7 @@ const RolesPrivilegioPage = () => {
                 {...row.getToggleRowSelectedProps()}
                 filaSeleccionada={filaSeleccionada}
                 setFilaSeleccionada={setFilaSeleccionada}
-                value={row.id}
+                value={row.original.id}
               />
             );
           },
@@ -91,7 +91,7 @@ const RolesPrivilegioPage = () => {
 
   useEffect(() => {
     if (filaSeleccionada !== '') {
-      setUsuarioSeleccionado(data[filaSeleccionada]);
+      setUsuarioSeleccionado(data[filaSeleccionada - 1]);
     }
   }, [filaSeleccionada]);
   const { pageIndex, pageSize } = state;
@@ -171,19 +171,20 @@ const RolesPrivilegioPage = () => {
 
         <div className="table-body relative" {...getTableBodyProps()}>
           {page.length > 0 ? (
-            page.map((row, index) => {
+            page.map((row) => {
               prepareRow(row);
               return (
                 <div
                   className={`table-item ${
-                    filaSeleccionada === index ? 'activated' : ''
+                    filaSeleccionada === row.original.id ? 'activated' : ''
                   }`}
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => (
                     <p {...cell.getCellProps()}>{cell.render('Cell')}</p>
                   ))}
-                  {filaSeleccionada === index && (
+
+                  {filaSeleccionada === row.original.id && (
                     <div class="table-actions shadow-md rounded-md">
                       <div
                         className="icon-close"
