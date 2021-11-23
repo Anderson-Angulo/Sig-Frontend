@@ -1,7 +1,7 @@
-import { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
@@ -17,24 +17,31 @@ import SelecEmpresaSedeComponent from 'features/publico/components/selec-empresa
 import './inicio-sesion.page.scss';
 
 const InicioSesionPage = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
   const [checked, setChecked] = useState(false);
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const loggedIn = useSelector(state => state.authReducer.loggedIn);
-  const loading = useSelector(state => state.authReducer.loading);
+  const loggedIn = useSelector((state) => state.authReducer.loggedIn);
+  const loading = useSelector((state) => state.authReducer.loading);
 
-  const mostrarRecuperarContrasena = useSelector(state => state.recuperarContrasenaReducer.mostrarRecuperarContrasena);
-  const mostrarSeleccionEmpresaSede = useSelector(state => state.selecEmpresaSedeReducer.mostrarSeleccionarEmpresaSede);
+  const mostrarRecuperarContrasena = useSelector(
+    (state) => state.recuperarContrasenaReducer.mostrarRecuperarContrasena
+  );
+  const mostrarSeleccionEmpresaSede = useSelector(
+    (state) => state.selecEmpresaSedeReducer.mostrarSeleccionarEmpresaSede
+  );
 
-  useEffect(() => { dispatch(authAction.validarSesion()); }, []);
   useEffect(() => {
-    if (loggedIn)
-      history.push('/configuracion/mi-cuenta');
+    dispatch(authAction.validarSesion());
+  }, []);
+  useEffect(() => {
+    if (loggedIn) history.push('/configuracion/mi-cuenta');
   }, [loggedIn]);
-
 
   const onSubmit = (data) => {
     dispatch(authAction.login(data.email, data.password));
@@ -47,7 +54,6 @@ const InicioSesionPage = () => {
   return (
     <PublicoLayout page="login">
       <Fragment>
-
         <form className="form-custom" onSubmit={handleSubmit(onSubmit)}>
           <header className="header">
             <img
@@ -67,23 +73,21 @@ const InicioSesionPage = () => {
                   fieldState: { invalid, isTouched, isDirty, error },
                 }) => (
                   <InputText
-                    className={errors.email ? "p-invalid" : ""}
+                    className={errors.email ? 'p-invalid' : ''}
                     onChange={onChange}
                     onBlur={onBlur}
-
                   />
                 )}
                 name="email"
                 control={control}
-                rules={
-                  {
-                    required: "El correo eléctronico es requerido",
-                    pattern: {
-                      value: /^\S+@\S+\.\S+$/,
-                      message: "El correo eléctronico no tiene un formato correcto"
-                    }
-                  }
-                }
+                rules={{
+                  required: 'El correo eléctronico es requerido',
+                  pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message:
+                      'El correo eléctronico no tiene un formato correcto',
+                  },
+                }}
               />
               <label htmlFor="email">Correo eléctronico</label>
             </span>
@@ -100,17 +104,14 @@ const InicioSesionPage = () => {
                     toggleMask
                     onChange={onChange}
                     onBlur={onBlur}
-                    className={errors.password ? "p-invalid w-full" : "w-full"}
-
+                    className={errors.password ? 'p-invalid w-full' : 'w-full'}
                   />
                 )}
                 name="password"
                 control={control}
-                rules={
-                  {
-                    required: "La contraseña es requerida",
-                  }
-                }
+                rules={{
+                  required: 'La contraseña es requerida',
+                }}
               />
               <label htmlFor="password">Contraseña</label>
             </span>
@@ -153,14 +154,12 @@ const InicioSesionPage = () => {
               label="Ingresar"
               className="btn btn-primary mt-4"
             />
-
           </div>
         </form>
         <RecuperarContrasenaPage isOpen={mostrarRecuperarContrasena} />
         <SelecEmpresaSedeComponent isOpen={mostrarSeleccionEmpresaSede} />
-
       </Fragment>
-    </PublicoLayout >
+    </PublicoLayout>
   );
 };
 

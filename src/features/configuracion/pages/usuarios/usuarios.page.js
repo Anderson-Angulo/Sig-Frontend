@@ -19,8 +19,6 @@ import TablaFilaSeleccionadaComponent from 'features/configuracion/components/ta
 import InputFiltroComponent from 'features/configuracion/components/input-filtro/input-filtro-component';
 
 const UsuariosPage = () => {
-  const roles = [{ rol: 'Rol 1' }, { rol: 'Rol 2' }, { rol: 'Rol 3' }];
-
   const dispatch = useDispatch();
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   useEffect(() => {
