@@ -45,7 +45,7 @@ const SidebarComponent = () => {
     <div className="sidebar">
       <Tree
         value={menus}
-        className="shadow-md rounded-md"
+        className="shadow-md"
         selectionMode="single"
         selectionKeys={selectedKey}
         onSelectionChange={(e) => setSelectedKey(e.value)}

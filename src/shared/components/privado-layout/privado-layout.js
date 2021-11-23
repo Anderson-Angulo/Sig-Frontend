@@ -23,7 +23,7 @@ export default function PrivadoLayout({ children }) {
           <SidebarComponent />
           <HeaderComponent />
           <div>
-            <section className="content rounded-md scroll" id="content-main">
+            <section className="content scroll" id="content-main">
               {children}
             </section>
           </div>
