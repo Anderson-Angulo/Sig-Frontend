@@ -1,10 +1,11 @@
-import { Fragment, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Fragment, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Toast } from 'primereact/toast';
 import SidebarComponent from './sidebar/sidebar-component';
 import MenuComponent from './menu/menu-component';
-import './privado-layout.scss';
 import HeaderComponent from './header/header.component';
+import './privado-layout.scss';
+import 'shared/styles/components/botones.scss';
 
 export default function PrivadoLayout({ children }) {
   const toast = useRef(null);
