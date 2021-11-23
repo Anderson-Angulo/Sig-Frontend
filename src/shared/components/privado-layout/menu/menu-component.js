@@ -4,14 +4,16 @@ import { useHistory } from 'react-router';
 import { Button } from 'primereact/button';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import LogoComponent from 'shared/components/logo/logo-component';
-import './menu-component.scss';
 import { authAction } from 'core/store/actions/auth.action';
+import { toggleSidebar } from 'features/configuracion/store/actions/toggle-sidebar.action';
+import './menu-component.scss';
 
 const MenuComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const [menu, setMenu] = useState([]);
+  const isOpen = useSelector((state) => state.toggleSidebarReducer.isOpen);
 
   const op = useRef(null);
 
@@ -31,14 +33,20 @@ const MenuComponent = () => {
     else return texto.slice(0, limite) + '...';
   };
 
+  const toggle = () => dispatch(toggleSidebar.toggle(!isOpen));
+
   return (
     <div
       className="menu-component"
       style={{ backgroundColor: '#004680', color: '#fff' }}
     >
-      <div className="icon-w-logo flex justify-between items-center">
+      <div
+        className={`icon-w-logo flex justify-between items-center ${
+          isOpen ? 'sidebar-open' : ''
+        }`}
+      >
         <LogoComponent />
-        <div className="menu-option flex items-center">
+        <div className="menu-option flex items-center" onClick={toggle}>
           <i className="pi pi-bars"></i>
         </div>
       </div>

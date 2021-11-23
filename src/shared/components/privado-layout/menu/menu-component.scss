@@ -8,8 +8,11 @@
   padding: 0 12px;
 
   & .icon-w-logo {
-    max-width: 20rem;
+    max-width: 20.5rem;
     width: 100%;
+    &.sidebar-open {
+      max-width: 6rem;
+    }
     i {
       font-size: 1.4rem;
     }

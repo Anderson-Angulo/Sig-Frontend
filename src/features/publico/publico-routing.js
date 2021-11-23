@@ -9,12 +9,13 @@ import NuevaContrasenaPage from './pages/nueva-contrasena/nueva-contrasena.page'
 export const PublicoRouting = (reducerRegistry) => {
   //
   const { path } = useRouteMatch();
-  reducerRegistry.register({ authReducer: authReducer });
+  console.log(reducerRegistry);
+  reducerRegistry.register({ authReducer });
   reducerRegistry.register({
-    recuperarContrasenaReducer: recuperarContrasenaReducer,
+    recuperarContrasenaReducer,
   });
   reducerRegistry.register({
-    selecEmpresaSedeReducer: selecEmpresaSedeReducer,
+    selecEmpresaSedeReducer,
   });
   // const location = useLocation();
   // const loggedIn = useSelector(state => state.authReducer.loggedIn);

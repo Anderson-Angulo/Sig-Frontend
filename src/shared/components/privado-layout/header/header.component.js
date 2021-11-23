@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './header.component.scss';
 
@@ -22,18 +22,18 @@ const HeaderComponent = () => {
       <div className="header-route-content mt-1">
         {currentPages.map((page, index) => {
           return index < currentPages.length - 1 ? (
-            <>
+            <Fragment key={index}>
               <div className="current-page-big">
                 <p className="text-sm">{page.descripcion}</p>
               </div>
               <i className="pi pi-angle-right"></i>
-            </>
+            </Fragment>
           ) : (
-            <>
+            <Fragment key={index}>
               <div className="current-page-small">
                 <p className="text-sm">{page.descripcion}</p>
               </div>
-            </>
+            </Fragment>
           );
         })}
       </div>

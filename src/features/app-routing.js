@@ -10,13 +10,16 @@ import ReducerRegistry from 'core/store/register.reducer';
 import authReducer from '../core/store/reducers/auth.reducer';
 import breadcrumpReducer from '../core/store/reducers/breadcrump.reducer';
 import toastReducer from './../core/store/reducers/toast.reducer';
+import toggleSidebarReducer from './configuracion/store/reducers/toggle-sidebar.reducer';
+
 import RrhhRouting from './rrhh/rrhh-routing';
 
 export const AppRouting = () => {
   var reducerRegistry = new ReducerRegistry({
-    authReducer: authReducer,
-    toastReducer: toastReducer,
-    breadcrumpReducer: breadcrumpReducer,
+    authReducer,
+    toastReducer,
+    breadcrumpReducer,
+    toggleSidebarReducer,
   });
 
   var store = configureStore(reducerRegistry);

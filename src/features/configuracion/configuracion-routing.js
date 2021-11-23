@@ -8,7 +8,7 @@ import RolesPrivilegioPage from './pages/roles-privilegio/roles-privilegio.page'
 
 export const ConfiguracionRouting = (reducerRegistry) => {
   const { path } = useRouteMatch();
-  //debugger;
+
   return (
     <>
       <Switch>

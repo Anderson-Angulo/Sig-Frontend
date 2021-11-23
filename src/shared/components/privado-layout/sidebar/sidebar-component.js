@@ -36,7 +36,6 @@ const SidebarComponent = () => {
       if (!option.url) delete option.url;
       return option;
     });
-    console.log(options);
 
     setMenus(options);
   }, [usuarioInformation]);
