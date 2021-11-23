@@ -139,160 +139,159 @@ const UsuariosPage = () => {
           <Button type="button" label="Buscar" className="btn btn-primary" />
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div> */}
-
-        <div className="table-main table-users mt-5" {...getTableProps()}>
-          {headerGroups.map((headerGroup, index) => (
-            <header
-              className="table-header"
-              key={index}
-              {...headerGroup.getHeaderGroupProps()}
-            >
-              {headerGroup.headers.map((column, i) => (
-                <div
-                  className="header-title"
-                  key={i}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  <h3 className="text">{column.render('Header')}</h3>
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <i className="pi pi-angle-up"></i>
-                    ) : (
-                      <i className="pi pi-angle-down"></i>
-                    )
+      </Fieldset>
+      <div className="table-main table-users mt-5" {...getTableProps()}>
+        {headerGroups.map((headerGroup, index) => (
+          <header
+            className="table-header"
+            key={index}
+            {...headerGroup.getHeaderGroupProps()}
+          >
+            {headerGroup.headers.map((column, i) => (
+              <div
+                className="header-title"
+                key={i}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+              >
+                <h3 className="text">{column.render('Header')}</h3>
+                {column.isSorted ? (
+                  column.isSortedDesc ? (
+                    <i className="pi pi-angle-up"></i>
                   ) : (
-                    <i className="pi pi-filter"></i>
+                    <i className="pi pi-angle-down"></i>
+                  )
+                ) : (
+                  <i className="pi pi-filter"></i>
+                )}
+              </div>
+            ))}
+          </header>
+        ))}
+        <div className="table-body relative" {...getTableBodyProps()}>
+          {page.length > 0 ? (
+            page.map((row) => {
+              prepareRow(row);
+              return (
+                <div
+                  className={`table-item ${
+                    filaSeleccionada === row.original.id ? 'activated' : ''
+                  }`}
+                  {...row.getRowProps()}
+                >
+                  {row.cells.map((cell) => (
+                    <p {...cell.getCellProps()}>{cell.render('Cell')}</p>
+                  ))}
+
+                  {filaSeleccionada === row.original.id && (
+                    <div class="table-actions shadow-md rounded-md">
+                      <div
+                        className="icon-close"
+                        onClick={() => {
+                          setFilaSeleccionada('');
+                          setUsuarioSeleccionado({});
+                        }}
+                      >
+                        <i className="pi pi-times"></i>
+                      </div>
+
+                      <div className="items">
+                        <button onClick={editarUsuario}>Editar</button>
+                        <button onClick={cambiarContrasena}>
+                          Cambiar contraseña
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </div>
+              );
+            })
+          ) : (
+            <div className="table-empty">
+              <h1>No se encontró resultados</h1>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {page.length > 0 && (
+        <div className="table-pagination flex items-center justify-end gap-4 p-5">
+          <div className="pagination-options">
+            <span
+              style={{
+                color: '#607D8B',
+                fontWeight: 'bold',
+              }}
+            >
+              Pág. {pageIndex + 1} de {pageOptions.length}
+            </span>
+          </div>
+          <div className="pagination-sizes">
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                scroll();
+                setPageSize(Number(e.target.value));
+                /*                 setFilaSeleccionada('');
+                setUsuarioSeleccionado({}); */
+              }}
+            >
+              {[10, 25, 50].map((pageSize, index) => (
+                <option key={index} value={pageSize}>
+                  Mostrar {pageSize} filas
+                </option>
               ))}
-            </header>
-          ))}
-          <div className="table-body relative" {...getTableBodyProps()}>
-            {page.length > 0 ? (
-              page.map((row) => {
-                prepareRow(row);
-                return (
-                  <div
-                    className={`table-item ${
-                      filaSeleccionada === row.original.id ? 'activated' : ''
-                    }`}
-                    {...row.getRowProps()}
-                  >
-                    {row.cells.map((cell) => (
-                      <p {...cell.getCellProps()}>{cell.render('Cell')}</p>
-                    ))}
+            </select>
+          </div>
+          <div className="pagination-actions flex justify-end gap-2">
+            <Button
+              label="<<"
+              onClick={() => {
+                scroll();
+                gotoPage(0);
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
+              }}
+              disabled={!canPreviousPage}
+              className="p-button-secondary p-button-outlined"
+            />
 
-                    {filaSeleccionada === row.original.id && (
-                      <div class="table-actions shadow-md rounded-md">
-                        <div
-                          className="icon-close"
-                          onClick={() => {
-                            setFilaSeleccionada('');
-                            setUsuarioSeleccionado({});
-                          }}
-                        >
-                          <i className="pi pi-times"></i>
-                        </div>
+            <Button
+              label="Anterior"
+              onClick={() => {
+                scroll();
+                previousPage();
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
+              }}
+              disabled={!canPreviousPage}
+              className="p-button-secondary p-button-outlined"
+            />
+            <Button
+              label="Siguiente"
+              onClick={() => {
+                scroll();
+                nextPage();
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
+              }}
+              disabled={!canNextPage}
+              className="p-button-secondary p-button-outlined"
+            />
 
-                        <div className="items">
-                          <button onClick={editarUsuario}>Editar</button>
-                          <button onClick={cambiarContrasena}>
-                            Cambiar contraseña
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <div className="table-empty">
-                <h1>No se encontró resultados</h1>
-              </div>
-            )}
+            <Button
+              label=">>"
+              onClick={() => {
+                scroll();
+                gotoPage(pageCount - 1);
+                setFilaSeleccionada('');
+                setUsuarioSeleccionado({});
+              }}
+              disabled={!canPreviousPage}
+              className="p-button-secondary p-button-outlined"
+            />
           </div>
         </div>
-
-        {page.length > 0 && (
-          <div className="table-pagination flex items-center justify-end gap-4 p-5">
-            <div className="pagination-options">
-              <span
-                style={{
-                  color: '#607D8B',
-                  fontWeight: 'bold',
-                }}
-              >
-                Pág. {pageIndex + 1} de {pageOptions.length}
-              </span>
-            </div>
-            <div className="pagination-sizes">
-              <select
-                value={pageSize}
-                onChange={(e) => {
-                  scroll();
-                  setPageSize(Number(e.target.value));
-                  /*                 setFilaSeleccionada('');
-                setUsuarioSeleccionado({}); */
-                }}
-              >
-                {[10, 25, 50].map((pageSize, index) => (
-                  <option key={index} value={pageSize}>
-                    Mostrar {pageSize} filas
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="pagination-actions flex justify-end gap-2">
-              <Button
-                label="<<"
-                onClick={() => {
-                  scroll();
-                  gotoPage(0);
-                  setFilaSeleccionada('');
-                  setUsuarioSeleccionado({});
-                }}
-                disabled={!canPreviousPage}
-                className="p-button-secondary p-button-outlined"
-              />
-
-              <Button
-                label="Anterior"
-                onClick={() => {
-                  scroll();
-                  previousPage();
-                  setFilaSeleccionada('');
-                  setUsuarioSeleccionado({});
-                }}
-                disabled={!canPreviousPage}
-                className="p-button-secondary p-button-outlined"
-              />
-              <Button
-                label="Siguiente"
-                onClick={() => {
-                  scroll();
-                  nextPage();
-                  setFilaSeleccionada('');
-                  setUsuarioSeleccionado({});
-                }}
-                disabled={!canNextPage}
-                className="p-button-secondary p-button-outlined"
-              />
-
-              <Button
-                label=">>"
-                onClick={() => {
-                  scroll();
-                  gotoPage(pageCount - 1);
-                  setFilaSeleccionada('');
-                  setUsuarioSeleccionado({});
-                }}
-                disabled={!canPreviousPage}
-                className="p-button-secondary p-button-outlined"
-              />
-            </div>
-          </div>
-        )}
-      </Fieldset>
+      )}
       <div className="mt-5 flex items-center justify-end">
         <Button type="button" label="Nuevo" className="btn btn-dark" />
       </div>
