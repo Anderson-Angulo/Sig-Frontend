@@ -137,8 +137,13 @@ const UsuariosPage = () => {
           <Button type="button" label="Buscar" className="btn btn-primary" />
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div> */}
-        <div className="mt-3 flex items-center justify-end">
+        <div className="mt-3 flex items-center gap-1 justify-end">
           <Button type="button" label="Nuevo" className="btn btn-dark" />
+          <Button
+            icon="pi pi-file-excel"
+            type="button"
+            className="btn p-button-success"
+          />
         </div>
       </Fieldset>
       <div className="table-main table-users mt-5" {...getTableProps()}>

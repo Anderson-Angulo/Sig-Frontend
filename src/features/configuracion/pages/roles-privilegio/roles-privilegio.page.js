@@ -132,13 +132,16 @@ const RolesPrivilegioPage = () => {
           <Button type="button" label="Buscar" className="btn btn-primary" />
           <Button type="button" label="Limpiar" className="btn btn-secondary" />
         </div> */}
+        <div className="mt-5 flex gap-1 items-center justify-end">
+          <Button type="button" label="Nueva" className="btn btn-dark" />
+          <Button
+            icon="pi pi-file-excel"
+            type="button"
+            className="btn p-button-success"
+          />
+        </div>
       </Fieldset>
-      {/* <pre>
-        <code>{JSON.stringify(usuarioSeleccionado, null, 3)}</code>
-      </pre> */}
-      <div className="mt-5 flex items-center justify-end">
-        <Button type="button" label="Nueva" className="btn btn-dark" />
-      </div>
+
       <div className="table-main table-roles mt-5" {...getTableProps()}>
         {headerGroups.map((headerGroup, index) => (
           <header
