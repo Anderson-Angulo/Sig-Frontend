@@ -66,6 +66,8 @@
       & .items {
         position: relative;
         top: -0.2rem;
+        display: flex;
+        flex-direction: column;
         & button {
           padding: 0 9px;
           &:hover {
@@ -90,7 +92,7 @@
       padding: 4px;
       h3,
       i {
-        font-size: 10px;
+        font-size: 12px;
       }
     }
   }

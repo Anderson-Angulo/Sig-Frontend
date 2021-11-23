@@ -197,8 +197,9 @@ const UsuariosPage = () => {
 
                       <div className="items">
                         <button onClick={editarUsuario}>Editar</button>
+                        <button onClick={cambiarContrasena}>Eliminar</button>
                         <button onClick={cambiarContrasena}>
-                          Cambiar contraseña
+                          Resetear contraseña
                         </button>
                       </div>
                     </div>
