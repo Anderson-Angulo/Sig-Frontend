@@ -14,16 +14,17 @@
       // background-color: #fff;
       padding: 12px;
     }
-    .p-tree-container .p-treenode-content {
+    /*  .p-tree-container .p-treenode-content {
       min-height: 42px;
-    }
+    } */
     &.closed-sidebar {
       grid-template-columns: 3.5rem 1fr;
       .p-tree-container .p-treenode-content {
         justify-content: center;
       }
       .p-tree-container .p-treenode-content .p-treenode-label,
-      .p-tree-container .p-treenode-content button {
+      .p-tree-container .p-treenode-content button,
+      .p-treenode-children {
         display: none;
       }
       .p-treenode-content .p-treenode-icon {
