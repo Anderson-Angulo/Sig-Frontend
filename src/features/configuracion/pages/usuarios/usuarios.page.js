@@ -15,8 +15,8 @@ import './usuarios.page.scss';
 import CambiarContrasenaPage from './cambiar-contrasena/cambiar-contrasena.page';
 import { useDispatch, useSelector } from 'react-redux';
 import { breadcrumpAction } from 'core/store/actions/breadcrump.action';
-import TablaFilaSeleccionadaComponent from 'features/configuracion/components/tabla-fila-seleccionada/tabla-fila-seleccionada-component';
-import InputFiltroComponent from 'features/configuracion/components/input-filtro/input-filtro-component';
+import TablaFilaSeleccionadaComponent from 'features/configuracion/components/globals/tabla-fila-seleccionada/tabla-fila-seleccionada-component';
+import InputFiltroComponent from 'features/configuracion/components/globals/input-filtro/input-filtro-component';
 
 const UsuariosPage = () => {
   const dispatch = useDispatch();

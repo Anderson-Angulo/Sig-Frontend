@@ -1,4 +1,4 @@
-import SelectFiltroComponent from 'features/configuracion/components/select-filtro/select-filtro-component';
+import SelectFiltroComponent from 'features/configuracion/components/globals/select-filtro/select-filtro-component';
 import moment from 'moment';
 
 export const COLUMNS = [

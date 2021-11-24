@@ -14,8 +14,8 @@ import {
 } from 'react-table';
 import DATA from './datos/data.json';
 import { COLUMNS } from './datos/columnas';
-import TablaFilaSeleccionadaComponent from 'features/configuracion/components/tabla-fila-seleccionada/tabla-fila-seleccionada-component';
-import InputFiltroComponent from 'features/configuracion/components/input-filtro/input-filtro-component';
+import TablaFilaSeleccionadaComponent from 'features/configuracion/components/globals/tabla-fila-seleccionada/tabla-fila-seleccionada-component';
+import InputFiltroComponent from 'features/configuracion/components/globals/input-filtro/input-filtro-component';
 
 const RolesPrivilegioPage = () => {
   const dispatch = useDispatch();
