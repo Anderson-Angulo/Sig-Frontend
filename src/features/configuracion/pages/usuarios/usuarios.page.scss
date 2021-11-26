@@ -7,13 +7,6 @@ fieldset {
     & > a {
       padding: 12px !important;
       color: #646464 !important;
-      // color: #fff !important;
     }
   }
-}
-
-.filter {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
 }
