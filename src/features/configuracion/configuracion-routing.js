@@ -16,7 +16,12 @@ export const ConfiguracionRouting = (reducerRegistry) => {
         <Route path={`${path}/mi-cuenta`} component={MiCuentaPage} />
         <Route path={`${path}/usuarios`} component={UsuariosPage}>
           <Route exact path={`${path}/usuarios`} component={UsuariosPage} />
-          <Route path={`${path}/usuarios/:id`} component={UsuarioPage} />
+          <Route
+            exact
+            path={`${path}/usuarios/nuevo`}
+            component={UsuarioPage}
+          />
+          <Route path={`${path}/usuarios/editar/:id`} component={UsuarioPage} />
         </Route>
 
         <Route
