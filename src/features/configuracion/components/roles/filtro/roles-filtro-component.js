@@ -1,22 +1,19 @@
 import { Fragment, useState } from 'react';
-import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
-import UsuariosModalFiltro from '../modal-filtro/usuarios-modal-filtro-component';
+import { Button } from 'primereact/button';
+import RolesModalFiltroComponent from '../modal-filtro/roles-modal-filtro-component';
 
-const UsuariosFiltroComponent = () => {
+const RolesFiltroComponent = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   return (
     <Fragment>
       <Fieldset legend="FILTRO POR" toggleable>
-        <div className="filter-users">
+        <div className="filter-roles">
           <div className="w-full">
             <span className="p-input-icon-left w-full">
               <i className="pi pi-search" />
-              <InputText
-                icon="pi pi-check"
-                placeholder="Buscar por usuario o nombres"
-              />
+              <InputText icon="pi pi-check" placeholder="Buscar por rol" />
             </span>
           </div>
           <div className="filter-users-action">
@@ -45,7 +42,7 @@ const UsuariosFiltroComponent = () => {
           </div>
         </div>
       </Fieldset>
-      <UsuariosModalFiltro
+      <RolesModalFiltroComponent
         isOpen={showFilterModal}
         closeModal={() => setShowFilterModal(false)}
       />
@@ -53,4 +50,4 @@ const UsuariosFiltroComponent = () => {
   );
 };
 
-export default UsuariosFiltroComponent;
+export default RolesFiltroComponent;

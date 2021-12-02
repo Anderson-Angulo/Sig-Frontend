@@ -20,7 +20,13 @@ $c-table-item-1: #f3f3f3;
 
   &.table-roles .table-header,
   &.table-roles .table-item {
-    grid-template-columns: repeat(4, 1fr) 5rem;
+    grid-template-columns: 6px repeat(5, 1fr) 3rem;
+  }
+
+  &.table-roles .table-secondary .table-header,
+  &.table-roles .table-secondary .table-item {
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
   }
   &.table-users .table-header,
   &.table-users .table-item {
@@ -41,7 +47,8 @@ $c-table-item-1: #f3f3f3;
 /* -------------------------------------  */
 /* ------ TABLE HEADER -----------------  */
 /* -------------------------------------  */
-.table-main {
+.table-main,
+.table-secondary {
   .table-header {
     background-color: $c-primary;
     color: $c-secondary;
@@ -57,7 +64,8 @@ $c-table-item-1: #f3f3f3;
 /* -------------------------------------  */
 /* ------ TABLE ITEM -------------------  */
 /* -------------------------------------  */
-.table-main {
+.table-main,
+.table-secondary {
   .table-item {
     border-bottom: 1px solid $c-primary;
     color: $c-secondary;

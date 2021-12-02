@@ -79,19 +79,19 @@ const UsuarioPage = () => {
         </Accordion>
       </Panel>
 
-      <div className="flex gap-4 mt-3">
+      <div className="flex justify-end gap-4 mt-3">
+        <Button
+          icon="pi pi-times"
+          type="button"
+          label="Cancelar"
+          className="btn btn-secondary mt-4"
+          onClick={() => history.goBack()}
+        />
         <Button
           icon="pi pi-save"
           type="button"
           label="Guardar"
           className="btn btn-primary mt-4"
-        />
-        <Button
-          icon="pi pi-times"
-          type="button"
-          label="Cancelar"
-          className="btn btn-primary mt-4"
-          onClick={() => history.goBack()}
         />
       </div>
     </div>

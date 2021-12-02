@@ -2,7 +2,6 @@ import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { Checkbox } from 'primereact/checkbox';
 
-import './usuarios-modal-filtro-component.scss';
 import { Button } from 'primereact/button';
 
 const UsuariosModalFiltro = ({ isOpen = false, closeModal }) => {
@@ -22,7 +21,7 @@ const UsuariosModalFiltro = ({ isOpen = false, closeModal }) => {
 
   if (isOpen) {
     return (
-      <div className="usuarios-modal-filtro shadow-md">
+      <div className="users-modal-filtro shadow-md">
         <form className="form-modal p-8">
           <header className="header mb-4">
             <div className="title text-left">

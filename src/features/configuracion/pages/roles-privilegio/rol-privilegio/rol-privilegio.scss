@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   overflow: auto;
-  max-height: 48vh;
+  // max-height: 48vh;
   & .rol:nth-child(1),
   & .rol:nth-child(2) {
     margin-top: 0;

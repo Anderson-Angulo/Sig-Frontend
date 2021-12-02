@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { breadcrumpAction } from 'core/store/actions/breadcrump.action';
 import CambiarContrasenaPage from './cambiar-contrasena/cambiar-contrasena.page';
 import UsuariosFiltroComponent from 'features/configuracion/components/usuarios/filtro/usuarios-filtro-component';
-import './usuarios.page.scss';
 import UsuariosTablaComponent from 'features/configuracion/components/usuarios/tabla/usuarios-tabla-component';
+import './usuarios.page.scss';
 
 const UsuariosPage = () => {
   const history = useHistory();
