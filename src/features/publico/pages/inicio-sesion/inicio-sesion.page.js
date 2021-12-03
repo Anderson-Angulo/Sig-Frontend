@@ -102,13 +102,13 @@ const InicioSesionPage = () => {
                   <Password
                     type="password"
                     toggleMask
+                    feedback={false}
                     onChange={onChange}
                     onBlur={onBlur}
                     className={errors.password ? 'p-invalid w-full' : 'w-full'}
                   />
                 )}
                 name="password"
-                control={control}
                 rules={{
                   required: 'La contraseña es requerida',
                 }}

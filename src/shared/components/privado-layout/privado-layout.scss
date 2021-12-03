@@ -1,7 +1,7 @@
 .private-layout {
   background-color: #edf1f5;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
   & main {
     display: grid;
     grid-template-columns: 18rem 1fr;

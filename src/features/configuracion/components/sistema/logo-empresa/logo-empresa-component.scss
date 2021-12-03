@@ -16,4 +16,12 @@
       background-color: darken($color: #f4f6f9, $amount: 12) !important;
     }
   }
+  & .hidden {
+    display: none;
+  }
+}
+
+.small {
+  color: rgb(94, 92, 92);
+  font-size: 0.75rem;
 }
