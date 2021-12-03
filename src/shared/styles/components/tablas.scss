@@ -1,120 +1,142 @@
+$c-primary: #dee2e6;
+$c-secondary: #4f5467;
+$c-table-item-1: #f3f3f3;
+
 .table-main {
   .table {
-    &-header {
-      background-color: #dee2e6;
-      color: #4f5467;
-      font-weight: 500;
-      & .header-title {
-        display: flex;
-        text-transform: uppercase;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        &:last-child {
-          display: none;
-        }
-      }
-    }
     &-header,
     &-item {
       padding: 14px;
       align-items: center;
       display: grid;
-      & h3,
-      & p {
+      & h3 {
         font-size: 14px;
       }
-    }
-
-    &-item {
-      border-bottom: 1px solid #dfe1e2;
-      text-align: center;
-      color: #4f5467;
-      position: relative;
-      &:nth-child(odd) {
-        background: #f3f3f3;
-      }
-      &:nth-child(even) {
-        background: #fff;
-      }
-      &.activated {
-        background-color: #d9d9d9;
-      }
-    }
-    &-actions {
-      background: white;
-      max-width: 195px;
-      padding: 8px;
-      position: absolute;
-      right: 2rem;
-      width: 100%;
-      top: 2.4rem;
-      z-index: 100;
-      & .icon-close {
-        max-width: 50px;
-        position: absolute;
-        top: -11px;
-        right: 4px;
-        background: #d5d5d5;
-        padding: 2px 8px;
-        border-radius: 50%;
-        cursor: pointer;
-        & i {
-          font-size: 0.8rem;
-        }
-      }
-      & .items {
-        position: relative;
-        top: -0.2rem;
-        display: flex;
-        flex-direction: column;
-        & button {
-          padding: 0 9px;
-          &:hover {
-            font-weight: 700;
-          }
-        }
+      & p {
+        font-size: 13px;
       }
     }
   }
 
   &.table-roles .table-header,
   &.table-roles .table-item {
-    grid-template-columns: repeat(4, 1fr) 5rem;
+    grid-template-columns: 6px repeat(5, 1fr) 3rem;
+  }
+
+  &.table-roles .table-secondary .table-header,
+  &.table-roles .table-secondary .table-item {
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
   }
   &.table-users .table-header,
   &.table-users .table-item {
-    grid-template-columns: repeat(8, 1fr) 3rem;
+    grid-template-columns: repeat(5, 1fr) 3rem;
   }
   &.table-users {
     .table-header,
     .table-item {
-      padding: 4px;
+      padding: 10px 6px;
       h3,
       i {
-        font-size: 12px;
+        font-size: 15px;
       }
     }
   }
 }
 
-.table-pagination {
-  select {
-    padding: 0.5rem 1rem;
-    border: 1px solid #607d8b;
-    outline: none;
-    color: #607d8b;
+/* -------------------------------------  */
+/* ------ TABLE HEADER -----------------  */
+/* -------------------------------------  */
+.table-main,
+.table-secondary {
+  .table-header {
+    background-color: $c-primary;
+    color: $c-secondary;
+    font-weight: 500;
+    & .header-title {
+      & .icon-small {
+        font-size: 8px;
+      }
+    }
   }
 }
 
-.table-empty {
-  background: #f7f7f7;
-  border: 1px solid #dee2e6;
-  padding: 1rem;
-  text-align: center;
-  & h1 {
-    color: #4f5467;
-    font-weight: bold;
+/* -------------------------------------  */
+/* ------ TABLE ITEM -------------------  */
+/* -------------------------------------  */
+.table-main,
+.table-secondary {
+  .table-item {
+    border-bottom: 1px solid $c-primary;
+    color: $c-secondary;
+    position: relative;
+    &:nth-child(odd) {
+      background: $c-table-item-1;
+    }
+    &:nth-child(even) {
+      background: #fff;
+    }
+    &.selected {
+      background-color: #d8dde1;
+    }
+    &-actions-selected {
+      background: white;
+      max-width: 195px;
+      padding: 8px;
+      right: 2rem;
+      top: 2rem;
+      & i {
+        background: #d5d5d5;
+        height: 28px;
+        max-width: 50px;
+        padding: 2px 8px;
+        right: 4px;
+        top: -8px;
+      }
+    }
+    & .item-selected-actions {
+      & button {
+        padding: 2px 14px !important;
+        &:hover {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+/* -------------------------------------  */
+/* ------ TABLE EMPTY -------------------  */
+/* -------------------------------------  */
+.table-main {
+  .table-body-empty {
+    background: #f7f7f7;
+    border: 1px solid $c-primary;
+    padding: 3rem 1rem;
+    text-align: center;
+    & h3,
+    & i {
+      color: $c-primary;
+    }
+    & i {
+      font-size: 3rem;
+    }
+  }
+}
+
+/* -------------------------------------  */
+/* ------ TABLE PAGINATION -------------  */
+/* -------------------------------------  */
+
+.table-main {
+  .table-pagination {
+    select {
+      background-color: transparent;
+      padding: 0.5rem 1rem;
+      border: 1px solid #607d8b;
+      outline: none;
+      color: #607d8b;
+    }
   }
 }
 

@@ -86,7 +86,7 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
       breakpoints={{ '1200px': '45vw', '640px': '80vw' }}
     >
       <form className="form-custom" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-modal">
+        <div className="form-modal p-0">
           <header className="header">
             <div className="title">
               <h3 className="mb-2 font-bold">SELECCIONE</h3>

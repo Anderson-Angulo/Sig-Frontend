@@ -31,24 +31,24 @@ export const AppRouting = () => {
           <Switch>
             <Route
               path={`/seguridad`}
-              component={(p) => PublicoRouting(reducerRegistry)}
+              component={() => PublicoRouting(reducerRegistry)}
             />
             <Route
               exact
               path={`/`}
-              component={(p) => PublicoRouting(reducerRegistry)}
+              component={() => PublicoRouting(reducerRegistry)}
             />
             <PrivadoLayout>
               <RequireAuth path="/configuracion">
                 <Route
                   path={`/configuracion`}
-                  component={(p) => ConfiguracionRouting(reducerRegistry)}
+                  component={() => ConfiguracionRouting(reducerRegistry)}
                 />
               </RequireAuth>
               <RequireAuth path="/rrhh">
                 <Route
                   path={`/rrhh`}
-                  component={(p) => RrhhRouting(reducerRegistry)}
+                  component={() => RrhhRouting(reducerRegistry)}
                 />
               </RequireAuth>
             </PrivadoLayout>

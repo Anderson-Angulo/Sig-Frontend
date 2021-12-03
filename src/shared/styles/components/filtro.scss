@@ -1,0 +1,17 @@
+.filter-users,
+.filter-roles {
+  display: grid;
+  grid-template-columns: 1fr 16rem;
+  gap: 3rem;
+}
+
+/* --------------------- */
+/* ------ MODALS ------- */
+/* --------------------- */
+.users-modal-filtro {
+  max-width: 500px;
+  position: absolute;
+  top: 11rem;
+  z-index: 10;
+  right: 2rem;
+}

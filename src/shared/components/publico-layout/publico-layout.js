@@ -6,6 +6,7 @@ import './publico-layout.scss';
 import 'shared/styles/components/formularios.scss';
 import 'shared/styles/components/campos.scss';
 import 'shared/styles/components/botones.scss';
+import 'shared/styles/components/filtro.scss';
 
 const PublicoLayout = ({ page, children }) => {
   const toast = useRef(null);

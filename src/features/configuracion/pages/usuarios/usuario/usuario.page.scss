@@ -1,0 +1,10 @@
+.user-roles {
+  display: grid;
+  grid-template-columns: repeat(2, 8rem);
+  grid-gap: 1rem 3rem;
+}
+
+.p-accordion-header a.p-accordion-header-link {
+  padding: 0.5rem 1rem !important;
+  font-size: 12px;
+}
