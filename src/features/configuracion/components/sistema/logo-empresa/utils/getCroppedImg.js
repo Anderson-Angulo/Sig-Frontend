@@ -1,4 +1,4 @@
-export function getCroppedImg(image, crop,{fileName,type},setUrlImage,setBlob,setTh) {
+export function getCroppedImg(image, crop,setUrlImage,setEnableModal) {
   const canvas = document.createElement("canvas");
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
@@ -24,15 +24,15 @@ export function getCroppedImg(image, crop,{fileName,type},setUrlImage,setBlob,se
     crop.width,
     crop.height
   );
-    const url=canvas.toDataURL(type)
+    const url=canvas.toDataURL()
+    console.log("Canvas URL: ",url)
     setUrlImage(url)
+    setEnableModal(false)
+
     canvas.toBlob(
       (blob) => {
-        blob.name = fileName;
-        setBlob(blob)
+        console.log("Canvas BLOB: ",blob)
       },
-      type,
-      1
     );
     
 }

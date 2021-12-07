@@ -79,7 +79,6 @@ const InicioSesionPage = () => {
                   />
                 )}
                 name="email"
-                control={control}
                 rules={{
                   required: 'El correo eléctronico es requerido',
                   pattern: {

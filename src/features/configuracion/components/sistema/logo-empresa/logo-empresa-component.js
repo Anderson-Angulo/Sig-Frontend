@@ -20,7 +20,7 @@ const LogoEmpresaComponent = () => {
   return (
     <div>
       <div className="logo-company">
-        <LogoInputFile name="dark" setFiles={setFiles} label="Adjuntar logo para fondo oscuro" dark srcImg="/images/logos/main-dark-logo.png"  />
+        <LogoInputFile name="dark"  setFiles={setFiles} label="Adjuntar logo para fondo oscuro" dark srcImg="/images/logos/main-dark-logo.png"  />
         <LogoInputFile name="light" setFiles={setFiles} label="Adjuntar logo para fondo claro" srcImg="/images/logos/main-logo.png" />
       </div>
 
