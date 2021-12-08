@@ -1,7 +1,7 @@
 import {useState} from "react"
-import ReactCrop from 'react-image-crop';
+// import ReactCrop from 'react-image-crop';
 import {getCroppedImg} from '../../../utils/getCroppedImg'
-import 'react-image-crop/dist/ReactCrop.css';
+// import 'react-image-crop/dist/ReactCrop.css';
 import "./modal.scss"
 const Modal=({urlImage,setUrlImage,setEnableModal})=>{
   const [crop,setCrop]=useState({aspect:16/9})
@@ -12,7 +12,7 @@ const Modal=({urlImage,setUrlImage,setEnableModal})=>{
   return (
     <div className="modal-container">
         <div class="crop-container">
-          <ReactCrop className="crop" onImageLoaded={setImage} src={urlImage} crop={crop} onChange={newCrop=>setCrop(newCrop)} />
+          {/* <ReactCrop className="crop" onImageLoaded={setImage} src={urlImage} crop={crop} onChange={newCrop=>setCrop(newCrop)} /> */}
         </div>
         
         <div className="modal-buttons">
