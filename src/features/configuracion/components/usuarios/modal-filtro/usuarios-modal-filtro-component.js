@@ -21,64 +21,77 @@ const UsuariosModalFiltro = ({ isOpen = false, closeModal }) => {
 
   if (isOpen) {
     return (
-      <div className="users-modal-filtro shadow-md">
-        <form className="form-modal p-8">
+      <div className="modal-filtro shadow-md">
+        <form className="form-modal px-8 py-4">
           <header className="header mb-4">
+            <div className="icon-closed cursor-pointer" onClick={closeModal}>
+              <i className="pi pi-times"></i>
+            </div>
             <div className="title text-left">
-              <h3 className="mb-2 font-bold">Filtrar</h3>
+              <h3 className="mb-2 font-bold modal-filtro-title">Filtrar</h3>
             </div>
           </header>
           <div className="body">
-            <div className="flex gap-4">
+            <div className="flex gap-4 pt-3">
               <div className="w-full">
-                <h3 style={styleLabel}>Desde</h3>
-                <Calendar placeholder="-- /-- /--" className="w-full" />
+                <span className="p-float-label">
+                  <Calendar id="desde" />
+                  <label htmlFor="desde">Desde</label>
+                </span>
               </div>
               <div className="w-full">
-                <h3 style={styleLabel}>Hasta</h3>
-                <Calendar placeholder="-- /-- /--" className="w-full" />
-              </div>
-            </div>
-            <div className="flex mt-3">
-              <div className="w-full">
-                <h3 style={styleLabel}>Por Empresa</h3>
-                <Dropdown
-                  options={opciones}
-                  optionLabel="opcion"
-                  filter
-                  showClear
-                  filterBy="opcion"
-                  className="w-full"
-                  placeholder="Seleccionar"
-                />
+                <span className="p-float-label">
+                  <Calendar id="hasta" />
+                  <label htmlFor="hasta">Hasta</label>
+                </span>
               </div>
             </div>
-            <div className="flex mt-3">
+            <div className="flex pt-7">
               <div className="w-full">
-                <h3 style={styleLabel}>Por Sede</h3>
-                <Dropdown
-                  options={sedes}
-                  optionLabel="sede"
-                  filter
-                  showClear
-                  filterBy="sede"
-                  className="w-full"
-                  placeholder="Seleccione una sede"
-                />
+                <span className="p-float-label">
+                  <Dropdown
+                    options={opciones}
+                    optionLabel="opcion"
+                    filter
+                    showClear
+                    filterBy="opcion"
+                    className="w-full"
+                  />
+
+                  <label htmlFor="dropdown">Por Empresa</label>
+                </span>
               </div>
             </div>
-            <div className="flex mt-3">
+            <div className="flex pt-7">
               <div className="w-full">
-                <h3 style={styleLabel}>Por Rol</h3>
-                <Dropdown
-                  options={roles}
-                  optionLabel="rol"
-                  filter
-                  showClear
-                  filterBy="rol"
-                  className="w-full"
-                  placeholder="Seleccione Rol"
-                />
+                <span className="p-float-label">
+                  <Dropdown
+                    options={sedes}
+                    optionLabel="sede"
+                    filter
+                    showClear
+                    filterBy="sede"
+                    className="w-full"
+                  />
+
+                  <label htmlFor="dropdown">Por Sede</label>
+                </span>
+              </div>
+            </div>
+            <div className="flex pt-7">
+              <div className="w-full">
+                <span className="p-float-label">
+                  <Dropdown
+                    options={roles}
+                    optionLabel="rol"
+                    filter
+                    showClear
+                    filterBy="rol"
+                    className="w-full"
+                  />
+
+                  <label htmlFor="dropdown">Por Rol</label>
+                </span>
               </div>
             </div>
             <div className="flex mt-3">
@@ -97,7 +110,7 @@ const UsuariosModalFiltro = ({ isOpen = false, closeModal }) => {
               </div>
             </div>
           </div>
-          <div className="flex gap-4 mt-3">
+          <div className="flex justify-center gap-4 mt-2">
             <Button
               type="button"
               label="Limpiar Filtro"

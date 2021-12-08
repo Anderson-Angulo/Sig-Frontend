@@ -10,13 +10,11 @@ const UsuariosFiltroComponent = () => {
     <Fragment>
       <Fieldset legend="FILTRO POR" toggleable>
         <div className="filter-users">
-          <div className="w-full">
-            <span className="p-input-icon-left w-full">
+          <div className="w-full pt-5">
+            <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
-              <InputText
-                icon="pi pi-check"
-                placeholder="Buscar por usuario o nombres"
-              />
+              <InputText id="input-search" />
+              <label htmlFor="input-search">Buscar por usuario o nombres</label>
             </span>
           </div>
           <div className="filter-users-action">
@@ -24,7 +22,7 @@ const UsuariosFiltroComponent = () => {
               <Button
                 icon="pi pi-search"
                 type="button"
-                label="Filtrar"
+                label="Buscar"
                 className="btn btn-primary w-full"
               />
               <Button
