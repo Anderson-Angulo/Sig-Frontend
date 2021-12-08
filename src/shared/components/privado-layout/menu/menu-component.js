@@ -40,11 +40,7 @@ const MenuComponent = () => {
       className="menu-component"
       style={{ backgroundColor: '#004680', color: '#fff' }}
     >
-      <div
-        className={`icon-w-logo flex justify-between items-center ${
-          isOpen ? 'sidebar-open' : ''
-        }`}
-      >
+      <div className="icon-w-logo flex justify-between items-center">
         <LogoComponent />
         <div className="menu-option flex items-center" onClick={toggle}>
           <i className="pi pi-bars"></i>
