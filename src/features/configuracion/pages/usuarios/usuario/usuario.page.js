@@ -7,7 +7,6 @@ import { InputSwitch } from 'primereact/inputswitch';
 import { Panel } from 'primereact/panel';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import selectedImage from 'features/configuracion/helpers/globals/selectedImage';
 
 import './usuario.page.scss';
 
