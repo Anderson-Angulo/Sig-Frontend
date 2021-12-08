@@ -19,7 +19,7 @@ export const PublicoRouting = (reducerRegistry) => {
   });
   // const location = useLocation();
   // const loggedIn = useSelector(state => state.authReducer.loggedIn);
-  debugger;
+
   return (
     <Switch>
       <Route
