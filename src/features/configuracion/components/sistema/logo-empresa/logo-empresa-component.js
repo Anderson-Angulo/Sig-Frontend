@@ -1,48 +1,32 @@
+import { useState } from 'react';
 import { Button } from 'primereact/button';
+import LogoInputFile from './components/logo-input-file/logo-input-file';
 import './logo-empresa-component.scss';
 
 const LogoEmpresaComponent = () => {
+
+  const [files,setFiles]=useState({dark:null,light:null})
+
+
+  const handlerSubmit=(e)=>{
+    e.preventDefault()
+    console.log("Submit")
+  }
+
+  const handlerCancel=()=>{
+    console.log("Cancel")
+  }
+
   return (
     <div>
       <div className="logo-company">
-        <div className="logo logo-dark mt-4">
-          <img
-            src="/images/logos/main-dark-logo.png"
-            className="w-full logo mb-3"
-            alt="Calidar"
-            title="Calidar"
-          />
-        </div>
-        <div className="btn-upload">
-          <Button
-            type="button"
-            icon="pi pi-upload"
-            label="Adjuntar logo para fondo oscuro"
-            className="btn btn-secondary"
-          />
-        </div>
-
-        <div className="logo logo-light mt-6">
-          <img
-            src="/images/logos/main-logo.png"
-            className="w-full logo mb-3"
-            alt="Calidar"
-            title="Calidar"
-          />
-        </div>
-        <div className="btn-upload">
-          <input type="file" className="hidden" />
-          <Button
-            type="button"
-            icon="pi pi-upload"
-            label="Adjuntar logo para fondo claro"
-            className="btn btn-secondary"
-          />
-        </div>
+        <LogoInputFile name="dark"  setFiles={setFiles} label="Adjuntar logo para fondo oscuro" dark srcImg="/images/logos/main-dark-logo.png"  />
+        <LogoInputFile name="light" setFiles={setFiles} label="Adjuntar logo para fondo claro" srcImg="/images/logos/main-logo.png" />
       </div>
+
       <div className="flex gap-3 items-center justify-start mt-6">
-        <Button type="button" label="Cancelar" className="btn btn-secondary" />
-        <Button type="button" label="Guardar" className="btn btn-primary" />
+        <Button onClick={handlerCancel} type="button" label="Cancelar" className="btn btn-secondary" />
+        <Button onClick={handlerSubmit} type="button" label="Guardar" className="btn btn-primary" />
       </div>
     </div>
   );

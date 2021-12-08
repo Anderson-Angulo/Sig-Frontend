@@ -79,7 +79,6 @@ const InicioSesionPage = () => {
                   />
                 )}
                 name="email"
-                control={control}
                 rules={{
                   required: 'El correo eléctronico es requerido',
                   pattern: {
@@ -102,13 +101,13 @@ const InicioSesionPage = () => {
                   <Password
                     type="password"
                     toggleMask
+                    feedback={false}
                     onChange={onChange}
                     onBlur={onBlur}
                     className={errors.password ? 'p-invalid w-full' : 'w-full'}
                   />
                 )}
                 name="password"
-                control={control}
                 rules={{
                   required: 'La contraseña es requerida',
                 }}

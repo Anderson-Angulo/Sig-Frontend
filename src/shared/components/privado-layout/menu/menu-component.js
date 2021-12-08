@@ -6,6 +6,7 @@ import { OverlayPanel } from 'primereact/overlaypanel';
 import LogoComponent from 'shared/components/logo/logo-component';
 import { authAction } from 'core/store/actions/auth.action';
 import { toggleSidebar } from 'features/configuracion/store/actions/toggle-sidebar.action';
+import {isSmallScreen} from '../../../utils/isSmallScreen'
 import './menu-component.scss';
 
 const MenuComponent = () => {
@@ -42,9 +43,13 @@ const MenuComponent = () => {
     >
       <div className="icon-w-logo flex justify-between items-center">
         <LogoComponent />
-        <div className="menu-option flex items-center" onClick={toggle}>
+        {
+          !isSmallScreen() && 
+        (<div className="menu-option flex items-center" onClick={toggle}>
           <i className="pi pi-bars"></i>
-        </div>
+        </div>)
+        }
+      
       </div>
       <div className="user-options flex justify-between items-center">
         <div
