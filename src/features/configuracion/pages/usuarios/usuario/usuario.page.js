@@ -15,8 +15,7 @@ const UsuarioPage = () => {
   const inputFile = useRef(null);
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const [srcAvatar, setSrcAvatar] = useState('');
-  const currentAvatar = useRef('');
-  const isActive = false;
+  const isActive = true;
 
   const sedesList = [
     { label: 'Sede 1', value: 'SEDE1' },

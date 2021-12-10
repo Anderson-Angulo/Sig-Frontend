@@ -61,7 +61,6 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
 
   const onHide = () => {
     dispatch(selecEmpresaSedeAction.ocultar());
-    dispatch(authAction.ocultarCargando());
   };
 
   const onSubmit = (data) => {
@@ -76,6 +75,7 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
       )
     );
   };
+  console.log(isOpen);
 
   return (
     <Dialog
@@ -175,7 +175,7 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
             <Button
               label="Continuar"
               type="submit"
-              loading={loading}
+              loading={loading ?? false}
               className="btn btn-primary"
             />
           </div>

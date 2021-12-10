@@ -1,7 +1,7 @@
 import { PublicoConstants } from 'features/publico/commons/publico-constants';
 
 const initialState = {
-  loading: true,
+  loading: false,
   mostrarSeleccionarEmpresaSede: false,
   emailUser: null,
   passwordUser: null,
