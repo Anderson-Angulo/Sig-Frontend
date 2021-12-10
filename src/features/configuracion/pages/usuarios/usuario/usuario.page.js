@@ -45,7 +45,40 @@ const UsuarioPage = () => {
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
       <Panel header="DATOS GENERALES" toggleable>
         <form className="form-custom p-0 my-4 mx-4">
-          <div className="flex justify-end mb-6">
+          <div className="flex items-start gap-3 justify-between mb-6">
+            <div className="field-row">
+              <span className="p-float-label w-full">
+                <InputText type="text" id="user_name" />
+                <label htmlFor="user_name">Usuario</label>
+              </span>
+              <span className="p-float-label w-full">
+                <InputText type="email" id="user_email" />
+                <label htmlFor="user_email">Correo Eléctronico</label>
+              </span>
+              <span className="p-float-label w-full">
+                <InputText type="text" id="user_names" />
+                <label htmlFor="user_names">Nombres</label>
+              </span>
+              <div className="user-picture">
+                <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
+                <input
+                  type="file"
+                  className="hidden"
+                  ref={inputFile}
+                  onChange={onSelectedImage}
+                />
+                <Button
+                  type="button"
+                  label="Subir Foto"
+                  className="btn btn-primary"
+                  onClick={handlerUploadImage}
+                />
+              </div>
+              <span className="p-float-label w-full">
+                <InputText type="text" id="user_lastname" />
+                <label htmlFor="user_lastname">Apellidos</label>
+              </span>
+            </div>
             <div
               className="p-2 border rounded-md px-4"
               style={{
@@ -56,39 +89,6 @@ const UsuarioPage = () => {
             >
               <p>{isActive ? 'Activo' : 'Inactivo'}</p>
             </div>
-          </div>
-          <div className="field-row">
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_name" />
-              <label htmlFor="user_name">Usuario</label>
-            </span>
-            <span className="p-float-label w-full">
-              <InputText type="email" id="user_email" />
-              <label htmlFor="user_email">Correo Eléctronico</label>
-            </span>
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_names" />
-              <label htmlFor="user_names">Nombres</label>
-            </span>
-            <div className="user-picture">
-              <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
-              <input
-                type="file"
-                className="hidden"
-                ref={inputFile}
-                onChange={onSelectedImage}
-              />
-              <Button
-                type="button"
-                label="Subir Foto"
-                className="btn btn-primary"
-                onClick={handlerUploadImage}
-              />
-            </div>
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_lastname" />
-              <label htmlFor="user_lastname">Apellidos</label>
-            </span>
           </div>
         </form>
       </Panel>
