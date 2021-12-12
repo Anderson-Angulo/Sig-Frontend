@@ -16,7 +16,7 @@ function login(email, password) {
 }
 
 function logout() {
-    return dispatch => {      
+    return dispatch => {
         dispatch({ type: CoreConstants.Accion.Login.LOGOUT });
     };
 }
@@ -24,7 +24,9 @@ function logout() {
 function validarSesion() {
     return dispatch => {
         const userInformation = JSON.parse(localStorage.getItem('sig-session'));
-        if (userInformation != null)
+        const tokenExpiration = new Date(userInformation.tokenExpiration);
+        const currentDate = new Date();
+        if (userInformation != null && tokenExpiration > currentDate)
             dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });
 
     };
