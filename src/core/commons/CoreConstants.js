@@ -1,7 +1,8 @@
 export class CoreConstants {
     static HttpResponse = class {
         static get OK() { return 0; }
-        static get ERROR_FUNTIONAL() { return 1; }
+        static get ERROR_FUNTIONAL() { return 2; }
+        static get REQUIRED_FIELDS() { return 1; }
         static get ERROR_TECHNICAL() { return -1; }
 
     }

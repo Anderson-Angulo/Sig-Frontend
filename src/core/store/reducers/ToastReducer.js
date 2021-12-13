@@ -1,4 +1,4 @@
-import { CoreConstants } from 'core/commons/CoreConstants';
+import { CoreConstants } from 'core/commons/core.constants';
 
 const initialState = {
   toast: null,

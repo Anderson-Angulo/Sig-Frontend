@@ -1,9 +1,12 @@
-import { ApiService } from 'core/services/ApiService';
+import { apiService } from 'core/services/api.service';
 
 function login(email, password) {
-  return ApiService.post('auth/login', { email: email, password: password });
+  return apiService.post('Auth/LoginUser', {
+    userName: email,
+    password: password,
+  });
 }
 
-export const AuthService = {
+export const authService = {
   login,
 };

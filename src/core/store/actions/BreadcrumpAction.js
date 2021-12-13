@@ -4,6 +4,9 @@ function setTitlePage(codigoOpcion, items, titulo = '') {
   return (dispatch) => {
     let currentPages = [];
 
+    if (items === undefined || items === null)
+      return;
+
     currentPages = items.map((item) => {
       if (item.codigo === codigoOpcion) return item;
       const subMenu = item.subMenus.filter(

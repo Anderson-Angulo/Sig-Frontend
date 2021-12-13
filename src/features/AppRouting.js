@@ -1,28 +1,28 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import PrivadoLayout from 'shared/components/private-layout/PrivateLayout';
+import PrivadoLayout from 'shared/components/privado-layout/privado-layout';
+import { ConfiguracionRouting } from './configuracion/configuracion-routing';
+import { PublicoRouting } from './publico/publico-routing';
+import RequireAuth from '../core/routes/required-auth';
+import configureStore from 'core/store/config.store';
+import ReducerRegistry from 'core/store/register.reducer';
+import authReducer from '../core/store/reducers/auth.reducer';
+import breadcrumpReducer from '../core/store/reducers/breadcrump.reducer';
+import toastReducer from './../core/store/reducers/toast.reducer';
+import toggleSidebarReducer from './configuracion/store/reducers/toggle-sidebar.reducer';
 
-import RequireAuth from 'core/routes/RequiredAuth';
-import configureStore from 'core/store/ConfigStore';
-import ReducerRegistry from 'core/store/RegisterReducer';
-import authReducer from 'core/store/reducers/AuthReducer';
-import breadcrumpReducer from 'core/store/reducers/BreadcrumpReducer';
-import toastReducer from 'core/store/reducers/ToastReducer';
-import toggleSidebarReducer from 'features/configuration/store/reducers/ToggleSidebarReducer';
-import RrhhRouting from 'features/rrhh/RrhhRouting';
-import ConfigurationRouting from 'features/configuration/ConfigurationRouting';
-import PublicRouting from 'features/public/PublicRouting';
+import RrhhRouting from './rrhh/rrhh-routing';
 
 export const AppRouting = () => {
-  const reducerRegistry = new ReducerRegistry({
+  var reducerRegistry = new ReducerRegistry({
     authReducer,
     toastReducer,
     breadcrumpReducer,
     toggleSidebarReducer,
   });
 
-  const store = configureStore(reducerRegistry);
+  var store = configureStore(reducerRegistry);
 
   return (
     <>
@@ -31,18 +31,18 @@ export const AppRouting = () => {
           <Switch>
             <Route
               path={`/seguridad`}
-              component={() => PublicRouting(reducerRegistry)}
+              component={() => PublicoRouting(reducerRegistry)}
             />
             <Route
               exact
               path={`/`}
-              component={() => PublicRouting(reducerRegistry)}
+              component={() => PublicoRouting(reducerRegistry)}
             />
             <PrivadoLayout>
               <RequireAuth path="/configuracion">
                 <Route
                   path={`/configuracion`}
-                  component={() => ConfigurationRouting(reducerRegistry)}
+                  component={() => ConfiguracionRouting(reducerRegistry)}
                 />
               </RequireAuth>
               <RequireAuth path="/rrhh">

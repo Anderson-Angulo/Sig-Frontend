@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AppSettings from 'core/config/AppSettings';
+import AppSettings from 'core/config/appsettings';
 
 function getHeader(params) {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -7,6 +7,9 @@ function getHeader(params) {
     return { Authorization: 'Bearer ' + user.accessToken };
   return {};
 }
+
+
+
 
 function get(path) {
   return axios.get(AppSettings.API_URL + path, { headers: this.getHeader });
@@ -23,22 +26,10 @@ export const ApiService = {
   post,
 };
 
-// export default class ApiService {
-//     header = {};
 
-//     constructor() {
-//         const user = JSON.parse(localStorage.getItem('user'));
-//         if (user && user.accessToken)
-//             header = { Authorization: 'Bearer ' + user.accessToken };
-
-//     }
-
-//     get(path) {
-//         return axios.get(AppSettings.API_URL + path, { headers: this.header });
-//     }
-
-//     post(path, data) {
-//         return axios.post(AppSettings.API_URL + path, data, { headers: this.header });
-//     }
-
+<<<<<<< HEAD:src/core/services/ApiService.js
 // }new ApiService();
+=======
+
+
+>>>>>>> 5dd5c360fcb928395ad7188c2a58f095994c92e2:src/core/services/api.service.js

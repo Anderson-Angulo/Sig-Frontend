@@ -1,11 +1,11 @@
-import { CoreConstants } from 'core/commons/CoreConstants';
-import { AuthService } from 'core/services/AuthService';
-import { PublicConstants } from 'features/public/commons/PublicConstants';
+import { CoreConstants } from 'core/commons/core.constants';
+import { authService } from 'core/services/auth.service';
+import { PublicoConstants } from 'features/publico/commons/publico-constants';
 
 function login(email, password) {
   return (dispatch) => {
     dispatch({ type: CoreConstants.Accion.Login.REQUEST });
-    AuthService.login(email, password).then(
+    authService.login(email, password).then(
       (model) => {
         evaluarLogin(dispatch, model, email, password);
       },
@@ -25,7 +25,9 @@ function logout() {
 function validarSesion() {
   return (dispatch) => {
     const userInformation = JSON.parse(localStorage.getItem('sig-session'));
-    if (userInformation != null)
+    const tokenExpiration = new Date(userInformation?.tokenExpiration);
+    const currentDate = new Date();
+    if (userInformation != null && tokenExpiration > currentDate)
       dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });
   };
 }
@@ -34,56 +36,54 @@ function evaluarLogin(dispatch, model, email, password) {
   switch (model.data.status) {
     case CoreConstants.HttpResponse.OK:
       const userInformation = model.data.data;
+      console.log(userInformation);
 
       if (userInformation.empresas.length > 1)
         dispatch({
-          type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
+          type: PublicoConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
           email,
           password,
         });
       else if (userInformation.empresas[0].sedes.length > 1)
         dispatch({
-          type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
+          type: PublicoConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
           email,
           password,
         });
-      else {
-        dispatch({
-          type: PublicConstants.Accion.Login.SUCCESS,
-          userInformation,
-        });
-      }
-
-      dispatch({ type: CoreConstants.Accion.Login.DONE });
+      else
+        dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });
 
       break;
     case CoreConstants.HttpResponse.ERROR_FUNTIONAL:
       dispatch({
         type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
         toast: {
-          titulo: 'Autencicación',
+          titulo: 'Autenticación',
           mensaje: 'Las credenciales ingresadas son incorrectas',
           severidad: 'warn',
         },
       });
+
       break;
     default:
       if (model.data.status > 1)
         dispatch({
           type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
           toast: {
-            titulo: 'Autencicación',
+            titulo: 'Autenticación',
             mensaje: model.data.message,
             severidad: 'warn',
           },
         });
       break;
   }
+
+  dispatch({ type: CoreConstants.Accion.Login.DONE });
 }
 
-export const AuthAction = {
+export const authAction = {
   login,
   validarSesion,
   logout,
