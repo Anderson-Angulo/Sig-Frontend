@@ -19,6 +19,7 @@ const LogoEmpresaComponent = () => {
 
   return (
     <div>
+      <span>Aquí puedes agregar el logo que se visualizará en la barra de navegación </span>
       <div className="logo-company">
         <LogoInputFile name="dark"  setFiles={setFiles} label="Adjuntar logo para fondo oscuro" dark srcImg="/images/logos/main-dark-logo.png"  />
         <LogoInputFile name="light" setFiles={setFiles} label="Adjuntar logo para fondo claro" srcImg="/images/logos/main-logo.png" />

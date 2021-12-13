@@ -28,7 +28,6 @@ const UsuarioPage = () => {
     setSrcAvatar(usuarioInformation?.avatar);
   }, [usuarioInformation]);
 
-  const handlerUploadImage = () => inputFile.current.click();
 
   const onSelectedImage = ({ target }) => {
     const file = target.files[0];
@@ -72,18 +71,13 @@ const UsuarioPage = () => {
               <label htmlFor="user_names">Nombres</label>
             </span>
             <div className="user-picture">
+              <div className="foreground-user-picture"><i className="pi pi-camera" onClick={()=>inputFile.current.click()}></i></div>
               <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
               <input
                 type="file"
                 className="hidden"
                 ref={inputFile}
                 onChange={onSelectedImage}
-              />
-              <Button
-                type="button"
-                label="Subir Foto"
-                className="btn btn-primary"
-                onClick={handlerUploadImage}
               />
             </div>
             <span className="p-float-label w-full">

@@ -30,10 +30,6 @@ const ColorCorporativoComponent = () => {
   }
   return (
     <div>
-      <div className="flex gap-3 justify-end">
-        <Button type="button" label="Guardar" className="btn btn-primary" />
-        <Button type="button" label="Cancelar" className="btn btn-secondary" />
-      </div>
       <Panel header="Barra de Navegación" toggleable className="mt-5">
         <div className="option-color">
           <p>Color fondo</p>
@@ -140,6 +136,11 @@ const ColorCorporativoComponent = () => {
           />
         </div>
       </Panel>
+      <div className="flex gap-5 justify-start mt-5">
+        <Button type="button" label="Cancelar" className="btn btn-secondary" />
+        <Button type="button" label="Guardar" className="btn btn-primary" />
+        
+      </div>
     </div>
   );
 };
