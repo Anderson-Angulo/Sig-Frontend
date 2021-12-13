@@ -29,15 +29,8 @@ export const AppRouting = () => {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route
-              path={`/seguridad`}
-              component={() => PublicoRouting(reducerRegistry)}
-            />
-            <Route
-              exact
-              path={`/`}
-              component={() => PublicoRouting(reducerRegistry)}
-            />
+            <Route path={`/seguridad`} component={() => PublicoRouting(reducerRegistry)} />
+            <Route exact path={`/`} component={() => PublicoRouting(reducerRegistry)} />
             <PrivadoLayout>
               <RequireAuth path="/configuracion">
                 <Route

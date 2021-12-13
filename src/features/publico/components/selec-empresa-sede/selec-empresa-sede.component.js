@@ -25,10 +25,8 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
   const usuarioInformation = useSelector(
     (state) => state.selecEmpresaSedeReducer.user
   );
-  const emailUser = useSelector((state) => state.selecEmpresaSedeReducer.email);
-  const passwordUser = useSelector(
-    (state) => state.selecEmpresaSedeReducer.password
-  );
+  const emailUser = useSelector((state) => state.selecEmpresaSedeReducer.emailUser);
+  const passwordUser = useSelector((state) => state.selecEmpresaSedeReducer.passwordUser);
 
   useEffect(() => validarVisibilidad(), [usuarioInformation]);
   useEffect(() => onSelectEmpresa(empresaControl), [empresaControl]);
@@ -67,6 +65,7 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
     if (data.empresa) usuarioInformation.empresaId = data.empresa.id;
     else usuarioInformation.empresaId = usuarioInformation.empresas[0].id;
     usuarioInformation.sedeId = data.sede.id;
+
     dispatch(
       selecEmpresaSedeAction.seleccionar(
         usuarioInformation,
@@ -75,7 +74,6 @@ const SeleccionarEmpresaSedeComponent = ({ isOpen }) => {
       )
     );
   };
-  console.log(isOpen);
 
   return (
     <Dialog

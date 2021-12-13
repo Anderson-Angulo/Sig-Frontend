@@ -7,7 +7,6 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
         case CoreConstants.Accion.Toast.MOSTRAR_MENSAJE:
-
             return {
                 toast: {
                     severity: action.toast.severidad,
