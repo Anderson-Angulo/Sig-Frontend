@@ -11,7 +11,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ConfigurationConstants.Accion.SetRoles.SETLIST:
-      debugger;
       return {
         roles: {
           data: action.payload.data,

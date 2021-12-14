@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Skeleton } from 'primereact/skeleton';
 import ChangeTableItem from 'shared/helpers/ChangeTableItem';
 import TableEmpty from './TableEmpty';
 
@@ -10,21 +11,22 @@ const TableItem = ({
   tableName = '',
   currentCols,
 }) => {
+  const returnItem = (col) => {
+    if (tableName === 'table-roles' && col === 0) return <div></div>;
+    else return <Skeleton width="100%" height="2.2rem" borderRadius="16px" />;
+  };
+
   if (isLoading) {
     return (
       <Fragment>
-        {[1, 2, 3, 4, 5, 6].map(() => {
-          const cols = Array.from(Array(currentCols)).map((i) => i);
+        {[1, 2, 3, 4, 5, 6].map((num) => {
+          const cols = Array.from(Array(currentCols)).map((_, index) => index);
+
           return (
-            <div className="table-item text-center">
-              {cols.map((col) => (
-                <Skeleton
-                  key={col}
-                  width="100%"
-                  height="2rem"
-                  borderRadius="16px"
-                />
-              ))}
+            <div className="table-item text-center" key={num}>
+              {cols.map((col) => {
+                return <Fragment key={col}>{returnItem(col)}</Fragment>;
+              })}
             </div>
           );
         })}
@@ -37,7 +39,7 @@ const TableItem = ({
           const { values, id } = ChangeTableItem({ item, tableName });
           return (
             <div className="table-item text-center" key={id}>
-              {values.map(val, (i) => (
+              {values.map((val, i) => (
                 <p key={i}>{val}</p>
               ))}
               <i

@@ -1,17 +1,12 @@
 import { Button } from 'primereact/button';
 import { Fragment, useState } from 'react';
-
+import TableHeader from 'shared/components/tables/TableHeader';
+import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
+import TableItem from 'shared/components/tables/TableItem';
 const RolesTableComponent = () => {
   const [currentUser, setCurrentUser] = useState('');
   const [showInfoUserID, setShowInfoUserID] = useState('');
-
-  const tableHeader = [
-    'rol',
-    'n° usuarios',
-    'n° permisos',
-    'sistema',
-    'fecha creación',
-  ];
+  const { RoleTableHeader } = RolesTableData;
 
   const tableSecondaryHeader = [
     'Usuario',
@@ -36,22 +31,14 @@ const RolesTableComponent = () => {
   return (
     <Fragment>
       <div className="table-main table-roles mt-5">
-        <div className="table-header">
-          <div></div>
-          {tableHeader.map((header, index) => (
-            <div
-              className="header-title flex items-center justify-center gap-x-3"
-              key={index}
-            >
-              <h3 className="text uppercase">{header}</h3>
-              <div className="flex flex-col">
-                <i className="pi pi-chevron-up icon-small"></i>
-                <i className="pi pi-chevron-down icon-small"></i>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="table-body relative">
+        <TableHeader listHeader={RoleTableHeader} />
+        <TableItem
+          currentCols={RoleTableHeader.length}
+          isLoading
+          tableName="table-roles"
+        />
+
+        {/* <div className="table-body relative">
           {tableRoles.length > 0 && (
             <Fragment>
               {tableRoles.map((item, index) => (
@@ -83,7 +70,7 @@ const RolesTableComponent = () => {
                       className="pi pi-ellipsis-v cursor-pointer"
                       onClick={() => setCurrentUser(item.id)}
                     ></i>
-                    {currentUser === item.id && (
+                                        {currentUser === item.id && (
                       <div className="table-item-actions-selected absolute w-full z-50 shadow-md rounded-md">
                         <i
                           className="pi pi-times absolute cursor-pointer rounded-full flex items-center"
@@ -119,14 +106,8 @@ const RolesTableComponent = () => {
               ))}
             </Fragment>
           )}
-          {tableRoles.length <= 0 && (
-            <div className="table-body-empty">
-              <i className="pi pi-inbox"></i>
-              <h3>No hay datos</h3>
-            </div>
-          )}
-        </div>
-        {tableRoles.length > 0 && (
+        </div> */}
+        {/* {tableRoles.length > 0 && (
           <div className="table-pagination flex items-center justify-end gap-4 p-5">
             <div className="pagination-pages">
               <span
@@ -164,7 +145,7 @@ const RolesTableComponent = () => {
               />
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </Fragment>
   );

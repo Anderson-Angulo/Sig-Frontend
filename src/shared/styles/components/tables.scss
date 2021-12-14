@@ -21,16 +21,19 @@ $c-table-item-1: #f3f3f3;
   &.table-roles .table-header,
   &.table-roles .table-item {
     grid-template-columns: 6px repeat(5, 1fr) 3rem;
+    gap: 10px;
   }
 
   &.table-roles .table-secondary .table-header,
   &.table-roles .table-secondary .table-item {
     grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
     text-align: center;
   }
   &.table-users .table-header,
   &.table-users .table-item {
     grid-template-columns: repeat(5, 1fr) 3rem;
+    gap: 10px;
   }
   &.table-users {
     .table-header,
