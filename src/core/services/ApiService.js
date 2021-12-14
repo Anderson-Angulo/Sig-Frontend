@@ -8,15 +8,17 @@ function getHeader(params) {
   return {};
 }
 
-
-
-
-function get(path) {
-  return axios.get(AppSettings.API_URL + path, { headers: this.getHeader });
+function get(path, apiName = 'security') {
+  let API_URL = AppSettings.API_URL;
+  if (apiName === 'admin') API_URL = AppSettings.API_ADMIN_URL;
+  return axios.get(API_URL + path, { headers: this.getHeader });
 }
 
-function post(path, data) {
-  return axios.post(AppSettings.API_URL + path, data, {
+function post(path, data, apiName = 'security') {
+  let API_URL = AppSettings.API_URL;
+  if (apiName === 'admin') API_URL = AppSettings.API_ADMIN_URL;
+
+  return axios.post(API_URL + path, data, {
     headers: this.getHeader,
   });
 }
@@ -25,6 +27,5 @@ export const apiService = {
   get,
   post,
 };
-
 
 // }new ApiService();

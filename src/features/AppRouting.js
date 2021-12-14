@@ -2,12 +2,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import PrivateLayout from 'shared/components/private-layout/PrivateLayout';
-import ConfiguracionRouting  from './configuration/ConfigurationRouting';
-import  PublicoRouting  from './public/PublicRouting';
+import ConfiguracionRouting from './configuration/ConfigurationRouting';
+import PublicoRouting from './public/PublicRouting';
 import RequireAuth from '../core/routes/RequiredAuth';
 import configureStore from 'core/store/ConfigStore';
 import ReducerRegistry from 'core/store/RegisterReducer';
 import authReducer from '../core/store/reducers/AuthReducer';
+import roleReducer from 'features/configuration/store/reducers/RolesReducer';
 import breadcrumpReducer from '../core/store/reducers/BreadcrumpReducer';
 import toastReducer from './../core/store/reducers/ToastReducer';
 import toggleSidebarReducer from './configuration/store/reducers/ToggleSidebarReducer';
@@ -19,6 +20,7 @@ export const AppRouting = () => {
     authReducer,
     toastReducer,
     breadcrumpReducer,
+    roleReducer,
     toggleSidebarReducer,
   });
 
