@@ -11,7 +11,7 @@ const TableItem = ({
   tableName = '',
   currentCols,
 }) => {
-  const returnItem = (col) => {
+  const skeletons = (col) => {
     if (tableName === 'table-roles' && col === 0) return <div></div>;
     else return <Skeleton width="100%" height="2.2rem" borderRadius="16px" />;
   };
@@ -24,9 +24,9 @@ const TableItem = ({
 
           return (
             <div className="table-item text-center" key={num}>
-              {cols.map((col) => {
-                return <Fragment key={col}>{returnItem(col)}</Fragment>;
-              })}
+              {cols.map((col) => (
+                <Fragment key={col}>{skeletons(col)}</Fragment>
+              ))}
             </div>
           );
         })}
@@ -37,8 +37,10 @@ const TableItem = ({
       <Fragment>
         {listItem.map((item) => {
           const { values, id } = ChangeTableItem({ item, tableName });
+
           return (
             <div className="table-item text-center" key={id}>
+              {tableName === 'table-roles' && <div></div>}
               {values.map((val, i) => (
                 <p key={i}>{val}</p>
               ))}

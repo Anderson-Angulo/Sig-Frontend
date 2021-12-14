@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import { Fragment, useState } from 'react';
 import TableHeader from 'shared/components/tables/TableHeader';
 import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
 import TableItem from 'shared/components/tables/TableItem';
 const RolesTableComponent = () => {
+  const roles = useSelector((state) => state.roleReducer.roles);
   const [currentUser, setCurrentUser] = useState('');
   const [showInfoUserID, setShowInfoUserID] = useState('');
   const { RoleTableHeader } = RolesTableData;
@@ -34,7 +36,8 @@ const RolesTableComponent = () => {
         <TableHeader listHeader={RoleTableHeader} />
         <TableItem
           currentCols={RoleTableHeader.length}
-          isLoading
+          isLoading={roles.loading}
+          listItem={roles.data}
           tableName="table-roles"
         />
 

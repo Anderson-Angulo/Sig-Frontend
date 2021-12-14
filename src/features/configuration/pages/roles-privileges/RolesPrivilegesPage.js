@@ -14,6 +14,8 @@ const RolesPrivilegioPage = () => {
   const dispatch = useDispatch();
 
   const userInformation = useSelector((state) => state.authReducer.user);
+  const rolesInformation = useSelector((state) => state.roleReducer.roles);
+
   useEffect(() => {
     dispatch(
       BreadcrumpAction.setTitlePage('ROLPRI', userInformation.menuAdministrador)
@@ -21,16 +23,21 @@ const RolesPrivilegioPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      RolesAction.getRoles({
-        page: 1,
-        pageSize: 10,
-        columnOrder: 'roleName',
-        order: 'asc',
-        from: null,
-        to: null,
-      })
-    );
+    const { pagination } = rolesInformation;
+
+    const hasInformation = Object.values(pagination)?.length > 0;
+    if (!hasInformation) {
+      dispatch(
+        RolesAction.getRoles({
+          page: 1,
+          pageSize: 10,
+          columnOrder: 'roleName',
+          order: 'asc',
+          from: null,
+          to: null,
+        })
+      );
+    }
   }, []);
 
   return (
