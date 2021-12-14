@@ -2,6 +2,7 @@ import { ConfigurationConstants } from 'features/configuration/commons/Configura
 
 const initialState = {
   roles: {
+    currentData: [],
     data: [],
     loading: false,
     pagination: {},
@@ -14,6 +15,7 @@ export default (state = initialState, action) => {
       return {
         roles: {
           data: action.payload.data,
+          currentData: action.payload.currentData,
           loading: action.payload.loading,
           pagination: action.payload.pagination,
         },

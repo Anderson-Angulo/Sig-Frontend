@@ -27,16 +27,7 @@ const RolesPrivilegioPage = () => {
 
     const hasInformation = Object.values(pagination)?.length > 0;
     if (!hasInformation) {
-      dispatch(
-        RolesAction.getRoles({
-          page: 1,
-          pageSize: 10,
-          columnOrder: 'roleName',
-          order: 'asc',
-          from: null,
-          to: null,
-        })
-      );
+      dispatch(RolesAction.getRoles({ change: false }));
     }
   }, []);
 

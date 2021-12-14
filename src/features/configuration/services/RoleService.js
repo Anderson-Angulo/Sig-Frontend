@@ -1,18 +1,16 @@
 import { apiService } from 'core/services/ApiService';
 
-const getRoles = ({ page, pageSize, columnOrder, order, from, to }) => {
-  return apiService.post(
-    'Role/Search',
-    {
-      page,
-      pageSize,
-      columnOrder,
-      order,
-      from,
-      to,
-    },
-    'admin'
-  );
+const getRoles = ({ change = false, field, value }) => {
+  const initialFields = {
+    page: 1,
+    pageSize: 10,
+    columnOrder: 'roleName',
+    order: 'asc',
+    from: null,
+    to: null,
+  };
+  if (change) initialFields[field] = value;
+  return apiService.post('Role/Search', initialFields, 'admin');
 };
 
 export const RoleService = {
