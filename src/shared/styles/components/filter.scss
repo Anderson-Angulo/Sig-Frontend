@@ -1,0 +1,42 @@
+.filter-users,
+.filter-roles {
+  display: grid;
+  grid-template-columns: 1fr 16rem;
+  gap: 3rem;
+}
+
+/* --------------------- */
+/* ------ MODALS ------- */
+/* --------------------- */
+.modal-filtro {
+  max-width: 500px;
+  position: absolute;
+  top: 4.5rem;
+  z-index: 10;
+  right: 2rem;
+  border: 0.5px solid #f1f1f1;
+  border-radius: 5px;
+  min-height: 455px;
+  background: white;
+
+  .icon-closed {
+    align-items: center;
+    color: #004680;
+    border-radius: 50%;
+
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    padding: 0.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 42px;
+  }
+  h3 {
+    font-size: 14px;
+  }
+  h3.modal-filtro-title {
+    font-size: 1rem;
+  }
+}
