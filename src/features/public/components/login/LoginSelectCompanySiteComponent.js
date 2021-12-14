@@ -21,12 +21,18 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
   const [sedes, setSedes] = useState([]);
   const empresaControl = useWatch({ control, name: 'empresa' });
 
-  const loading = useSelector((state) => state.selecEmpresaSedeReducer.loading);
-  const usuarioInformation = useSelector(
-    (state) => state.selecEmpresaSedeReducer.user
+  const loading = useSelector(
+    (state) => state.SelectCompanySiteComponentReducer.loading
   );
-  const emailUser = useSelector((state) => state.selecEmpresaSedeReducer.emailUser);
-  const passwordUser = useSelector((state) => state.selecEmpresaSedeReducer.passwordUser);
+  const usuarioInformation = useSelector(
+    (state) => state.SelectCompanySiteComponentReducer.user
+  );
+  const emailUser = useSelector(
+    (state) => state.SelectCompanySiteComponentReducer.emailUser
+  );
+  const passwordUser = useSelector(
+    (state) => state.SelectCompanySiteComponentReducer.passwordUser
+  );
 
   useEffect(() => validarVisibilidad(), [usuarioInformation]);
   useEffect(() => onSelectEmpresa(empresaControl), [empresaControl]);

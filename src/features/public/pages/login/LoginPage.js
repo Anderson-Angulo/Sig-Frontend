@@ -29,17 +29,17 @@ const LoginPage = () => {
   const loggedIn = useSelector((state) => state.authReducer.loggedIn);
   const loading = useSelector((state) => state.authReducer.loading);
 
-  // const mostrarRecuperarContrasena = useSelector(
-  //   (state) => state.recuperarContrasenaReducer.mostrarRecuperarContrasena
-  // );
-  // const mostrarSeleccionEmpresaSede = useSelector(
-  //   (state) => state.selecEmpresaSedeReducer.mostrarSeleccionarEmpresaSede
-  // );
+  const mostrarRecuperarContrasena = useSelector(
+    (state) => state.RecoveryPasswordReducer.mostrarRecuperarContrasena
+  );
+  const mostrarSeleccionEmpresaSede = useSelector(
+    (state) =>
+      state.SelectCompanySiteComponentReducer.mostrarSeleccionarEmpresaSede
+  );
 
   useEffect(() => {
     dispatch(authAction.validarSesion());
   }, []);
-
 
   useEffect(() => {
     if (loggedIn) {
@@ -121,7 +121,7 @@ const LoginPage = () => {
           </div>
 
           <div className="actions">
-            <a className="link"  onClick={() => onMostrarContrasena(this)}>
+            <a className="link" onClick={() => onMostrarContrasena(this)}>
               Olvidé mi contraseña
             </a>
             <div className="p-field-checkbox field field-checkbox mt-2 w-full">
@@ -159,8 +159,8 @@ const LoginPage = () => {
             />
           </div>
         </form>
-        {/* <RecoveryPasswordPage isOpen={mostrarRecuperarContrasena} />
-        <LoginSelectCompanySiteComponent isOpen={mostrarSeleccionEmpresaSede} /> */}
+        <RecoveryPasswordPage isOpen={mostrarRecuperarContrasena} />
+        <LoginSelectCompanySiteComponent isOpen={mostrarSeleccionEmpresaSede} />
       </Fragment>
     </PublicLayout>
   );
