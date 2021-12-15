@@ -9,8 +9,16 @@ const setRoles = ({
 }) => {
   return (dispatch) =>
     dispatch({
-      type: ConfigurationConstants.Accion.SetRoles.SETLIST,
+      type: ConfigurationConstants.Accion.Roles.SETLIST,
       payload: { loading, data, currentData, pagination },
+    });
+};
+
+const toggleModalFilters = (payload) => {
+  return (dispatch) =>
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.CHANGEFILTERMODAL,
+      payload,
     });
 };
 
@@ -54,4 +62,5 @@ const searchRole = (value) => {
 export const RolesAction = {
   getRoles,
   searchRole,
+  toggleModalFilters,
 };

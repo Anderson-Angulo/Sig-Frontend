@@ -5,9 +5,12 @@ export class ConfigurationConstants {
         return '@SIDEBAR.TOGGLE';
       }
     };
-    static SetRoles = class {
+    static Roles = class {
       static get SETLIST() {
-        return '@SET.ROLES';
+        return '@ROLES.SET-ROLES';
+      }
+      static get CHANGEFILTERMODAL() {
+        return '@ROLES.FILTER-MODAL';
       }
     };
   };

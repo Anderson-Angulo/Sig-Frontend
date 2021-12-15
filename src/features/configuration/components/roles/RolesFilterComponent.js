@@ -50,10 +50,7 @@ const RolesFilterComponent = () => {
           </div>
         </div>
       </Fieldset>
-      <RolesModalFiltroComponent
-        isOpen={showFilterModal}
-        closeModal={() => setShowFilterModal(false)}
-      />
+      <RolesModalFiltroComponent />
     </Fragment>
   );
 };
