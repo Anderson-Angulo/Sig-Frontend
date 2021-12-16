@@ -28,6 +28,12 @@
   .p-treenode-selectable.p-treenode-content {
     justify-content: space-between;
     padding: 4.5px 10px !important;
+    display: grid;
+    grid-template-columns: 1.5rem 1fr 1.5rem;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 10px;
     button {
       order: 2;
       margin: 0;
@@ -38,6 +44,7 @@
   }
   & ul.p-treenode-children .p-treenode-content {
     justify-content: flex-start;
+    display: flex;
     gap: 4px;
     max-height: 34px;
     padding-left: 2.6rem !important;
