@@ -15,7 +15,7 @@ const UserPage = () => {
   const inputFile = useRef(null);
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const [srcAvatar, setSrcAvatar] = useState('');
-  const isActive = true;
+  const isActive = false;
 
   const sedesList = [
     { label: 'Sede 1', value: 'SEDE1' },
@@ -26,7 +26,6 @@ const UserPage = () => {
   useEffect(() => {
     setSrcAvatar(usuarioInformation?.avatar);
   }, [usuarioInformation]);
-
 
   const onSelectedImage = ({ target }) => {
     const file = target.files[0];
@@ -45,7 +44,7 @@ const UserPage = () => {
       <Panel header="DATOS GENERALES" toggleable>
         <form className="form-custom p-0 my-4 mx-4">
           <div className="flex items-start gap-3 justify-between mb-6">
-            <div className="field-row">
+            <div className="field-row w-full">
               <span className="p-float-label w-full">
                 <InputText type="text" id="user_name" />
                 <label htmlFor="user_name">Usuario</label>
@@ -59,7 +58,12 @@ const UserPage = () => {
                 <label htmlFor="user_names">Nombres</label>
               </span>
               <div className="user-picture">
-                
+                <div className="foreground-user-picture">
+                  <i
+                    className="pi pi-camera cursor-pointer"
+                    onClick={() => inputFile.current.click()}
+                  ></i>
+                </div>
                 <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
                 <input
                   type="file"
@@ -67,7 +71,6 @@ const UserPage = () => {
                   ref={inputFile}
                   onChange={onSelectedImage}
                 />
-            
               </div>
               <span className="p-float-label w-full">
                 <InputText type="text" id="user_lastname" />
@@ -84,34 +87,6 @@ const UserPage = () => {
             >
               <p>{isActive ? 'Activo' : 'Inactivo'}</p>
             </div>
-          </div>
-          <div className="field-row">
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_name" />
-              <label htmlFor="user_name">Usuario</label>
-            </span>
-            <span className="p-float-label w-full">
-              <InputText type="email" id="user_email" />
-              <label htmlFor="user_email">Correo Eléctronico</label>
-            </span>
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_names" />
-              <label htmlFor="user_names">Nombres</label>
-            </span>
-            <div className="user-picture">
-              <div className="foreground-user-picture"><i className="pi pi-camera" onClick={()=>inputFile.current.click()}></i></div>
-              <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
-              <input
-                type="file"
-                className="hidden"
-                ref={inputFile}
-                onChange={onSelectedImage}
-              />
-            </div>
-            <span className="p-float-label w-full">
-              <InputText type="text" id="user_lastname" />
-              <label htmlFor="user_lastname">Apellidos</label>
-            </span>
           </div>
         </form>
       </Panel>
