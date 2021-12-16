@@ -33,7 +33,10 @@ const RolesTableComponent = () => {
   return (
     <Fragment>
       <div className="table-main table-roles mt-5">
-        <TableHeader listHeader={RoleTableHeader} />
+        <TableHeader
+          listHeader={RoleTableHeader}
+          currentHeader={roles.currentCol}
+        />
         <TableItem
           currentCols={RoleTableHeader.length}
           isLoading={roles.loading}

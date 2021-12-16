@@ -11,12 +11,11 @@ const TableItem = ({
   tableName = '',
   currentCols,
 }) => {
-  const skeletons = (col) => {
-    if (tableName === 'table-roles' && col === 0) return <div></div>;
-    else return <Skeleton width="100%" height="2.2rem" borderRadius="16px" />;
-  };
-
   if (isLoading) {
+    const skeletons = (col) => {
+      if (tableName === 'table-roles' && col === 0) return <div></div>;
+      else return <Skeleton width="100%" height="2.2rem" borderRadius="16px" />;
+    };
     return (
       <Fragment>
         {[1, 2, 3, 4, 5, 6].map((num) => {
@@ -33,6 +32,11 @@ const TableItem = ({
       </Fragment>
     );
   } else if (listItem.length > 0 && !isLoading) {
+    const iconAgle = ({ quantityUsers }) => {
+      if (quantityUsers > 0)
+        return <i className="pi pi-angle-down cursor-pointer"></i>;
+      else return <div></div>;
+    };
     return (
       <Fragment>
         {listItem.map((item) => {
@@ -40,7 +44,7 @@ const TableItem = ({
 
           return (
             <div className="table-item text-center" key={id}>
-              {tableName === 'table-roles' && <div></div>}
+              {tableName === 'table-roles' && iconAgle(item)}
               {values.map((val, i) => (
                 <p key={i}>{val}</p>
               ))}
