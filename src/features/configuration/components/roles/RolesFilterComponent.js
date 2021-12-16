@@ -1,4 +1,4 @@
-import { Fragment, useRef } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,8 @@ const RolesFilterComponent = () => {
   const dispatch = useDispatch();
   const fielRole = useRef('');
 
+  const [disabledBtnSearch, setDisabledBtnSearch] = useState(true);
+
   const filterRole = () => {
     dispatch(RolesAction.searchRole(fielRole.current.value));
   };
@@ -19,6 +21,8 @@ const RolesFilterComponent = () => {
   };
 
   const handleChange = () => {
+    const showBtn = fielRole.current.value.length > 2 ? false : true;
+    setDisabledBtnSearch(showBtn);
     if (fielRole.current.value === '') filterRole();
   };
 
@@ -44,6 +48,7 @@ const RolesFilterComponent = () => {
                 type="button"
                 label="Buscar"
                 onClick={filterRole}
+                disabled={disabledBtnSearch}
                 className="btn btn-primary w-full"
               />
               <Button

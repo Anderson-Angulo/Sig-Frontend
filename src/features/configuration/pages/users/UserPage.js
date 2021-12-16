@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ListBox } from 'primereact/listbox';
 import { useHistory } from 'react-router';
+import { ListBox } from 'primereact/listbox';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { InputSwitch } from 'primereact/inputswitch';
 import { Panel } from 'primereact/panel';

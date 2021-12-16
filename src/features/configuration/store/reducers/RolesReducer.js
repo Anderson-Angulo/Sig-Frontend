@@ -6,6 +6,7 @@ const initialState = {
     data: [],
     loading: false,
     pagination: {},
+    currentCol: 'roleName',
   },
   filterRole: {
     showModal: false,
@@ -19,10 +20,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         roles: {
-          data: action.payload.data,
-          currentData: action.payload.currentData,
-          loading: action.payload.loading,
-          pagination: action.payload.pagination,
+          ...state.roles,
+          ...action.payload,
         },
       };
 

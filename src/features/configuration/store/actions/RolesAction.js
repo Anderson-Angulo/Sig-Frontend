@@ -29,14 +29,15 @@ const getRoles = (fields) => {
       ({ data }) => {
         const { results, ...rest } = data.data;
 
-        dispatch(
-          setRoles({
-            loading: false,
-            data: results,
-            currentData: results,
-            pagination: { ...rest },
-          })
-        );
+        let objFields = {
+          loading: false,
+          data: results,
+          currentData: results,
+          pagination: { ...rest },
+        };
+
+        if (fields.columnOrder) objFields.currentCol = fields.columnOrder;
+        dispatch(setRoles(objFields));
       },
       () => dispatch(setRoles({ loading: false }))
     );
