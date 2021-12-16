@@ -6,17 +6,17 @@ import { RolesTableData } from 'features/configuration/data/roles/RolesTableData
 import TableItem from 'shared/components/tables/TableItem';
 const RolesTableComponent = () => {
   const roles = useSelector((state) => state.roleReducer.roles);
+  const { RoleTableHeader } = RolesTableData;
   const [currentUser, setCurrentUser] = useState('');
   const [showInfoUserID, setShowInfoUserID] = useState('');
-  const { RoleTableHeader } = RolesTableData;
 
-  const tableSecondaryHeader = [
+  /* const tableSecondaryHeader = [
     'Usuario',
     'Apellidos',
     'Nombres',
     'Fecha de creación',
-  ];
-  const user = [
+  ]; */
+  /*   const user = [
     {
       rol: 'ADMINISTRADOR',
       nro_usuarios: 50,
@@ -28,7 +28,7 @@ const RolesTableComponent = () => {
 
   const tableRoles = Array.from(Array(10)).map((_, index) => {
     return { ...user[0], id: index };
-  });
+  }); */
 
   return (
     <Fragment>

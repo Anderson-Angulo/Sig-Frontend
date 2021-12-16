@@ -1,25 +1,73 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Calendar } from 'primereact/calendar';
 import ModalFilterComponent from 'shared/components/modal-filter/ModalFilterComponent';
+import { RolesAction } from 'features/configuration/store/actions/RolesAction';
+import { useForm } from 'shared/hooks/useForm';
 
 const RolesModalFilterComponent = () => {
+  const dispatch = useDispatch();
   const { showModal, disabledBtn } = useSelector(
     (state) => state.roleReducer.filterRole
   );
 
+  const [formValues, handleInputChange, reset] = useForm({
+    from: null,
+    to: null,
+  });
+
+  const closeModal = () => {
+    dispatch(RolesAction.toggleModalFilters({ showModal: false }));
+  };
+
+  useEffect(() => {
+    let hasValues =
+      Object.values(formValues).filter((val) => val !== null).length > 0;
+    dispatch(
+      RolesAction.toggleModalFilters({ disabledBtn: hasValues ? false : true })
+    );
+  }, [formValues]);
+
+  const clearFields = () => {
+    reset();
+    dispatch(RolesAction.getRoles({ change: true }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(RolesAction.getRoles({ change: true, fields: formValues }));
+  };
+
   if (showModal) {
     return (
-      <ModalFilterComponent disabledBtn={disabledBtn}>
+      <ModalFilterComponent
+        disabledBtn={disabledBtn}
+        closeModal={closeModal}
+        clearFields={clearFields}
+        handleSubmit={handleSubmit}
+      >
         <div className="flex gap-4 pt-3">
           <div className="w-full">
             <span className="p-float-label">
-              <Calendar id="desde" />
+              <Calendar
+                onChange={handleInputChange}
+                dateFormat="dd/mm/yy"
+                value={formValues.from}
+                name="from"
+                id="desde"
+              />
               <label htmlFor="desde">Desde</label>
             </span>
           </div>
           <div className="w-full">
             <span className="p-float-label">
-              <Calendar id="hasta" />
+              <Calendar
+                onChange={handleInputChange}
+                dateFormat="dd/mm/yy"
+                value={formValues.to}
+                name="to"
+                id="hasta"
+              />
               <label htmlFor="hasta">Hasta</label>
             </span>
           </div>
