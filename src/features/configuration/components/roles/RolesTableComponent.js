@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import TableHeader from 'shared/components/tables/TableHeader';
 import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
 import TableItem from 'shared/components/tables/TableItem';
+import TablePagination from 'shared/components/tables/TablePagination';
 const RolesTableComponent = () => {
   const roles = useSelector((state) => state.roleReducer.roles);
   const { RoleTableHeader } = RolesTableData;
@@ -43,6 +44,12 @@ const RolesTableComponent = () => {
           listItem={roles.data}
           tableName="table-roles"
         />
+        {roles.data.length > 0 && (
+          <TablePagination
+            currentPage={roles.pagination.currentPage}
+            pageSize={roles.pagination.pageSize}
+          />
+        )}
 
         {/* <div className="table-body relative">
           {tableRoles.length > 0 && (
@@ -114,43 +121,7 @@ const RolesTableComponent = () => {
           )}
         </div> */}
         {/* {tableRoles.length > 0 && (
-          <div className="table-pagination flex items-center justify-end gap-4 p-5">
-            <div className="pagination-pages">
-              <span
-                style={{
-                  color: '#607D8B',
-                  fontWeight: 'bold',
-                }}
-              >
-                Pág. 1 de 2
-              </span>
-            </div>
-            <div className="pagination-rows">
-              <select>
-                <option>Mostrar 2 filas</option>
-              </select>
-            </div>
-            <div className="pagination-actions flex justify-end gap-2">
-              <Button
-                label="<<"
-                className="p-button-secondary p-button-outlined"
-              />
-
-              <Button
-                label="Anterior"
-                className="p-button-secondary p-button-outlined"
-              />
-              <Button
-                label="Siguiente"
-                className="p-button-secondary p-button-outlined"
-              />
-
-              <Button
-                label=">>"
-                className="p-button-secondary p-button-outlined"
-              />
-            </div>
-          </div>
+          
         )} */}
       </div>
     </Fragment>
