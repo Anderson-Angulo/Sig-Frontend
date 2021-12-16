@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { useDispatch } from 'react-redux';
@@ -8,14 +8,20 @@ import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 
 const RolesFilterComponent = () => {
   const dispatch = useDispatch();
+  const fielRole = useRef('');
 
-  const filterRole = ({ target }) => {
-    dispatch(RolesAction.searchRole(target.value));
+  const filterRole = () => {
+    dispatch(RolesAction.searchRole(fielRole.current.value));
   };
 
   const openModal = () => {
     dispatch(RolesAction.toggleModalFilters({ showModal: true }));
   };
+
+  const handleChange = () => {
+    if (fielRole.current.value === '') filterRole();
+  };
+
   return (
     <Fragment>
       <Fieldset legend="FILTRO POR" toggleable>
@@ -23,7 +29,11 @@ const RolesFilterComponent = () => {
           <div className="w-full pt-5">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
-              <InputText id="input-search" onChange={filterRole} />
+              <InputText
+                id="input-search"
+                ref={fielRole}
+                onChange={handleChange}
+              />
               <label htmlFor="input-search">Buscar por rol</label>
             </span>
           </div>
@@ -33,6 +43,7 @@ const RolesFilterComponent = () => {
                 icon="pi pi-search"
                 type="button"
                 label="Buscar"
+                onClick={filterRole}
                 className="btn btn-primary w-full"
               />
               <Button
