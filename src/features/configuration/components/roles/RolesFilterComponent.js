@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { useDispatch } from 'react-redux';
@@ -7,11 +7,14 @@ import RolesModalFiltroComponent from './RolesModalFilterComponent';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 
 const RolesFilterComponent = () => {
-  const [showFilterModal, setShowFilterModal] = useState(false);
   const dispatch = useDispatch();
 
   const filterRole = ({ target }) => {
     dispatch(RolesAction.searchRole(target.value));
+  };
+
+  const openModal = () => {
+    dispatch(RolesAction.toggleModalFilters({ showModal: true }));
   };
   return (
     <Fragment>
@@ -44,7 +47,7 @@ const RolesFilterComponent = () => {
                 type="button"
                 label="Búsqueda avanzada"
                 className="btn btn-primary w-full"
-                onClick={() => setShowFilterModal(true)}
+                onClick={openModal}
               />
             </div>
           </div>
