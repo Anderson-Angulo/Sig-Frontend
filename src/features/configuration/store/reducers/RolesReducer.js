@@ -12,6 +12,10 @@ const initialState = {
     showModal: false,
     disabledBtn: true,
   },
+  rolesOptions: {
+    loading: false,
+    options: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +34,15 @@ export default (state = initialState, action) => {
         ...state,
         filterRole: {
           ...state.filterRole,
+          ...action.payload,
+        },
+      };
+
+    case ConfigurationConstants.Accion.Roles.LISTOPTIONS:
+      return {
+        ...state,
+        rolesOptions: {
+          ...state.rolesOptions,
           ...action.payload,
         },
       };

@@ -17,6 +17,11 @@ const getRoles = ({ fields = {}, change }) => {
   return apiService.post('Role/Search', initialFields, 'admin');
 };
 
+const getRolesOptions = () => {
+  return apiService.get('Role/GetSubscriptionOptions', 'admin');
+};
+
 export const RoleService = {
   getRoles,
+  getRolesOptions,
 };

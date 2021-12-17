@@ -12,6 +12,9 @@ export class ConfigurationConstants {
       static get CHANGEFILTERMODAL() {
         return '@ROLES.FILTER-MODAL';
       }
+      static get LISTOPTIONS() {
+        return '@ROLES.LIST-OPTIONS';
+      }
     };
   };
 }

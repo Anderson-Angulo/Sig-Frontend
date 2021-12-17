@@ -60,8 +60,30 @@ const searchRole = (value) => {
   };
 };
 
+const setRolesOptions = (payload) => {
+  /* payload: { loading, options } */
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.LISTOPTIONS,
+      payload,
+    });
+  };
+};
+
+const getRolesOptions = () => {
+  return (dispatch) => {
+    dispatch(setRolesOptions({ loading: true }));
+    RoleService.getRolesOptions()
+      .then(({ data }) => {
+        dispatch(setRolesOptions({ loading: false, options: data.data }));
+      })
+      .catch(() => {});
+  };
+};
+
 export const RolesAction = {
   getRoles,
   searchRole,
   toggleModalFilters,
+  getRolesOptions,
 };
