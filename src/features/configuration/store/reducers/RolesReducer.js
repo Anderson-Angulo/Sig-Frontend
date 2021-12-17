@@ -16,6 +16,10 @@ const initialState = {
     loading: false,
     options: [],
   },
+  userByRoleId: {
+    loading: false,
+    data: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +47,15 @@ export default (state = initialState, action) => {
         ...state,
         rolesOptions: {
           ...state.rolesOptions,
+          ...action.payload,
+        },
+      };
+
+    case ConfigurationConstants.Accion.Roles.GET_USER_BY_ROLE_ID:
+      return {
+        ...state,
+        userByRoleId: {
+          ...state.userByRoleId,
           ...action.payload,
         },
       };

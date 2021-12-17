@@ -81,9 +81,30 @@ const getRolesOptions = () => {
   };
 };
 
+const setUserRoleById = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.GET_USER_BY_ROLE_ID,
+      payload,
+    });
+  };
+};
+
+const getUserByRoleId = (id) => {
+  return (dispatch) => {
+    dispatch(setUserRoleById({ loading: true }));
+    RoleService.getUserByRoleId(id)
+      .then(({ data }) => {
+        dispatch(setUserRoleById({ loading: false, data: data.data }));
+      })
+      .catch(() => {});
+  };
+};
+
 export const RolesAction = {
   getRoles,
   searchRole,
   toggleModalFilters,
   getRolesOptions,
+  getUserByRoleId,
 };

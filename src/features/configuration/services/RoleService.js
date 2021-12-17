@@ -21,7 +21,12 @@ const getRolesOptions = () => {
   return apiService.get('Role/GetSubscriptionOptions', 'admin');
 };
 
+const getUserByRoleId = (roleId) => {
+  return apiService.get(`Role/GetUserByRoleId?roleId=${roleId}`, 'admin');
+};
+
 export const RoleService = {
   getRoles,
   getRolesOptions,
+  getUserByRoleId,
 };

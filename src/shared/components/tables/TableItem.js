@@ -6,10 +6,12 @@ import TableEmpty from './TableEmpty';
 const TableItem = ({
   listItem,
   isLoading = false,
-  currentItem,
-  setShowOptions,
+  currentOptions,
+  showOption,
   tableName = '',
   currentCols,
+  SubTableHeader,
+  SubTableItem,
 }) => {
   if (isLoading) {
     const Skeletons = ({ col }) => {
@@ -18,7 +20,7 @@ const TableItem = ({
     };
     return (
       <Fragment>
-        {[1, 2, 3, 4, 5, 6].map((num) => {
+        {[1, 2, 3].map((num) => {
           const cols = Array.from(Array(currentCols)).map((_, index) => index);
 
           return (
@@ -32,9 +34,27 @@ const TableItem = ({
       </Fragment>
     );
   } else if (listItem.length > 0 && !isLoading) {
-    const IconAgle = ({ quantityUsers }) => {
-      if (quantityUsers > 0)
-        return <i className="pi pi-angle-down cursor-pointer"></i>;
+    const IconAgle = ({ quantityUsers, id, showSubTable }) => {
+      if (quantityUsers > 0 && !showSubTable)
+        return (
+          <i
+            className="pi pi-angle-down cursor-pointer"
+            onClick={() =>
+              showOption({
+                currentID: id,
+                showSubTable: true,
+                action: 'getUserByRole',
+              })
+            }
+          ></i>
+        );
+      else if (quantityUsers > 0 && showSubTable)
+        return (
+          <i
+            className="pi pi-angle-right cursor-pointer"
+            onClick={() => showOption({ currentID: '', showSubTable: false })}
+          ></i>
+        );
       else return <div></div>;
     };
     return (
@@ -42,19 +62,49 @@ const TableItem = ({
         {listItem.map((item) => {
           const { values, id } = ChangeTableItem({ item, tableName });
 
+          const showSubTable = () => {
+            return (
+              tableName === 'table-roles' &&
+              currentOptions.showSubTable &&
+              currentOptions.currentID === id
+            );
+          };
+
+          const showIconEllipsis = () => {
+            const tables = ['table-roles'];
+            return tables.includes(tableName);
+          };
+
           return (
-            <div className="table-item text-center" key={id}>
-              {tableName === 'table-roles' && (
-                <IconAgle quantityUsers={item.quantityUsers} />
+            <Fragment key={id}>
+              <div className="table-item text-center" key={id}>
+                {tableName === 'table-roles' && (
+                  <IconAgle
+                    quantityUsers={item.quantityUsers}
+                    showSubTable={showSubTable()}
+                    id={id}
+                  />
+                )}
+                {values.map((val, i) => (
+                  <p key={i}>{val}</p>
+                ))}
+
+                {showIconEllipsis() && (
+                  <i
+                    className="pi pi-ellipsis-v cursor-pointer"
+                    onClick={() =>
+                      showOption({ currentID: id, showOptions: true })
+                    }
+                  ></i>
+                )}
+              </div>
+              {showSubTable() && (
+                <div className="table-secondary p-6 bg-white">
+                  <SubTableHeader />
+                  <SubTableItem />
+                </div>
               )}
-              {values.map((val, i) => (
-                <p key={i}>{val}</p>
-              ))}
-              <i
-                className="pi pi-ellipsis-v cursor-pointer"
-                onClick={setShowOptions}
-              ></i>
-            </div>
+            </Fragment>
           );
         })}
       </Fragment>

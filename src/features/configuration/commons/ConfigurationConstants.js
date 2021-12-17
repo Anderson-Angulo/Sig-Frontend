@@ -15,6 +15,9 @@ export class ConfigurationConstants {
       static get LISTOPTIONS() {
         return '@ROLES.LIST-OPTIONS';
       }
+      static get GET_USER_BY_ROLE_ID() {
+        return '@ROLES.GET-USER-BY-ROLE-ID';
+      }
     };
   };
 }
