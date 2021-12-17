@@ -12,7 +12,7 @@ const TableItem = ({
   currentCols,
 }) => {
   if (isLoading) {
-    const skeletons = (col) => {
+    const Skeletons = ({ col }) => {
       if (tableName === 'table-roles' && col === 0) return <div></div>;
       else return <Skeleton width="100%" height="2.2rem" borderRadius="16px" />;
     };
@@ -24,7 +24,7 @@ const TableItem = ({
           return (
             <div className="table-item text-center" key={num}>
               {cols.map((col) => (
-                <Fragment key={col}>{skeletons(col)}</Fragment>
+                <Skeletons key={col} col={col} />
               ))}
             </div>
           );
@@ -32,7 +32,7 @@ const TableItem = ({
       </Fragment>
     );
   } else if (listItem.length > 0 && !isLoading) {
-    const iconAgle = ({ quantityUsers }) => {
+    const IconAgle = ({ quantityUsers }) => {
       if (quantityUsers > 0)
         return <i className="pi pi-angle-down cursor-pointer"></i>;
       else return <div></div>;
@@ -44,7 +44,9 @@ const TableItem = ({
 
           return (
             <div className="table-item text-center" key={id}>
-              {tableName === 'table-roles' && iconAgle(item)}
+              {tableName === 'table-roles' && (
+                <IconAgle quantityUsers={item.quantityUsers} />
+              )}
               {values.map((val, i) => (
                 <p key={i}>{val}</p>
               ))}
