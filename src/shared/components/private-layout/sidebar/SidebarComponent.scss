@@ -53,3 +53,13 @@
     margin-right: 0;
   }
 }
+
+.closed-sidebar .sidebar {
+  .p-treenode-selectable.p-treenode-content {
+    grid-template-columns: 1fr;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-treenode-icon {
+    margin-right: 0 !important;
+    text-align: center;
+  }
+}
