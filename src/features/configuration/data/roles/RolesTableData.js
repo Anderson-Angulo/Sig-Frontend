@@ -24,6 +24,26 @@ const RoleTableHeader = [
   },
 ];
 
+const RoleSubTableHeader = [
+  {
+    text: 'Usuario',
+    name: 'userId',
+  },
+  {
+    text: 'Nombres',
+    name: 'firstName',
+  },
+  {
+    text: 'Apellidos',
+    name: 'lastName',
+  },
+  {
+    text: 'fecha creación',
+    name: 'creationDate',
+  },
+];
+
 export const RolesTableData = {
   RoleTableHeader,
+  RoleSubTableHeader,
 };

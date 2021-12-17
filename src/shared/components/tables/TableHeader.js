@@ -1,4 +1,4 @@
-const TableHeader = ({ listHeader, currentHeader = '' }) => {
+const TableHeader = ({ listHeader, currentHeader = '', showIcon = true }) => {
   return (
     <div className="table-header">
       {listHeader.map(({ text, name }, index) => {
@@ -10,13 +10,15 @@ const TableHeader = ({ listHeader, currentHeader = '' }) => {
             key={index}
           >
             <h3 className="text uppercase">{text}</h3>
-            <div className="flex flex-col">
-              {currentHeader === name ? (
-                <i className="pi pi-chevron-down icon-small"></i>
-              ) : (
-                <i className="pi pi-chevron-up icon-small"></i>
-              )}
-            </div>
+            {showIcon && (
+              <div className="flex flex-col">
+                {currentHeader === name ? (
+                  <i className="pi pi-chevron-down icon-small"></i>
+                ) : (
+                  <i className="pi pi-chevron-up icon-small"></i>
+                )}
+              </div>
+            )}
           </div>
         );
       })}
