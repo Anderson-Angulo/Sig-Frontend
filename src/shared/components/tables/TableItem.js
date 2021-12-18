@@ -102,7 +102,7 @@ const TableItem = ({
                 )}
                 {values.map((val, i) => (
                   <p
-                    className={`${isAlignLeft() ? 'text-left pl-2' : ''}`}
+                    className={`${isAlignLeft(i) ? 'text-left pl-2' : ''}`}
                     key={i}
                   >
                     {val}
