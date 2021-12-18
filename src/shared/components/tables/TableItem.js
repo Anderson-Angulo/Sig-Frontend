@@ -12,6 +12,7 @@ const TableItem = ({
   currentCols,
   SubTableHeader,
   SubTableItem,
+  Actions = '',
 }) => {
   if (isLoading) {
     const Skeletons = ({ col }) => {
@@ -60,7 +61,10 @@ const TableItem = ({
     return (
       <Fragment>
         {listItem.map((item) => {
-          const { values, id } = ChangeTableItem({ item, tableName });
+          const { values, id, showAction } = ChangeTableItem({
+            item,
+            tableName,
+          });
 
           const showSubTable = () => {
             return (
@@ -72,7 +76,13 @@ const TableItem = ({
 
           const showIconEllipsis = () => {
             const tables = ['table-roles'];
-            return tables.includes(tableName);
+            return tables.includes(tableName) && showAction;
+          };
+
+          const showActions = () => {
+            return (
+              currentOptions.showOptions && currentOptions.currentID === id
+            );
           };
 
           return (
@@ -97,6 +107,7 @@ const TableItem = ({
                     }
                   ></i>
                 )}
+                {showActions() && <Actions />}
               </div>
               {showSubTable() && (
                 <div className="table-secondary p-6 bg-white">

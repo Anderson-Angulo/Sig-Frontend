@@ -7,12 +7,14 @@ import { RolesTableData } from 'features/configuration/data/roles/RolesTableData
 import TableItem from 'shared/components/tables/TableItem';
 import TablePagination from 'shared/components/tables/TablePagination';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
+import TableActions from 'shared/components/tables/TableActions';
 
 const RolesTableComponent = () => {
   const dispatch = useDispatch();
   const roles = useSelector((state) => state.roleReducer.roles);
   const currentRole = useSelector((state) => state.roleReducer.userByRoleId);
-  const { RoleTableHeader, RoleSubTableHeader } = RolesTableData;
+  const { RoleTableHeader, RoleSubTableHeader, RoleTableActions } =
+    RolesTableData;
   const [options, setOptions] = useState({
     currentID: '',
     showOptions: false,
@@ -30,6 +32,13 @@ const RolesTableComponent = () => {
   const getUserByRole = (id) => {
     dispatch(RolesAction.getUserByRoleId(id));
   };
+  const closeActions = () => {
+    setOptions({ ...options, showOptions: false });
+  };
+
+  const currentAction = (action) => {
+    console.log('action', action);
+  };
 
   return (
     <Fragment>
@@ -45,6 +54,13 @@ const RolesTableComponent = () => {
           showOption={showOption}
           tableName="table-roles"
           currentOptions={options}
+          Actions={() => (
+            <TableActions
+              actions={RoleTableActions}
+              closeActions={closeActions}
+              setSelectedOption={currentAction}
+            />
+          )}
           SubTableHeader={() => (
             <TableHeader
               listHeader={RoleSubTableHeader}

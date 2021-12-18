@@ -43,7 +43,15 @@ const RoleSubTableHeader = [
   },
 ];
 
+const RoleTableActions = [
+  {
+    text: 'Editar',
+    name: 'role-edit',
+  },
+];
+
 export const RolesTableData = {
   RoleTableHeader,
   RoleSubTableHeader,
+  RoleTableActions,
 };

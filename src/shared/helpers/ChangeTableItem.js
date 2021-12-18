@@ -3,6 +3,7 @@ import moment from 'moment';
 const ChangeTableItem = ({ item, tableName }) => {
   let values = [];
   let id = '';
+  let showAction = true;
 
   const filterType = (val) => {
     if (typeof val === 'boolean') return val ? 'SI' : 'NO';
@@ -12,6 +13,7 @@ const ChangeTableItem = ({ item, tableName }) => {
   if (tableName === 'table-roles') {
     const { roleId, ...rest } = item;
 
+    if (rest.isSystem) showAction = false;
     if (rest.creationDate)
       rest.creationDate = moment(rest.creationDate).format(
         'DD/MM/YYYY hh:mm:ss'
@@ -33,13 +35,13 @@ const ChangeTableItem = ({ item, tableName }) => {
         'DD/MM/YYYY hh:mm:ss'
       );
     values = Object.values(newItem);
-    console.log(values);
     id = userId;
   }
 
   return {
     values,
     id,
+    showAction,
   };
 };
 
