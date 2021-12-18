@@ -8,6 +8,7 @@ const getRoles = ({ fields = {}, change }) => {
     order: 'asc',
     from: null,
     to: null,
+    name: null,
   };
 
   if (change) {
