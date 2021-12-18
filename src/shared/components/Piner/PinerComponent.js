@@ -1,6 +1,6 @@
 import './PinerComponent.scss';
 
-const PinerComponent = () => {
+const PinerComponent = ({ name, field, removePiner }) => {
   return (
     <div
       className="piner"
@@ -8,8 +8,11 @@ const PinerComponent = () => {
         backgroundColor: '#004680',
       }}
     >
-      <p>Pinner</p>
-      <i className="pi pi-times cursor-pointer"></i>
+      <p>{name}</p>
+      <i
+        className="pi pi-times cursor-pointer"
+        onClick={() => removePiner(field)}
+      ></i>
     </div>
   );
 };
