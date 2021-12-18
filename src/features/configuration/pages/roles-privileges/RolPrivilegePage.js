@@ -19,6 +19,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const { loading, options } = useSelector(
     (state) => state.roleReducer.rolesOptions
   );
+  const editRole = useSelector((state) => state.roleReducer.editRole);
 
   const [roles, setRoles] = useState({
     roleId: null,
@@ -29,15 +30,38 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const isNewRole = title === 'NUEVO ROL';
 
   useEffect(() => {
-    if (!loading && options.length === 0) {
+    if (!loading && options.length === 0)
       dispatch(RolesAction.getRolesOptions());
-    }
   }, []);
+
+  useEffect(() => {
+    document.getElementById('content-main').scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+    if (!isNewRole) dispatch(RolesAction.getRoleById(params.id));
+  }, []);
+
   useEffect(() => {
     if (!isNewRole) {
-      dispatch(RolesAction.getRoleById(params.id));
+      const currentRole = {
+        roleId: params.id,
+      };
+      if (editRole?.data?.options?.length > 0) {
+        let actions = [];
+        const array = editRole.data.options;
+        array.forEach((option) => {
+          option.actions.forEach(({ id }) => {
+            actions.push(id);
+          });
+        });
+        currentRole.actions = actions;
+      }
+      if (editRole?.data?.name) currentRole.name = editRole.data.name;
+
+      setRoles(currentRole);
     }
-  }, []);
+  }, [editRole.data]);
 
   const OptionSkeleton = () => {
     const subSkeletons = [1, 2, 3, 4];
@@ -51,33 +75,38 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     );
   };
 
-  const isChecked = (option) => {
-    console.log('option', option);
-    if (isNewRole) {
-      return false;
-    }
+  const isChecked = ({ id }) => {
+    if (isNewRole) return false;
+    else if (roles?.actions?.length > 0) return roles.actions.includes(id);
+    return false;
   };
 
   const showRoles = () => {
     if (isNewRole) return !loading && options.length > 0;
+    else return !loading && options.length > 0 && !editRole.loading;
   };
 
   const showField = () => {
     if (isNewRole) return !loading;
+    else return !loading && !editRole.loading;
   };
 
   const showSkeleton = () => {
     if (isNewRole) return loading;
+    else return loading || editRole.loading;
   };
 
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
-      {title}
+      <div className="mb-4">
+        {title}
+        {JSON.stringify(roles, null, 3)}
+      </div>
       <form className="form-custom p-0">
         {showField() && (
           <div className="mb-6 w-2/5">
             <span className="p-float-label w-full">
-              <InputText type="text" id="rol_name" />
+              <InputText type="text" id="rol_name" value={roles.name} />
               <label htmlFor="rol_name">Nombre del rol</label>
             </span>
           </div>

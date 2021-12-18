@@ -118,7 +118,7 @@ const getRoleById = (roleId) => {
         dispatch(setRoleById({ loading: false, data: data.data }));
       })
       .catch(() => {
-        dispatch(setRoleById({ loading: false, data: [] }));
+        dispatch(setRoleById({ loading: false, data: {} }));
       });
   };
 };

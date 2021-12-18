@@ -22,7 +22,7 @@ const initialState = {
   },
   editRole: {
     loading: false,
-    data: [],
+    data: {},
   },
 };
 
