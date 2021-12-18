@@ -45,7 +45,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   useEffect(() => {
     if (!isNewRole) {
       const currentRole = {
-        roleId: params.id,
+        roleId: Number(params.id),
       };
       if (editRole?.data?.options?.length > 0) {
         let actions = [];
@@ -76,7 +76,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   };
 
   const isChecked = ({ id }) => {
-    if (isNewRole) return false;
+    if (isNewRole && roles?.actions?.length === 0) return false;
     else if (roles?.actions?.length > 0) return roles.actions.includes(id);
     return false;
   };
@@ -96,17 +96,44 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     else return loading || editRole.loading;
   };
 
+  const handleCheckbox = ({ target }) => {
+    const id = target.id;
+    const ids = roles.actions;
+    let actions = [];
+    if (ids.length === 0) {
+      actions.push(id);
+    } else {
+      const hasOption = ids.includes(id);
+      if (hasOption) actions = ids.filter((ID) => ID !== id);
+      else actions = [...ids, id];
+    }
+    setRoles({ ...roles, actions });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(RolesAction.saveRole(roles));
+  };
+
+  const handleChange = ({ target }) =>
+    setRoles({ ...roles, name: target.value });
+
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
       <div className="mb-4">
         {title}
         {JSON.stringify(roles, null, 3)}
       </div>
-      <form className="form-custom p-0">
+      <form className="form-custom p-0" onSubmit={handleSubmit}>
         {showField() && (
           <div className="mb-6 w-2/5">
             <span className="p-float-label w-full">
-              <InputText type="text" id="rol_name" value={roles.name} />
+              <InputText
+                type="text"
+                id="rol_name"
+                value={roles.name}
+                onChange={handleChange}
+              />
               <label htmlFor="rol_name">Nombre del rol</label>
             </span>
           </div>
@@ -126,8 +153,10 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                       <div className="mb-2" key={i}>
                         <Checkbox
                           inputId={action.name}
+                          id={action.id}
                           value={action.name}
                           checked={isChecked(action)}
+                          onChange={handleCheckbox}
                         ></Checkbox>
                         <label
                           htmlFor={action.name}
@@ -153,7 +182,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
           />
           <Button
             icon="pi pi-save"
-            type="button"
+            type="submit"
             label="Guardar"
             className="btn btn-primary mt-4"
           />

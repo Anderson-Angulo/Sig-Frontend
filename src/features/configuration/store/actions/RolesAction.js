@@ -141,6 +141,16 @@ const removeFilterValues = (field) => {
   };
 };
 
+const saveRole = (role) => {
+  return (dispatch) => {
+    RoleService.saveRole(role)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {});
+  };
+};
+
 export const RolesAction = {
   getRoles,
   toggleModalFilters,
@@ -149,4 +159,5 @@ export const RolesAction = {
   getRoleById,
   setFilterValues,
   removeFilterValues,
+  saveRole,
 };

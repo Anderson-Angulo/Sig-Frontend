@@ -30,9 +30,14 @@ const getRoleById = (roleId) => {
   return apiService.get(`Role/GetRoleById?roleId=${roleId}`, 'admin');
 };
 
+const saveRole = (role) => {
+  return apiService.post('Role/Save', role, 'admin');
+};
+
 export const RoleService = {
   getRoles,
   getRolesOptions,
   getUserByRoleId,
   getRoleById,
+  saveRole,
 };
