@@ -36,7 +36,7 @@ const TableItem = ({
     );
   } else if (listItem.length > 0 && !isLoading) {
     const IconAgle = ({ quantityUsers, id, showSubTable }) => {
-      if (quantityUsers > 0 && !showSubTable)
+      if (!showSubTable)
         return (
           <i
             className="pi pi-angle-down cursor-pointer"
@@ -49,7 +49,7 @@ const TableItem = ({
             }
           ></i>
         );
-      else if (quantityUsers > 0 && showSubTable)
+      else if (showSubTable)
         return (
           <i
             className="pi pi-angle-right cursor-pointer"
@@ -60,7 +60,7 @@ const TableItem = ({
     };
     return (
       <Fragment>
-        {listItem.map((item) => {
+        {listItem.map((item, index) => {
           const { values, id, showAction } = ChangeTableItem({
             item,
             tableName,
@@ -87,6 +87,9 @@ const TableItem = ({
             );
           };
 
+          const isAlignLeft = (index) => {
+            return index === 0 && tableName !== 'sub-table-roles';
+          };
           return (
             <Fragment key={id}>
               <div className="table-item text-center" key={id}>
@@ -98,7 +101,12 @@ const TableItem = ({
                   />
                 )}
                 {values.map((val, i) => (
-                  <p key={i}>{val}</p>
+                  <p
+                    className={`${isAlignLeft() ? 'text-left pl-2' : ''}`}
+                    key={i}
+                  >
+                    {val}
+                  </p>
                 ))}
 
                 {showIconEllipsis() && (

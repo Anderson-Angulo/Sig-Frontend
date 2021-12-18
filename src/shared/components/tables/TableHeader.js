@@ -1,4 +1,7 @@
 const TableHeader = ({ listHeader, currentHeader = '', showIcon = true }) => {
+  const mainCol = ['roleName'];
+  const isMainCol = (col) => mainCol.includes(col);
+
   return (
     <div className="table-header">
       {listHeader.map(({ text, name }, index) => {
@@ -6,7 +9,9 @@ const TableHeader = ({ listHeader, currentHeader = '', showIcon = true }) => {
           <div key={index}></div>
         ) : (
           <div
-            className="header-title flex items-center justify-center gap-x-3"
+            className={`header-title flex items-center gap-x-3 ${
+              isMainCol(name) ? 'justify-start' : 'justify-center'
+            }`}
             key={index}
           >
             <h3 className="text uppercase">{text}</h3>
