@@ -1,10 +1,11 @@
 import { Fragment, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
-import { useDispatch } from 'react-redux';
 import { Button } from 'primereact/button';
 import RolesModalFiltroComponent from './RolesModalFilterComponent';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
+import PinerComponent from 'shared/components/Piner/PinerComponent';
 
 const RolesFilterComponent = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,9 @@ const RolesFilterComponent = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="filter-piners mt-4">
+          <PinerComponent />
         </div>
       </Fieldset>
       <RolesModalFiltroComponent />
