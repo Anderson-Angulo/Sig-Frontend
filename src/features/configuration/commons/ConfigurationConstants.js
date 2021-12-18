@@ -18,6 +18,9 @@ export class ConfigurationConstants {
       static get GET_USER_BY_ROLE_ID() {
         return '@ROLES.GET-USER-BY-ROLE-ID';
       }
+      static get EDIT_ROLE() {
+        return '@ROLES.EDIT-ROLE';
+      }
     };
   };
 }

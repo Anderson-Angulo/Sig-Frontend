@@ -20,6 +20,10 @@ const initialState = {
     loading: false,
     data: [],
   },
+  editRole: {
+    loading: false,
+    data: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -56,6 +60,15 @@ export default (state = initialState, action) => {
         ...state,
         userByRoleId: {
           ...state.userByRoleId,
+          ...action.payload,
+        },
+      };
+
+    case ConfigurationConstants.Accion.Roles.EDIT_ROLE:
+      return {
+        ...state,
+        editRole: {
+          ...state.editRole,
           ...action.payload,
         },
       };

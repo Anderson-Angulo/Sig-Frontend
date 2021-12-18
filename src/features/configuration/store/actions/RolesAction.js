@@ -101,10 +101,33 @@ const getUserByRoleId = (id) => {
   };
 };
 
+const setRoleById = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.EDIT_ROLE,
+      payload,
+    });
+  };
+};
+
+const getRoleById = (roleId) => {
+  return (dispatch) => {
+    dispatch(setRoleById({ loading: true }));
+    RoleService.getRoleById(roleId)
+      .then(({ data }) => {
+        dispatch(setRoleById({ loading: false, data: data.data }));
+      })
+      .catch(() => {
+        dispatch(setRoleById({ loading: false, data: [] }));
+      });
+  };
+};
+
 export const RolesAction = {
   getRoles,
   searchRole,
   toggleModalFilters,
   getRolesOptions,
   getUserByRoleId,
+  getRoleById,
 };

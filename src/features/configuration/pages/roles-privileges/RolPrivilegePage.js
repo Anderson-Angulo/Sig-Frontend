@@ -1,5 +1,6 @@
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Fragment, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
@@ -8,17 +9,33 @@ import { InputText } from 'primereact/inputtext';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 
 import './RolePrivilege.scss';
+import { useParams } from 'react-router-dom';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const history = useHistory();
+  const params = useParams();
+
   const dispatch = useDispatch();
   const { loading, options } = useSelector(
     (state) => state.roleReducer.rolesOptions
   );
 
+  const [roles, setRoles] = useState({
+    roleId: null,
+    name: '',
+    actions: [],
+  });
+
+  const isNewRole = title === 'NUEVO ROL';
+
   useEffect(() => {
     if (!loading && options.length === 0) {
       dispatch(RolesAction.getRolesOptions());
+    }
+  }, []);
+  useEffect(() => {
+    if (!isNewRole) {
+      dispatch(RolesAction.getRoleById(params.id));
     }
   }, []);
 
@@ -34,11 +51,30 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     );
   };
 
+  const isChecked = (option) => {
+    console.log('option', option);
+    if (isNewRole) {
+      return false;
+    }
+  };
+
+  const showRoles = () => {
+    if (isNewRole) return !loading && options.length > 0;
+  };
+
+  const showField = () => {
+    if (isNewRole) return !loading;
+  };
+
+  const showSkeleton = () => {
+    if (isNewRole) return loading;
+  };
+
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
       {title}
       <form className="form-custom p-0">
-        {!loading && (
+        {showField() && (
           <div className="mb-6 w-2/5">
             <span className="p-float-label w-full">
               <InputText type="text" id="rol_name" />
@@ -47,9 +83,9 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
           </div>
         )}
         <div className="grid-roles scroll">
-          {loading && [1, 2, 3, 4, 5].map((i) => <OptionSkeleton key={i} />)}
-          {!loading &&
-            options.length > 0 &&
+          {showSkeleton() &&
+            [1, 2, 3, 4, 5].map((i) => <OptionSkeleton key={i} />)}
+          {showRoles() &&
             options.map((option, index) => {
               return (
                 <div className="rol mt-4" key={index}>
@@ -62,6 +98,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                         <Checkbox
                           inputId={action.name}
                           value={action.name}
+                          checked={isChecked(action)}
                         ></Checkbox>
                         <label
                           htmlFor={action.name}
