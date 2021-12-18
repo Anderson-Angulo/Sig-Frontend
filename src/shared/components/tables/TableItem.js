@@ -81,7 +81,9 @@ const TableItem = ({
 
           const showActions = () => {
             return (
-              currentOptions.showOptions && currentOptions.currentID === id
+              currentOptions?.showOptions &&
+              currentOptions.currentID === id &&
+              tableName !== 'sub-table-roles'
             );
           };
 
