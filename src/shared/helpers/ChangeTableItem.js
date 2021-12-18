@@ -24,11 +24,12 @@ const ChangeTableItem = ({ item, tableName }) => {
   }
   if (tableName === 'sub-table-roles') {
     const { userId, ...rest } = item;
+    const { userName, firstName, lastName } = rest;
 
     const newItem = {
-      userId,
-      firstName: rest.firstName,
-      lastName: rest.lastName,
+      userName,
+      firstName,
+      lastName,
     };
     if (rest.creationDate)
       newItem.creationDate = moment(rest.creationDate).format(

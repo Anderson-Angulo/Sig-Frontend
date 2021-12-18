@@ -27,7 +27,7 @@ const RoleTableHeader = [
 const RoleSubTableHeader = [
   {
     text: 'Usuario',
-    name: 'userId',
+    name: 'userName',
   },
   {
     text: 'Nombres',
