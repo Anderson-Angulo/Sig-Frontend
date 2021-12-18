@@ -36,6 +36,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
 
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
+      {title}
       <form className="form-custom p-0">
         {!loading && (
           <div className="mb-6 w-2/5">
@@ -56,8 +57,8 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                     <h2 className="font-semibold">{option.name}</h2>
                   </div>
                   <div className="rol-list mt-2">
-                    {option.actions.map((action) => (
-                      <div className="mb-2">
+                    {option.actions.map((action, i) => (
+                      <div className="mb-2" key={i}>
                         <Checkbox
                           inputId={action.name}
                           value={action.name}

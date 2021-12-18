@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import TableHeader from 'shared/components/tables/TableHeader';
 import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
@@ -11,10 +11,12 @@ import TableActions from 'shared/components/tables/TableActions';
 
 const RolesTableComponent = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const roles = useSelector((state) => state.roleReducer.roles);
   const currentRole = useSelector((state) => state.roleReducer.userByRoleId);
   const { RoleTableHeader, RoleSubTableHeader, RoleTableActions } =
     RolesTableData;
+
   const [options, setOptions] = useState({
     currentID: '',
     showOptions: false,
@@ -37,7 +39,10 @@ const RolesTableComponent = () => {
   };
 
   const currentAction = (action) => {
-    console.log('action', action);
+    if (action === 'role-edit')
+      history.push(
+        `/configuracion/rol-privilegios/editar/${options.currentID}`
+      );
   };
 
   return (
