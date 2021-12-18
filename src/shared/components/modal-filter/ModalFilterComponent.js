@@ -6,6 +6,7 @@ const ModalFilterComponent = ({
   clearFields,
   handleSubmit,
   disabledBtn,
+  searchLoading = false,
 }) => {
   return (
     <div className="modal-filtro shadow-xl">
@@ -30,6 +31,7 @@ const ModalFilterComponent = ({
           <Button
             type="submit"
             label="Buscar"
+            loading={searchLoading}
             disabled={disabledBtn}
             className="btn btn-primary mt-4"
           />

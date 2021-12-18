@@ -10,6 +10,7 @@ const RolesModalFilterComponent = () => {
   const { showModal, disabledBtn } = useSelector(
     (state) => state.roleReducer.filterRole
   );
+  const { loading } = useSelector((state) => state.roleReducer.roles);
 
   const [formValues, handleInputChange, reset] = useForm({
     from: null,
@@ -24,14 +25,21 @@ const RolesModalFilterComponent = () => {
     let hasValues =
       Object.values(formValues).filter((val) => val !== null).length > 0;
     dispatch(
-      RolesAction.toggleModalFilters({ disabledBtn: hasValues ? false : true })
+      RolesAction.toggleModalFilters({
+        disabledBtn: hasValues ? false : true,
+      })
     );
   }, [formValues]);
 
-  const clearFields = () => {
-    reset();
-    dispatch(RolesAction.getRoles({ change: true }));
-  };
+  useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        closeModal();
+      }, 1500);
+    }
+  }, [loading]);
+
+  const clearFields = () => reset();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +53,7 @@ const RolesModalFilterComponent = () => {
         closeModal={closeModal}
         clearFields={clearFields}
         handleSubmit={handleSubmit}
+        searchLoading={loading}
       >
         <div className="flex gap-4 pt-3">
           <div className="w-full">
