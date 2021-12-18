@@ -123,6 +123,40 @@ const getRoleById = (roleId) => {
   };
 };
 
+const setFilterValues = (payload) => {
+  return (dispatch, getState) => {
+    let { values } = getState().roleReducer.filterRole;
+    if (values.length > 0) {
+      const fields = payload.map(({ field }) => field);
+      const removeValues = values.filter((val) => fields.includes(val.field));
+      if (removeValues.length > 0) {
+        removeValues.forEach(({ field }) => {
+          dispatch(removeFilterValues(field));
+        });
+      }
+    }
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.SET_FILTER_VALUES,
+      payload,
+    });
+  };
+};
+
+const removeFilterValues = (field) => {
+  return (dispatch, getState) => {
+    let { values } = getState().roleReducer.filterRole;
+
+    let payload = [];
+    if (values.length > 0)
+      payload = values.filter((val) => val.field !== field);
+
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.REMOVE_FILTER_VALUES,
+      payload,
+    });
+  };
+};
+
 export const RolesAction = {
   getRoles,
   searchRole,
@@ -130,4 +164,6 @@ export const RolesAction = {
   getRolesOptions,
   getUserByRoleId,
   getRoleById,
+  setFilterValues,
+  removeFilterValues,
 };

@@ -11,6 +11,7 @@ const initialState = {
   filterRole: {
     showModal: false,
     disabledBtn: true,
+    values: [],
   },
   rolesOptions: {
     loading: false,
@@ -70,6 +71,22 @@ export default (state = initialState, action) => {
         editRole: {
           ...state.editRole,
           ...action.payload,
+        },
+      };
+    case ConfigurationConstants.Accion.Roles.SET_FILTER_VALUES:
+      return {
+        ...state,
+        filterRole: {
+          ...state.filterRole,
+          values: [...state.filterRole.values, ...action.payload],
+        },
+      };
+    case ConfigurationConstants.Accion.Roles.REMOVE_FILTER_VALUES:
+      return {
+        ...state,
+        filterRole: {
+          ...state.filterRole,
+          values: [...action.payload],
         },
       };
 
