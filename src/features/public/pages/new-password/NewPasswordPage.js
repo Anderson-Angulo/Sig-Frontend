@@ -9,7 +9,7 @@ const NewPasswordPage = () => {
       <form className="form-custom">
         <header className="header">
           <div className="title">
-            <h3 className="mb-2 font-bold">Nueva Contraseña</h3>
+            <h3 className="mb-2 font-bold">Recuperar Contraseña</h3>
           </div>
           <div className="description text-left">
             <p className="text-sm mb-2">
