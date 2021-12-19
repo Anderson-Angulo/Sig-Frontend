@@ -58,14 +58,14 @@ const RolesModalFilterComponent = () => {
     if (formValues.from)
       arrValues.push({
         field: 'from',
-        value: moment(formValues.from).format('DD/MM/YYYY hh:mm:ss'),
+        value: moment(formValues.from).format('DD/MM/YYYY'),
         date: formValues.from,
       });
 
     if (formValues.to)
       arrValues.push({
         field: 'to',
-        value: moment(formValues.to).format('DD/MM/YYYY hh:mm:ss'),
+        value: moment(formValues.to).format('DD/MM/YYYY'),
         date: formValues.to,
       });
 

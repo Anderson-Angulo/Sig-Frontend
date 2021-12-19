@@ -15,9 +15,7 @@ const ChangeTableItem = ({ item, tableName }) => {
 
     if (rest.isSystem) showAction = false;
     if (rest.creationDate)
-      rest.creationDate = moment(rest.creationDate).format(
-        'DD/MM/YYYY hh:mm:ss'
-      );
+      rest.creationDate = moment(rest.creationDate).format('DD/MM/YYYY');
 
     values = Object.values(rest).map(filterType);
     id = roleId;
@@ -32,9 +30,7 @@ const ChangeTableItem = ({ item, tableName }) => {
       lastName,
     };
     if (rest.creationDate)
-      newItem.creationDate = moment(rest.creationDate).format(
-        'DD/MM/YYYY hh:mm:ss'
-      );
+      newItem.creationDate = moment(rest.creationDate).format('DD/MM/YYYY');
     values = Object.values(newItem);
     id = userId;
   }

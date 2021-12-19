@@ -134,7 +134,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                 value={roles.name}
                 onChange={handleChange}
               />
-              <label htmlFor="rol_name">Nombre del rol</label>
+              <label htmlFor="rol_name">Nombre del rol*</label>
             </span>
           </div>
         )}
