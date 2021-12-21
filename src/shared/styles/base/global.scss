@@ -37,6 +37,10 @@ body {
   background-color: #999999;
 }
 
+.p-invalid {
+  border-color: #ff7468 !important;
+}
+
 @import '../base/settings';
 
 .link {
