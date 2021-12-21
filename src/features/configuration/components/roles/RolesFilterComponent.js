@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import RolesModalFiltroComponent from './RolesModalFilterComponent';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 import PinerComponent from 'shared/components/Piner/PinerComponent';
+import { Panel } from 'primereact/panel';
 
 const RolesFilterComponent = () => {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const RolesFilterComponent = () => {
 
   return (
     <Fragment>
-      <Fieldset legend="FILTRO POR" toggleable>
+      <Panel header="FILTRO POR" toggleable>
         <div className="filter-roles">
           <div className="w-full pt-5">
             <span className="p-float-label p-input-icon-left w-full">
@@ -120,7 +120,8 @@ const RolesFilterComponent = () => {
             ))}
           </div>
         )}
-      </Fieldset>
+      </Panel>
+
       <RolesModalFiltroComponent />
     </Fragment>
   );
