@@ -4,8 +4,8 @@ const Message = ({ messages, status = 'error' }) => {
   return (
     <div className={`message ${status}`}>
       <ul>
-        {messages.map((message) => (
-          <li>{message}</li>
+        {messages.map((message, index) => (
+          <li key={index}>{message}</li>
         ))}
       </ul>
     </div>
