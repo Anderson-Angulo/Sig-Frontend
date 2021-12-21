@@ -1,13 +1,14 @@
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Skeleton } from 'primereact/skeleton';
 import { InputText } from 'primereact/inputtext';
 import { RolesAction } from 'features/configuration/store/actions/RolesAction';
-
+import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 import { useParams } from 'react-router-dom';
 
@@ -19,13 +20,30 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const { loading, options } = useSelector(
     (state) => state.roleReducer.rolesOptions
   );
+  const [loadingSave, setLoadingSave] = useState(false);
   const editRole = useSelector((state) => state.roleReducer.editRole);
+  const { status } = useSelector((state) => state.roleReducer.saveRole);
+  const [errors, setErrors] = useState({
+    showInRole: false,
+    showInActions: false,
+    list: [],
+  });
 
   const [roles, setRoles] = useState({
     roleId: null,
     name: '',
     actions: [],
   });
+  const [visible, setVisible] = useState(false);
+  // const toast = useRef(null);
+  const accept = () => {
+    dispatch(RolesAction.saveRoleStatus({ status: '' }));
+    history.push('/configuracion/rol-privilegios');
+  };
+
+  const reject = () => {
+    setVisible(false);
+  };
 
   const isNewRole = title === 'NUEVO ROL';
 
@@ -33,6 +51,18 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     if (!loading && options.length === 0)
       dispatch(RolesAction.getRolesOptions());
   }, []);
+
+  useEffect(() => {
+    if (status === 0) {
+      setTimeout(() => {
+        setLoadingSave(false);
+        dispatch(RolesAction.saveRoleStatus({ status: '' }));
+        history.push('/configuracion/rol-privilegios');
+      }, 3000);
+    } else {
+      setLoadingSave(false);
+    }
+  }, [status]);
 
   useEffect(() => {
     document.getElementById('content-main').scroll({
@@ -107,16 +137,53 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
       if (hasOption) actions = ids.filter((ID) => ID !== id);
       else actions = [...ids, id];
     }
+    if (actions.length > 0) {
+      setErrors({
+        ...errors,
+        showInActions: false,
+      });
+    }
+
     setRoles({ ...roles, actions });
   };
 
-  const handleSubmit = (e) => {
+  const hasErrorsFields = () => {
+    const list = [];
+    if (roles.name === '') list.push('El nombre del rol es requerido');
+    if (roles.actions.length === 0) list.push('Acciones del rol es requerido');
+    if (list.length >= 1) {
+      setErrors({
+        ...errors,
+        showInRole: roles.name === '',
+        showInActions: roles.actions.length === 0,
+        list,
+      });
+      return true;
+    }
+    return false;
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({
+      showInRole: false,
+      showInActions: false,
+      list: [],
+    });
+
+    if (hasErrorsFields()) return;
+    setLoadingSave(true);
     dispatch(RolesAction.saveRole(roles));
   };
 
-  const handleChange = ({ target }) =>
+  const handleChange = ({ target }) => {
+    if (target.value !== '') {
+      setErrors({
+        ...errors,
+        showInRole: false,
+      });
+    }
     setRoles({ ...roles, name: target.value });
+  };
 
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
@@ -133,6 +200,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                 id="rol_name"
                 value={roles.name}
                 onChange={handleChange}
+                className={errors.showInRole ? 'p-invalid' : ''}
               />
               <label htmlFor="rol_name">Nombre del rol*</label>
             </span>
@@ -157,6 +225,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
                           value={action.name}
                           checked={isChecked(action)}
                           onChange={handleCheckbox}
+                          className={errors.showInActions ? 'p-invalid' : ''}
                         ></Checkbox>
                         <label
                           htmlFor={action.name}
@@ -171,6 +240,11 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
               );
             })}
         </div>
+        {(errors.showInRole ||
+          errors.showInActions ||
+          errors.list.length > 0) && (
+          <Message messages={errors.list} status="error" />
+        )}
 
         <div className="flex gap-3 items-center justify-end mt-3">
           <Button
@@ -178,16 +252,27 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
             type="button"
             label="Cancelar"
             className="btn btn-secondary mt-4"
-            onClick={() => history.goBack()}
+            onClick={() => setVisible(true)}
+            disabled={loadingSave}
           />
           <Button
             icon="pi pi-save"
             type="submit"
             label="Guardar"
+            loading={loadingSave}
             className="btn btn-primary mt-4"
           />
         </div>
       </form>
+      <ConfirmDialog
+        visible={visible}
+        onHide={() => setVisible(false)}
+        message="¿Estás seguro de que quieres proceder?"
+        header="¿Desea cancelar?"
+        icon="pi pi-exclamation-triangle"
+        accept={accept}
+        reject={reject}
+      />
     </div>
   );
 };

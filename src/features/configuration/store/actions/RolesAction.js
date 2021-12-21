@@ -1,3 +1,4 @@
+import { toastAction } from 'core/store/actions/ToastAction';
 import { ConfigurationConstants } from 'features/configuration/commons/ConfigurationConstants';
 import { RoleService } from 'features/configuration/services/RoleService';
 
@@ -141,11 +142,26 @@ const removeFilterValues = (field) => {
   };
 };
 
+const saveRoleStatus = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.SAVE_ROLE_STATUS,
+      payload,
+    });
+  };
+};
+
 const saveRole = (role) => {
   return (dispatch) => {
     RoleService.saveRole(role)
-      .then((res) => {
-        console.log(res);
+      .then(({ data }) => {
+        const status = data?.status ?? '';
+        if (status === 2) {
+          dispatch(toastAction.error('Error', data.message));
+        } else if (status === 0) {
+          dispatch(toastAction.success('Success', '¡Registro éxitoso!'));
+        }
+        dispatch(saveRoleStatus({ status }));
       })
       .catch(() => {});
   };
@@ -160,4 +176,5 @@ export const RolesAction = {
   setFilterValues,
   removeFilterValues,
   saveRole,
+  saveRoleStatus,
 };

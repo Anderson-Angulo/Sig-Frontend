@@ -27,6 +27,9 @@ export class ConfigurationConstants {
       static get REMOVE_FILTER_VALUES() {
         return '@ROLES.REMOVE-FILTER-VALUES';
       }
+      static get SAVE_ROLE_STATUS() {
+        return '@ROLES.SAVE-ROLE-STATUS';
+      }
     };
   };
 }

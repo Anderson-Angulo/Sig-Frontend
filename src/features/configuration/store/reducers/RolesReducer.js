@@ -25,6 +25,9 @@ const initialState = {
     loading: false,
     data: {},
   },
+  saveRole: {
+    status: '',
+  },
 };
 
 export default (state = initialState, action) => {
@@ -88,6 +91,12 @@ export default (state = initialState, action) => {
           ...state.filterRole,
           values: [...action.payload],
         },
+      };
+    case ConfigurationConstants.Accion.Roles.SAVE_ROLE_STATUS:
+      debugger;
+      return {
+        ...state,
+        saveRole: action.payload,
       };
 
     default:
