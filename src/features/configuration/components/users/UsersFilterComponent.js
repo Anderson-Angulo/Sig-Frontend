@@ -3,12 +3,13 @@ import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import UsersModalFilterComponent from './UsersModalFilterComponent';
+import { Panel } from 'primereact/panel';
 
 const UsersFilterComponent = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   return (
     <Fragment>
-      <Fieldset legend="FILTRO POR" toggleable>
+      <Panel header="FILTRO POR" toggleable>
         <div className="filter-users">
           <div className="w-full pt-5">
             <span className="p-float-label p-input-icon-left w-full">
@@ -42,7 +43,8 @@ const UsersFilterComponent = () => {
             </div>
           </div>
         </div>
-      </Fieldset>
+      </Panel>
+
       <UsersModalFilterComponent
         isOpen={showFilterModal}
         closeModal={() => setShowFilterModal(false)}
