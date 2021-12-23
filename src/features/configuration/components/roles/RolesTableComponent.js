@@ -85,7 +85,7 @@ const RolesTableComponent = () => {
         {roles.data.length > 0 && (
           <TablePagination
             currentPage={roles.pagination.currentPage}
-            pageSize={roles.pagination.pageSize}
+            pageSize={roles.pagination.pageCount}
           />
         )}
       </div>

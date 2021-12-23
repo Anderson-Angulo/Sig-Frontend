@@ -3,14 +3,17 @@ import { useSelector } from 'react-redux';
 import './HeaderComponent.scss';
 
 const HeaderComponent = () => {
-  const currentPages = useSelector(
-    (state) => state.breadcrumpReducer.currentPages
-  );
-  const [currentTitle, setcurrentTitle] = useState([]);
+  const { currentPages } = useSelector((state) => state.breadcrumpReducer);
+  const [currentTitle, setcurrentTitle] = useState({
+    title: '-',
+    description: '',
+  });
 
   useEffect(() => {
-    if (currentPages?.length > 0)
-      setcurrentTitle(currentPages[currentPages.length - 1].descripcion);
+    if (Object.values(currentPages)?.length > 0)
+      setcurrentTitle({
+        ...currentPages,
+      });
   }, [currentPages]);
 
   return (
@@ -18,24 +21,18 @@ const HeaderComponent = () => {
       className="header-route"
       style={{ backgroundColor: '#fff', color: '#004680' }}
     >
-      <h2>{currentTitle}</h2>
+      <h2>{currentTitle.title}</h2>
       <div className="header-route-content mt-1">
-        {currentPages.map((page, index) => {
-          return index < currentPages.length - 1 ? (
-            <Fragment key={index}>
-              <div className="current-page-big">
-                <p className="text-sm">{page.descripcion}</p>
-              </div>
-              <i className="pi pi-angle-right"></i>
+        <Fragment>
+          <div className="current-page-big">
+            <p className="text-sm">{currentTitle.title}</p>
+          </div>
+          {currentTitle?.description && (
+            <Fragment>
+              <i className="pi pi-angle-right"></i> {currentTitle.description}
             </Fragment>
-          ) : (
-            <Fragment key={index}>
-              <div className="current-page-small">
-                <p className="text-sm">{page.descripcion}</p>
-              </div>
-            </Fragment>
-          );
-        })}
+          )}
+        </Fragment>
       </div>
     </header>
   );

@@ -18,7 +18,9 @@ const RolesPrivilegioPage = () => {
 
   useEffect(() => {
     dispatch(
-      BreadcrumpAction.setTitlePage('ROLPRI', userInformation.menuAdministrador)
+      BreadcrumpAction.setTitlePage({
+        title: 'Roles y Privilegios',
+      })
     );
   }, []);
 

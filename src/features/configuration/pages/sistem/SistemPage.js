@@ -9,11 +9,11 @@ import './SistemPage.scss';
 const SistemPage = () => {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.authReducer.user);
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch(
       BreadcrumpAction.setTitlePage('CONSIS', userInformation.menuAdministrador)
     );
-  }, []);
+  }, []); */
 
   return (
     <div className="card tabs-roles">

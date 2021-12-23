@@ -93,7 +93,6 @@ export default (state = initialState, action) => {
         },
       };
     case ConfigurationConstants.Accion.Roles.SAVE_ROLE_STATUS:
-      debugger;
       return {
         ...state,
         saveRole: action.payload,

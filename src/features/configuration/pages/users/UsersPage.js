@@ -14,9 +14,7 @@ const UsersPage = () => {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.authReducer.user);
   useEffect(() => {
-    dispatch(
-      BreadcrumpAction.setTitlePage('GESUSU', userInformation.menuAdministrador)
-    );
+    dispatch(BreadcrumpAction.setTitlePage({ title: 'Gestión de Usuarios' }));
   }, []);
 
   return (

@@ -6,14 +6,14 @@ const MyAccountPage = () => {
   const dispatch = useDispatch();
   const usuarioInformation = useSelector((state) => state.authReducer.user);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch(
       BreadcrumpAction.setTitlePage(
         'PERFI',
         usuarioInformation.menuAdministrador
       )
     );
-  }, []);
+  }, []); */
 
   return <div>MI CUENTA</div>;
 };

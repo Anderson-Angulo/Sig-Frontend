@@ -11,6 +11,7 @@ import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 import { useParams } from 'react-router-dom';
+import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const history = useHistory();
@@ -20,6 +21,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const { loading, options } = useSelector(
     (state) => state.roleReducer.rolesOptions
   );
+
   const [loadingSave, setLoadingSave] = useState(false);
   const editRole = useSelector((state) => state.roleReducer.editRole);
   const { status } = useSelector((state) => state.roleReducer.saveRole);
@@ -36,16 +38,30 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   });
   const [visible, setVisible] = useState(false);
   // const toast = useRef(null);
+
+  const isNewRole = title === 'NUEVO ROL';
+  useEffect(() => {
+    const description = isNewRole ? 'Nuevo Rol' : 'Editar Rol';
+    dispatch(
+      BreadcrumpAction.setTitlePage({
+        title: 'Roles y Privilegios',
+        description,
+      })
+    );
+  }, []);
   const accept = () => {
     dispatch(RolesAction.saveRoleStatus({ status: '' }));
+    dispatch(
+      BreadcrumpAction.setTitlePage({
+        title: 'Roles y Privilegios',
+      })
+    );
     history.push('/configuracion/rol-privilegios');
   };
 
   const reject = () => {
     setVisible(false);
   };
-
-  const isNewRole = title === 'NUEVO ROL';
 
   useEffect(() => {
     if (!loading && options.length === 0)
@@ -187,10 +203,6 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
 
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
-      <div className="mb-4">
-        {title}
-        {JSON.stringify(roles, null, 3)}
-      </div>
       <form className="form-custom p-0" onSubmit={handleSubmit}>
         {showField() && (
           <div className="mb-6 w-2/5">
