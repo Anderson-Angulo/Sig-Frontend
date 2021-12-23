@@ -1,9 +1,11 @@
-import { Button } from 'primereact/button';
 import { Fragment, useState } from 'react';
+import { UsersTableData } from 'features/configuration/data/users/UsersTableData';
+import { Button } from 'primereact/button';
+import TableHeader from 'shared/components/tables/TableHeader';
 
 const UsersTableComponent = () => {
   const [currentUser, setCurrentUser] = useState('');
-
+  const { UsersTableHeader } = UsersTableData;
   const tableHeader = [
     'usuario',
     'nombres',
@@ -28,20 +30,7 @@ const UsersTableComponent = () => {
   return (
     <Fragment>
       <div className="table-main table-users mt-5">
-        <div className="table-header">
-          {tableHeader.map((header, index) => (
-            <div
-              className="header-title flex items-center justify-center gap-x-3"
-              key={index}
-            >
-              <h3 className="text uppercase">{header}</h3>
-              <div className="flex flex-col">
-                <i className="pi pi-chevron-up icon-small"></i>
-                <i className="pi pi-chevron-down icon-small"></i>
-              </div>
-            </div>
-          ))}
-        </div>
+        <TableHeader listHeader={UsersTableHeader} currentHeader="email" />
 
         <div className="table-body relative">
           {tableUsers.length > 0 && (
@@ -57,6 +46,7 @@ const UsersTableComponent = () => {
                     <p>{item.nombres}</p>
                     <p>{item.apellidos}</p>
                     <p>{item.fecha_creacion}</p>
+                    <p>{item.ultimo_acceso}</p>
                     <p>{item.ultimo_acceso}</p>
                     <i
                       className="pi pi-ellipsis-v cursor-pointer"
