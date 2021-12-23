@@ -279,8 +279,8 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
       <ConfirmDialog
         visible={visible}
         onHide={() => setVisible(false)}
-        message="¿Estás seguro de que quieres proceder?"
-        header="¿Desea cancelar?"
+        message="¿Está seguro que desea cancelar?"
+        header="Cancelar"
         icon="pi pi-exclamation-triangle"
         accept={accept}
         reject={reject}
