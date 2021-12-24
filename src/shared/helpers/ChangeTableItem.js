@@ -16,9 +16,19 @@ const ChangeTableItem = ({ item, tableName }) => {
     if (rest.isSystem) showAction = false;
     if (rest.creationDate)
       rest.creationDate = moment(rest.creationDate).format('DD/MM/YYYY');
-
     values = Object.values(rest).map(filterType);
     id = roleId;
+  }
+
+  if (tableName === 'table-users') {
+    const { userId, avatar, ...rest } = item;
+    if (rest.creationDate)
+      rest.creationDate = moment(rest.creationDate).format('DD/MM/YYYY');
+    if (rest.lastLogin)
+      rest.lastLogin = moment(rest.lastLogin).format('DD/MM/YYYY');
+
+    values = Object.values(rest).map(filterType);
+    id = userId;
   }
   if (tableName === 'sub-table-roles') {
     const { userId, ...rest } = item;
