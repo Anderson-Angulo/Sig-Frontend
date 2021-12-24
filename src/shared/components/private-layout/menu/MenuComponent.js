@@ -8,6 +8,7 @@ import { authAction } from 'core/store/actions/AuthAction';
 import { toggleSidebar } from 'features/configuration/store/actions/ToggleSidebarAction';
 import { isSmallScreen } from '../../../utils/isSmallScreen';
 import './MenuComponent.scss';
+import limitCharacters from 'shared/utils/limitCharacters';
 
 const MenuComponent = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,11 @@ const MenuComponent = () => {
     dispatch(authAction.logout());
   };
 
-  const limiteCaracteres = (texto, limite = 20) => {
+  /*  const limiteCaracteres = (texto, limite = 20) => {
     if (texto === undefined || texto === null) return '';
     if (texto.length < limite) return texto;
     else return texto.slice(0, limite) + '...';
-  };
+  }; */
 
   const toggle = () => dispatch(toggleSidebar.toggle(!isOpen));
 
@@ -79,9 +80,11 @@ const MenuComponent = () => {
               </div>
               <div className="user-info">
                 <h1 title={usuarioInformation?.nombreCompleto}>
-                  {limiteCaracteres(usuarioInformation?.nombreCompleto)}
+                  {limitCharacters(usuarioInformation?.nombreCompleto)}
                 </h1>
-                <p>{limiteCaracteres(usuarioInformation?.correo, 20)}</p>
+                <p title={usuarioInformation?.correo}>
+                  {limitCharacters(usuarioInformation?.correo, 20)}
+                </p>
               </div>
             </header>
             <div className="user-sub-options rounded-md">
