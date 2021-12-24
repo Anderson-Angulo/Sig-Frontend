@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { ListBox } from 'primereact/listbox';
 import { Accordion, AccordionTab } from 'primereact/accordion';
@@ -9,10 +9,12 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
 import './UserPage.scss';
+import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 
-const UserPage = () => {
+const UserPage = ({ title = 'Nuevo Usuario' }) => {
   const history = useHistory();
   const inputFile = useRef(null);
+  const dispatch = useDispatch();
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const [srcAvatar, setSrcAvatar] = useState('');
   const isActive = false;
@@ -22,6 +24,16 @@ const UserPage = () => {
     { label: 'Sede 2', value: 'SEDE2' },
     { label: 'Sede 3', value: 'SEDE3' },
   ];
+
+  useEffect(() => {
+    const description = title;
+    dispatch(
+      BreadcrumpAction.setTitlePage({
+        title: 'Roles y Privilegios',
+        description,
+      })
+    );
+  }, []);
 
   useEffect(() => {
     setSrcAvatar(usuarioInformation?.avatar);

@@ -15,8 +15,15 @@ const ConfigurationRouting = (reducerRegistry) => {
       <Route path={`${path}/mi-cuenta`} component={MyAccountPage} />
       <Route path={`${path}/usuarios`} component={UsersPage}>
         <Route exact path={`${path}/usuarios`} component={UsersPage} />
-        <Route exact path={`${path}/usuarios/nuevo`} component={UserPage} />
-        <Route path={`${path}/usuarios/editar/:id`} component={UserPage} />
+        <Route
+          exact
+          path={`${path}/usuarios/nuevo`}
+          component={() => <UserPage title="Nuevo Usuario" />}
+        />
+        <Route
+          path={`${path}/usuarios/editar/:id`}
+          component={() => <UserPage title="Editar Usuario" />}
+        />
       </Route>
       <Route path={`${path}/rol-privilegios`} component={RolesPrivilegesPage}>
         <Route
