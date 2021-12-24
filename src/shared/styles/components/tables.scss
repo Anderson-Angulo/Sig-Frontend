@@ -113,19 +113,18 @@ $c-table-item-1: #f3f3f3;
 /* -------------------------------------  */
 /* ------ TABLE EMPTY -------------------  */
 /* -------------------------------------  */
-.table-main {
-  .table-body-empty {
-    background: #f7f7f7;
-    border: 1px solid $c-primary;
-    padding: 3rem 1rem;
-    text-align: center;
-    & h3,
-    & i {
-      color: $c-primary;
-    }
-    & i {
-      font-size: 3rem;
-    }
+
+.table-body-empty {
+  background: #f7f7f7;
+  border: 1px solid $c-primary;
+  padding: 3rem 1rem;
+  text-align: center;
+  & h3,
+  & i {
+    color: $c-primary;
+  }
+  & i {
+    font-size: 3rem;
   }
 }
 

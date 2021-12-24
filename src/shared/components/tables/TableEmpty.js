@@ -1,8 +1,8 @@
-const TableEmpty = () => {
+const TableEmpty = ({ textAditional = '' }) => {
   return (
     <div className="table-body-empty">
       <i className="pi pi-inbox"></i>
-      <h3>No hay datos</h3>
+      <h3>{textAditional !== '' ? ' ' + textAditional : 'No hay datos'}</h3>
     </div>
   );
 };
