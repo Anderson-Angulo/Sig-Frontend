@@ -28,10 +28,29 @@ const getUsers = (fields) => {
       if (fields.columnOrder) objFields.currentCol = fields.columnOrder;
       dispatch(setUsers(objFields));
     });
-    // .catch(dispatch(setUsers({ loading: false })));
+  };
+};
+
+const setDateMasters = (payload) => {
+  return (dispatch) =>
+    dispatch({
+      type: ConfigurationConstants.Accion.Users.GET_DATA_MASTER,
+      payload,
+    });
+};
+
+const getDataMaster = () => {
+  return (dispatch) => {
+    dispatch(setDateMasters({ loading: true }));
+    UserService.getDataMaster().then(({ data }) => {
+      // const { data, ...rest } = data;
+      dispatch(setDateMasters({ loading: false, ...data.data }));
+      console.log(data);
+    });
   };
 };
 
 export const UsersAction = {
   getUsers,
+  getDataMaster,
 };

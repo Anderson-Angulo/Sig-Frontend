@@ -10,21 +10,27 @@ import { Button } from 'primereact/button';
 
 import './UserPage.scss';
 import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
+import TableEmpty from 'shared/components/tables/TableEmpty';
+import limitCharacters from 'shared/utils/limitCharacters';
+import { UsersAction } from 'features/configuration/store/actions/UsersAction';
 
 const UserPage = ({ title = 'Nuevo Usuario' }) => {
   const history = useHistory();
   const inputFile = useRef(null);
   const dispatch = useDispatch();
   const usuarioInformation = useSelector((state) => state.authReducer.user);
+  const {
+    loading,
+    data: { roles, status, company },
+  } = useSelector((state) => state.userReducer.dataManager);
+  const dataManager = useSelector((state) => state.userReducer.dataManager);
   const [srcAvatar, setSrcAvatar] = useState('');
   const isActive = false;
-
   const sedesList = [
     { label: 'Sede 1', value: 'SEDE1' },
     { label: 'Sede 2', value: 'SEDE2' },
     { label: 'Sede 3', value: 'SEDE3' },
   ];
-
   useEffect(() => {
     const description = title;
     dispatch(
@@ -39,6 +45,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     setSrcAvatar(usuarioInformation?.avatar);
   }, [usuarioInformation]);
 
+  useEffect(() => {
+    const { data } = dataManager;
+
+    const cantList =
+      data.roles.length + data.status.length + data.company.length;
+    if (cantList === 0) dispatch(UsersAction.getDataMaster());
+  }, []);
+
   const onSelectedImage = ({ target }) => {
     const file = target.files[0];
 
@@ -49,6 +63,15 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     const fr = new FileReader();
     fr.onloadend = () => setSrcAvatar(fr.result);
     fr.readAsDataURL(file);
+  };
+
+  const buildSedesArray = (arr) => {
+    return arr.map((sede) => {
+      return {
+        label: sede.name,
+        value: sede.name,
+      };
+    });
   };
 
   return (
@@ -102,30 +125,53 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
           </div>
         </form>
       </Panel>
-      <Panel header="ROLES" toggleable className="mt-3">
-        <div className="user-roles py-2 px-5">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-            <div className="flex items-center gap-6" key={num}>
-              <InputSwitch />
-              <p>ROL {num} </p>
-            </div>
-          ))}
+      {!loading && roles.length === 0 && (
+        <div className="mt-4">
+          <TableEmpty textAditional="Listado de Roles no encontrado" />
         </div>
-      </Panel>
-      <Panel header="EMPRESAS" toggleable className="mt-3">
-        <Accordion>
-          <AccordionTab
-            header={
-              <Fragment>
-                <i className="pi pi-building"></i> EMPRESA 1
-              </Fragment>
-            }
-          >
-            <h5 className="font-bold mb-3">SEDE</h5>
-            <ListBox multiple options={sedesList} />
-          </AccordionTab>
-        </Accordion>
-      </Panel>
+      )}
+      {!loading && roles.length > 0 && (
+        <Panel header="ROLES" toggleable className="mt-3">
+          <div className="user-roles py-2 px-5">
+            {roles.map(({ description }, index) => (
+              <div className="flex items-center gap-6" key={index}>
+                <InputSwitch />
+                <p title={description}>{limitCharacters(description, 28)} </p>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      )}
+
+      {!loading && company.length === 0 && (
+        <div className="mt-4">
+          <TableEmpty textAditional="Listado de Compañias no encontrado" />
+        </div>
+      )}
+
+      {!loading && company.length > 0 && (
+        <Panel header="EMPRESAS" toggleable className="mt-3">
+          {company.map((c, i) => (
+            <Accordion key={i}>
+              <AccordionTab
+                header={
+                  <Fragment>
+                    <i className="pi pi-building"></i> {c.businessName}
+                  </Fragment>
+                }
+              >
+                {c.locations.length > 0 ? (
+                  <ListBox multiple options={buildSedesArray(c.locations)} />
+                ) : (
+                  <div className="mt-4">
+                    <TableEmpty textAditional="Listado de locaciones no encontrado" />
+                  </div>
+                )}
+              </AccordionTab>
+            </Accordion>
+          ))}
+        </Panel>
+      )}
 
       <div className="flex justify-end gap-4 mt-3">
         <Button

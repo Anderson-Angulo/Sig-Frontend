@@ -15,6 +15,7 @@ const UsersPage = () => {
   const dispatch = useDispatch();
 
   const usersInformation = useSelector((state) => state.userReducer.users);
+  const dataManager = useSelector((state) => state.userReducer.dataManager);
 
   useEffect(() => {
     dispatch(BreadcrumpAction.setTitlePage({ title: 'Gestión de Usuarios' }));
@@ -27,6 +28,14 @@ const UsersPage = () => {
     if (!hasInformation) {
       dispatch(UsersAction.getUsers({ change: false }));
     }
+  }, []);
+
+  useEffect(() => {
+    const { data } = dataManager;
+
+    const cantList =
+      data.roles.length + data.status.length + data.company.length;
+    if (cantList === 0) dispatch(UsersAction.getDataMaster());
   }, []);
 
   return (

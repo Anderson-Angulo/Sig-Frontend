@@ -35,6 +35,9 @@ export class ConfigurationConstants {
       static get SET_LIST() {
         return '@USERS.SET-LIST';
       }
+      static get GET_DATA_MASTER() {
+        return '@ROLES.GET-DATA-MASTER';
+      }
     };
   };
 }

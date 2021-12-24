@@ -7,6 +7,17 @@ const initialState = {
     pagination: {},
     currentCol: 'firstName',
   },
+  editUser: {
+    loading: false,
+  },
+  dataManager: {
+    loading: false,
+    data: {
+      roles: [],
+      status: [],
+      company: [],
+    },
+  },
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +28,14 @@ export default (state = initialState, action) => {
         users: {
           ...state.users,
           ...action.payload,
+        },
+      };
+    case ConfigurationConstants.Accion.Users.GET_DATA_MASTER:
+      return {
+        ...state,
+        dataManager: {
+          ...state.dataManager,
+          data: { ...action.payload },
         },
       };
     default:
