@@ -18,9 +18,9 @@ const userSearch = ({ fields = {}, change }) => {
     order: 'asc',
     fromDate: null,
     toDate: null,
-    companyId: 0,
-    locationId: 0,
-    roleId: 0,
+    companyId: null,
+    locationId: null,
+    roleId: null,
   };
   if (change) initialFields = { ...initialFields, ...fields };
   return apiService.post('User/Search', initialFields, 'admin');
