@@ -35,7 +35,7 @@ const UsersTableComponent = () => {
           currentCols={UsersTableHeader.length}
           isLoading={users.loading}
           listItem={users.data}
-          showOption={true}
+          showOption={setOptions}
           tableName="table-users"
           currentOptions={options}
           Actions={() => (

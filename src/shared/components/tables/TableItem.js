@@ -75,7 +75,7 @@ const TableItem = ({
           };
 
           const showIconEllipsis = () => {
-            const tables = ['table-roles'];
+            const tables = ['table-roles', 'table-users'];
             return tables.includes(tableName) && showAction;
           };
 
