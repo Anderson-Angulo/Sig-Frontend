@@ -13,7 +13,6 @@ const RolesPrivilegioPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const userInformation = useSelector((state) => state.authReducer.user);
   const rolesInformation = useSelector((state) => state.roleReducer.roles);
 
   useEffect(() => {

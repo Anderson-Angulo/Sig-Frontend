@@ -12,7 +12,7 @@ import './UsersPage.scss';
 const UsersPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const userInformation = useSelector((state) => state.authReducer.user);
+
   useEffect(() => {
     dispatch(BreadcrumpAction.setTitlePage({ title: 'Gestión de Usuarios' }));
   }, []);
