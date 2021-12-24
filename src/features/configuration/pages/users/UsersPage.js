@@ -8,13 +8,25 @@ import UserChangePasswordPage from './UserChangePasswordPage';
 import UsersFilterComponent from 'features/configuration/components/users/UsersFilterComponent';
 import UsersTableComponent from 'features/configuration/components/users/UsersTableComponent';
 import './UsersPage.scss';
+import { UsersAction } from 'features/configuration/store/actions/UsersAction';
 
 const UsersPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const usersInformation = useSelector((state) => state.userReducer.users);
+
   useEffect(() => {
     dispatch(BreadcrumpAction.setTitlePage({ title: 'Gestión de Usuarios' }));
+  }, []);
+
+  useEffect(() => {
+    const { pagination } = usersInformation;
+
+    const hasInformation = Object.values(pagination)?.length > 0;
+    if (!hasInformation) {
+      dispatch(UsersAction.getUsers({ change: false }));
+    }
   }, []);
 
   return (

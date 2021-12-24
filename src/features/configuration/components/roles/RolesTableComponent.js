@@ -51,6 +51,7 @@ const RolesTableComponent = () => {
         <TableHeader
           listHeader={RoleTableHeader}
           currentHeader={roles.currentCol}
+          colMain="roleName"
         />
         <TableItem
           currentCols={RoleTableHeader.length}

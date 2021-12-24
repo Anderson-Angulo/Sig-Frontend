@@ -9,6 +9,7 @@ import configureStore from 'core/store/ConfigStore';
 import ReducerRegistry from 'core/store/RegisterReducer';
 import authReducer from '../core/store/reducers/AuthReducer';
 import roleReducer from 'features/configuration/store/reducers/RolesReducer';
+import userReducer from 'features/configuration/store/reducers/UserReducer';
 import breadcrumpReducer from '../core/store/reducers/BreadcrumpReducer';
 import toastReducer from './../core/store/reducers/ToastReducer';
 import toggleSidebarReducer from './configuration/store/reducers/ToggleSidebarReducer';
@@ -20,8 +21,9 @@ export const AppRouting = () => {
     authReducer,
     toastReducer,
     breadcrumpReducer,
-    roleReducer,
     toggleSidebarReducer,
+    roleReducer,
+    userReducer,
   });
 
   var store = configureStore(reducerRegistry);

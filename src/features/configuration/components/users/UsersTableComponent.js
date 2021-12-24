@@ -1,38 +1,56 @@
 import { Fragment, useState } from 'react';
 import { UsersTableData } from 'features/configuration/data/users/UsersTableData';
-import { Button } from 'primereact/button';
+import { useSelector } from 'react-redux';
+// import { Button } from 'primereact/button';
 import TableHeader from 'shared/components/tables/TableHeader';
+import TableItem from 'shared/components/tables/TableItem';
+import TableActions from 'shared/components/tables/TableActions';
 
 const UsersTableComponent = () => {
-  const [currentUser, setCurrentUser] = useState('');
-  const { UsersTableHeader } = UsersTableData;
-  const tableHeader = [
-    'usuario',
-    'nombres',
-    'apellidos',
-    'fecha creación',
-    'ultimo acceso',
-  ];
-  const user = [
-    {
-      apellidos: 'Rojas Moreno',
-      fecha_creacion: '02/11/21',
-      nombres: 'Brigitte Nataly',
-      ultimo_acceso: '04/11/21',
-      usuario: 'natalyrojasm5@gmail.com',
-    },
-  ];
-
-  const tableUsers = Array.from(Array(10)).map((_, index) => {
-    return { ...user[0], id: index };
+  const { UsersTableHeader, UsersTableActions } = UsersTableData;
+  const [options, setOptions] = useState({
+    currentID: '',
+    showOptions: false,
+    showSubTable: false,
   });
+  const users = useSelector((state) => state.userReducer.users);
+  const closeActions = () => {
+    setOptions({ ...options, showOptions: false });
+  };
+
+  const currentAction = (action) => {
+    /*  if (action === 'role-edit')
+        history.push(
+          `/configuracion/rol-privilegios/editar/${options.currentID}`
+        ); */
+    console.log('action ', action);
+  };
 
   return (
     <Fragment>
       <div className="table-main table-users mt-5">
-        <TableHeader listHeader={UsersTableHeader} currentHeader="email" />
+        <TableHeader
+          listHeader={UsersTableHeader}
+          colMain="email"
+          currentHeader={users.currentCol}
+        />
 
-        <div className="table-body relative">
+        <TableItem
+          currentCols={UsersTableHeader.length}
+          isLoading={users.loading}
+          listItem={users.data}
+          showOption={true}
+          tableName="table-users"
+          currentOptions={options}
+          Actions={() => (
+            <TableActions
+              actions={UsersTableActions}
+              closeActions={closeActions}
+              setSelectedOption={currentAction}
+            />
+          )}
+        />
+        {/* <div className="table-body relative">
           {tableUsers.length > 0 && (
             <Fragment>
               {tableUsers.map((item, index) => (
@@ -117,7 +135,7 @@ const UsersTableComponent = () => {
               />
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </Fragment>
   );

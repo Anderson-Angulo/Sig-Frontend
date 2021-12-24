@@ -31,5 +31,10 @@ export class ConfigurationConstants {
         return '@ROLES.SAVE-ROLE-STATUS';
       }
     };
+    static Users = class {
+      static get SET_LIST() {
+        return '@USERS.SET-LIST';
+      }
+    };
   };
 }

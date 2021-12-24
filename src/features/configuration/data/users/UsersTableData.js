@@ -24,7 +24,22 @@ const UsersTableHeader = [
     name: 'lastLogin',
   },
 ];
+const UsersTableActions = [
+  {
+    text: 'Editar',
+    name: 'user-edit',
+  },
+  {
+    text: 'Eliminar',
+    name: 'user-remove',
+  },
+  {
+    text: 'Resetear Clave',
+    name: 'user-reset-password',
+  },
+];
 
 export const UsersTableData = {
   UsersTableHeader,
+  UsersTableActions,
 };
