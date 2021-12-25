@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import UserChangePasswordPage from './UserChangePasswordPage';
 import UsersFilterComponent from 'features/configuration/components/users/UsersFilterComponent';
 import UsersTableComponent from 'features/configuration/components/users/UsersTableComponent';
 import './UsersPage.scss';
 import { UsersAction } from 'features/configuration/store/actions/UsersAction';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const UsersPage = () => {
   const history = useHistory();
@@ -17,8 +17,9 @@ const UsersPage = () => {
   const usersInformation = useSelector((state) => state.userReducer.users);
   const dataManager = useSelector((state) => state.userReducer.dataManager);
 
+  const { updateTitle } = useSetTitlePage();
   useEffect(() => {
-    dispatch(BreadcrumpAction.setTitlePage({ title: 'Gestión de Usuarios' }));
+    updateTitle('Gestión de Usuarios');
   }, []);
 
   useEffect(() => {

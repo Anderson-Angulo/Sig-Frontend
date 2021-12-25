@@ -9,10 +9,10 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
 import './UserPage.scss';
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import TableEmpty from 'shared/components/tables/TableEmpty';
 import limitCharacters from 'shared/utils/limitCharacters';
 import { UsersAction } from 'features/configuration/store/actions/UsersAction';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const UserPage = ({ title = 'Nuevo Usuario' }) => {
   const history = useHistory();
@@ -26,19 +26,10 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   const [srcAvatar, setSrcAvatar] = useState('');
   const isActive = false;
-  const sedesList = [
-    { label: 'Sede 1', value: 'SEDE1' },
-    { label: 'Sede 2', value: 'SEDE2' },
-    { label: 'Sede 3', value: 'SEDE3' },
-  ];
+
+  const { updateTitle } = useSetTitlePage();
   useEffect(() => {
-    const description = title;
-    dispatch(
-      BreadcrumpAction.setTitlePage({
-        title: 'Roles y Privilegios',
-        description,
-      })
-    );
+    updateTitle('Gestión de Usuarios', title);
   }, []);
 
   useEffect(() => {

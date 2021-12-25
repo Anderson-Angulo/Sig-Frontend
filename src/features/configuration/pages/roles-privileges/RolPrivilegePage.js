@@ -12,6 +12,7 @@ import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 import { useParams } from 'react-router-dom';
 import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const history = useHistory();
@@ -40,22 +41,15 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   // const toast = useRef(null);
 
   const isNewRole = title === 'NUEVO ROL';
+  const description = isNewRole ? 'Nuevo Rol' : 'Editar Rol';
+  const { updateTitle } = useSetTitlePage();
   useEffect(() => {
-    const description = isNewRole ? 'Nuevo Rol' : 'Editar Rol';
-    dispatch(
-      BreadcrumpAction.setTitlePage({
-        title: 'Roles y Privilegios',
-        description,
-      })
-    );
+    updateTitle('Roles y Privilegios', description);
   }, []);
+
   const accept = () => {
     dispatch(RolesAction.saveRoleStatus({ status: '' }));
-    dispatch(
-      BreadcrumpAction.setTitlePage({
-        title: 'Roles y Privilegios',
-      })
-    );
+    updateTitle('Roles y Privilegios');
     history.push('/configuracion/rol-privilegios');
   };
 
