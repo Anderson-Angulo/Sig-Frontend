@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { TabView, TabPanel } from 'primereact/tabview';
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import SistemColorCorporateComponent from 'features/configuration/components/sistem/SystemColorCorporateComponent';
 import LogoEmpresaComponent from 'features/configuration/components/sistem/logo-empresa/logo-empresa-component';
 import './SistemPage.scss';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const SistemPage = () => {
-  const dispatch = useDispatch();
-  const userInformation = useSelector((state) => state.authReducer.user);
-  /*   useEffect(() => {
-    dispatch(
-      BreadcrumpAction.setTitlePage('CONSIS', userInformation.menuAdministrador)
-    );
-  }, []); */
+  const { updateTitle } = useSetTitlePage();
+
+  useEffect(() => {
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Sistema',
+    });
+  }, []);
 
   return (
     <div className="card tabs-roles">

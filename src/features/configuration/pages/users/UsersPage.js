@@ -19,7 +19,10 @@ const UsersPage = () => {
 
   const { updateTitle } = useSetTitlePage();
   useEffect(() => {
-    updateTitle('Gestión de Usuarios');
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Gestión de Usuarios',
+    });
   }, []);
 
   useEffect(() => {

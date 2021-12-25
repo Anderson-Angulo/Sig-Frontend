@@ -1,8 +1,7 @@
-// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Skeleton } from 'primereact/skeleton';
@@ -11,7 +10,6 @@ import { RolesAction } from 'features/configuration/store/actions/RolesAction';
 import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 import { useParams } from 'react-router-dom';
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
@@ -38,18 +36,24 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     actions: [],
   });
   const [visible, setVisible] = useState(false);
-  // const toast = useRef(null);
 
   const isNewRole = title === 'NUEVO ROL';
   const description = isNewRole ? 'Nuevo Rol' : 'Editar Rol';
   const { updateTitle } = useSetTitlePage();
+  const pageTitle = {
+    title: 'Configuración',
+    subtitle: 'Roles y Privilegios',
+    description,
+  };
+
   useEffect(() => {
-    updateTitle('Roles y Privilegios', description);
+    updateTitle(pageTitle);
   }, []);
 
   const accept = () => {
     dispatch(RolesAction.saveRoleStatus({ status: '' }));
-    updateTitle('Roles y Privilegios');
+    const { description, ...rest } = pageTitle;
+    updateTitle(rest);
     history.push('/configuracion/rol-privilegios');
   };
 

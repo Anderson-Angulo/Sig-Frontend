@@ -18,8 +18,12 @@ const RolesPrivilegioPage = () => {
   const { updateTitle } = useSetTitlePage();
 
   useEffect(() => {
-    updateTitle('Roles y Privilegios');
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Roles y Privilegios',
+    });
   }, []);
+
   useEffect(() => {
     const { pagination } = rolesInformation;
 
