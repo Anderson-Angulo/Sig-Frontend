@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { TabView, TabPanel } from 'primereact/tabview';
 import SistemColorCorporateComponent from 'features/configuration/components/sistem/SystemColorCorporateComponent';
 import LogoEmpresaComponent from 'features/configuration/components/sistem/logo-empresa/logo-empresa-component';
-import './SistemPage.scss';
 import useSetTitlePage from 'shared/hooks/useSetTitlePage';
+import TypeMoneyComponent from 'features/configuration/components/sistem/TypeMoneyComponent';
+import './SistemPage.scss';
 
 const SistemPage = () => {
   const { updateTitle } = useSetTitlePage();
@@ -16,7 +17,7 @@ const SistemPage = () => {
   }, []);
 
   return (
-    <div className="card tabs-roles">
+    <div className="card tabs-sistem">
       <TabView className="tabview-custom" orientation="bottom">
         <TabPanel header="Logo de Empresa" leftIcon="pi pi-calendar">
           <LogoEmpresaComponent />
@@ -25,7 +26,7 @@ const SistemPage = () => {
           <SistemColorCorporateComponent />
         </TabPanel>
         <TabPanel header="Tipo de Moneda" leftIcon="pi pi-money-bill">
-          <p>Tipo de Moneda</p>
+          <TypeMoneyComponent />
         </TabPanel>
         <TabPanel header="Unidad de medida" leftIcon="pi pi-search">
           <p>Unidad de medida</p>

@@ -1,4 +1,4 @@
-.tabs-roles {
+.tabs-sistem {
   background: red;
   .tabview-custom {
     display: grid;
@@ -22,5 +22,10 @@
     height: 100%;
     min-height: 100%;
     background: white;
+  }
+  .content-tab-sistem h2 {
+    color: #004680;
+    font-weight: 600;
+    font-size: 1.2rem;
   }
 }
