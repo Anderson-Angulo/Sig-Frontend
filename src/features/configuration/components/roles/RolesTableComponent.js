@@ -1,49 +1,24 @@
-import { Fragment, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Fragment } from 'react';
 
 import TableHeader from 'shared/components/tables/TableHeader';
-import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
 import TableItem from 'shared/components/tables/TableItem';
 import TablePagination from 'shared/components/tables/TablePagination';
-import { RolesAction } from 'features/configuration/store/actions/RolesAction';
+
 import TableActions from 'shared/components/tables/TableActions';
+import useRoleTable from 'features/configuration/hooks/roles/useRoleTable';
+import { RolesTableData } from 'features/configuration/data/roles/RolesTableData';
 
 const RolesTableComponent = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const roles = useSelector((state) => state.roleReducer.roles);
-  const currentRole = useSelector((state) => state.roleReducer.userByRoleId);
   const { RoleTableHeader, RoleSubTableHeader, RoleTableActions } =
     RolesTableData;
-
-  const [options, setOptions] = useState({
-    currentID: '',
-    showOptions: false,
-    showSubTable: false,
-  });
-
-  const showOption = (fields) => {
-    if (fields?.action === 'getUserByRole') {
-      getUserByRole(fields.currentID);
-      delete fields.action;
-    }
-    setOptions({ ...options, ...fields });
-  };
-
-  const getUserByRole = (id) => {
-    dispatch(RolesAction.getUserByRoleId(id));
-  };
-  const closeActions = () => {
-    setOptions({ ...options, showOptions: false });
-  };
-
-  const currentAction = (action) => {
-    if (action === 'role-edit')
-      history.push(
-        `/configuracion/rol-privilegios/editar/${options.currentID}`
-      );
-  };
+  const {
+    roles,
+    showOption,
+    options,
+    closeActions,
+    currentAction,
+    currentRole,
+  } = useRoleTable();
 
   return (
     <Fragment>
