@@ -9,6 +9,7 @@ const initialState = {
   },
   editUser: {
     loading: false,
+    data: {},
   },
   dataManager: {
     loading: false,
@@ -36,6 +37,14 @@ export default (state = initialState, action) => {
         dataManager: {
           ...state.dataManager,
           data: { ...action.payload },
+        },
+      };
+    case ConfigurationConstants.Accion.Users.GET_USER:
+      return {
+        ...state,
+        editUser: {
+          ...state.editUser,
+          ...action.payload,
         },
       };
     default:

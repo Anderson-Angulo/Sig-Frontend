@@ -50,7 +50,31 @@ const getDataMaster = () => {
   };
 };
 
+const setUser = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Users.GET_USER,
+      payload,
+    });
+  };
+};
+
+const getUser = (userId) => {
+  return (dispatch) => {
+    dispatch(setUser({ loading: true }));
+    UserService.getUserById(userId)
+      .then(({ data }) => {
+        dispatch(setUser({ loading: false, data: data.data }));
+        // console.log({ loading: false,data: data.data });
+      })
+      .catch((err) => {
+        dispatch(setUser({ loading: false }));
+      });
+  };
+};
+
 export const UsersAction = {
   getUsers,
   getDataMaster,
+  getUser,
 };

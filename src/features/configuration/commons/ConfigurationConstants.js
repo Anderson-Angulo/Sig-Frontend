@@ -36,7 +36,10 @@ export class ConfigurationConstants {
         return '@USERS.SET-LIST';
       }
       static get GET_DATA_MASTER() {
-        return '@ROLES.GET-DATA-MASTER';
+        return '@USERS.GET-DATA-MASTER';
+      }
+      static get GET_USER() {
+        return '@USERS.GET-USER';
       }
     };
   };
