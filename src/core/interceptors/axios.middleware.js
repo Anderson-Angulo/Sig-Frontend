@@ -18,7 +18,8 @@ const axiosMiddleware = (store) => {
   axios.interceptors.response.use(
     (res) => {
       if (res.data.status == CoreConstants.HttpResponse.REQUIRED_FIELDS)
-        dispatch(toastAction.warn(res.data.message, res.data.data.toString()));
+        // console.log(res.data.data.join(', '));
+        dispatch(toastAction.warn(res.data.message, res.data.data.join(', ')));
 
       if (res.data.status <= CoreConstants.HttpResponse.ERROR_TECHNICAL)
         dispatch(

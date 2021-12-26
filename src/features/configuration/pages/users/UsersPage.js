@@ -3,20 +3,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import UserChangePasswordPage from './UserChangePasswordPage';
 import UsersFilterComponent from 'features/configuration/components/users/UsersFilterComponent';
 import UsersTableComponent from 'features/configuration/components/users/UsersTableComponent';
 import './UsersPage.scss';
+import { UsersAction } from 'features/configuration/store/actions/UsersAction';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const UsersPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const userInformation = useSelector((state) => state.authReducer.user);
+
+  const usersInformation = useSelector((state) => state.userReducer.users);
+  const dataManager = useSelector((state) => state.userReducer.dataManager);
+
+  const { updateTitle } = useSetTitlePage();
   useEffect(() => {
-    dispatch(
-      BreadcrumpAction.setTitlePage('GESUSU', userInformation.menuAdministrador)
-    );
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Gestión de Usuarios',
+    });
+  }, []);
+
+  useEffect(() => {
+    const { pagination } = usersInformation;
+
+    const hasInformation = Object.values(pagination)?.length > 0;
+    if (!hasInformation) {
+      dispatch(UsersAction.getUsers({ change: false }));
+    }
+  }, []);
+
+  useEffect(() => {
+    const { data } = dataManager;
+
+    const cantList =
+      data.roles.length + data.status.length + data.company.length;
+    if (cantList === 0) dispatch(UsersAction.getDataMaster());
   }, []);
 
   return (

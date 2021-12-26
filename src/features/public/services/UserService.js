@@ -1,8 +1,12 @@
-
 import { apiService } from 'core/services/ApiService';
 
-function selecEmpresaSede(email, password, empresaId, sedeId) {
-    return apiService.post("Auth/LoginUser", { userName: email, password: password, empresaId: empresaId, sedeId: sedeId });
+function selecEmpresaSede(email, password, companyId, locationId) {
+  return apiService.post('Auth/LoginUser', {
+    userName: email,
+    password: password,
+    companyId,
+    locationId,
+  });
 }
 
 function solicitarRecuperarContrasena(email){

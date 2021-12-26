@@ -2,28 +2,13 @@ import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
 import { useState } from 'react';
 import './SystemColorCorporateComponent.scss';
+import useColorCorporate from 'features/configuration/hooks/sistem/useColorCorporate';
 
 const SistemColorCorporateComponent = () => {
-  const [colors, setColors] = useState({
-    fondo: '#E24D4D',
-    defecto: '#E6E4E4',
-    mouseEncima: '#000000',
-    seleccionado: '#4DB4E2',
-    btnPrimario: '#004680',
-    btnSecundario: '#808080',
-    btnExito: '#4DB4E2',
-    btnAdvertencia: '#DFA98A',
-    btnError: '#FF0909',
-    btnOscuro: '#030303',
-  });
-  const handlerChangeColor = (e) => {
-    setColors({
-      ...colors,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { handlerChangeColor, colors } = useColorCorporate();
   return (
-    <div>
+    <div className="content-tab-sistem">
+      <h2>Color Corporativo</h2>
       <Panel header="Barra de Navegación" toggleable className="mt-5">
         <div className="option-color">
           <p>Color fondo</p>
@@ -193,7 +178,6 @@ const SistemColorCorporateComponent = () => {
       <div className="flex gap-5 justify-start mt-5">
         <Button type="button" label="Cancelar" className="btn btn-secondary" />
         <Button type="button" label="Guardar" className="btn btn-primary" />
-        
       </div>
     </div>
   );

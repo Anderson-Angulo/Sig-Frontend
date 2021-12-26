@@ -15,19 +15,33 @@ const ConfigurationRouting = (reducerRegistry) => {
       <Route path={`${path}/mi-cuenta`} component={MyAccountPage} />
       <Route path={`${path}/usuarios`} component={UsersPage}>
         <Route exact path={`${path}/usuarios`} component={UsersPage} />
-        <Route exact path={`${path}/usuarios/nuevo`} component={UserPage} />
-        <Route path={`${path}/usuarios/editar/:id`} component={UserPage} />
+        <Route
+          exact
+          path={`${path}/usuarios/nuevo`}
+          component={() => <UserPage title="Nuevo Usuario" />}
+        />
+        <Route
+          path={`${path}/usuarios/editar/:id`}
+          component={() => <UserPage title="Editar Usuario" />}
+        />
       </Route>
-      <Route
-        exact
-        path={`${path}/rol-privilegios`}
-        component={RolesPrivilegesPage}
-      />
-      <Route
-        exact
-        path={`${path}/rol-privilegios/nuevo`}
-        component={RolPrivilegePage}
-      />
+      <Route path={`${path}/rol-privilegios`} component={RolesPrivilegesPage}>
+        <Route
+          exact
+          path={`${path}/rol-privilegios`}
+          component={RolesPrivilegesPage}
+        />
+        <Route
+          exact
+          path={`${path}/rol-privilegios/nuevo`}
+          component={() => <RolPrivilegePage title="NUEVO ROL" />}
+        />
+        <Route
+          exact
+          path={`${path}/rol-privilegios/editar/:id`}
+          component={() => <RolPrivilegePage title="EDITAR ROL" />}
+        />
+      </Route>
       <Route path={`${path}/`} component={MyAccountPage} />
     </Switch>
   );

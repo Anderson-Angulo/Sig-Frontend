@@ -1,18 +1,14 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const MyAccountPage = () => {
-  const dispatch = useDispatch();
-  const usuarioInformation = useSelector((state) => state.authReducer.user);
+  const { updateTitle } = useSetTitlePage();
 
   useEffect(() => {
-    dispatch(
-      BreadcrumpAction.setTitlePage(
-        'PERFI',
-        usuarioInformation.menuAdministrador
-      )
-    );
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Mi Cuenta',
+    });
   }, []);
 
   return <div>MI CUENTA</div>;

@@ -1,22 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { TabView, TabPanel } from 'primereact/tabview';
-import { BreadcrumpAction } from 'core/store/actions/BreadcrumpAction';
 import SistemColorCorporateComponent from 'features/configuration/components/sistem/SystemColorCorporateComponent';
 import LogoEmpresaComponent from 'features/configuration/components/sistem/logo-empresa/logo-empresa-component';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
+import TypeMoneyComponent from 'features/configuration/components/sistem/TypeMoneyComponent';
+import UnitMeasureComponent from 'features/configuration/components/sistem/UnitMeasureComponent';
 import './SistemPage.scss';
 
 const SistemPage = () => {
-  const dispatch = useDispatch();
-  const userInformation = useSelector((state) => state.authReducer.user);
-  useEffect(() => {
-    dispatch(
-      BreadcrumpAction.setTitlePage('CONSIS', userInformation.menuAdministrador)
-    );
-  }, []);
-
   return (
-    <div className="card tabs-roles">
+    <div className="card tabs-sistem">
       <TabView className="tabview-custom" orientation="bottom">
         <TabPanel header="Logo de Empresa" leftIcon="pi pi-calendar">
           <LogoEmpresaComponent />
@@ -25,10 +18,10 @@ const SistemPage = () => {
           <SistemColorCorporateComponent />
         </TabPanel>
         <TabPanel header="Tipo de Moneda" leftIcon="pi pi-money-bill">
-          <p>Tipo de Moneda</p>
+          <TypeMoneyComponent />
         </TabPanel>
         <TabPanel header="Unidad de medida" leftIcon="pi pi-search">
-          <p>Unidad de medida</p>
+          <UnitMeasureComponent />
         </TabPanel>
       </TabView>
     </div>

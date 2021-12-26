@@ -6,10 +6,27 @@ const initialState = {
     data: [],
     loading: false,
     pagination: {},
+    currentCol: 'roleName',
   },
   filterRole: {
     showModal: false,
     disabledBtn: true,
+    values: [],
+  },
+  rolesOptions: {
+    loading: false,
+    options: [],
+  },
+  userByRoleId: {
+    loading: false,
+    data: [],
+  },
+  editRole: {
+    loading: false,
+    data: {},
+  },
+  saveRole: {
+    status: '',
   },
 };
 
@@ -19,10 +36,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         roles: {
-          data: action.payload.data,
-          currentData: action.payload.currentData,
-          loading: action.payload.loading,
-          pagination: action.payload.pagination,
+          ...state.roles,
+          ...action.payload,
         },
       };
 
@@ -33,6 +48,54 @@ export default (state = initialState, action) => {
           ...state.filterRole,
           ...action.payload,
         },
+      };
+
+    case ConfigurationConstants.Accion.Roles.LISTOPTIONS:
+      return {
+        ...state,
+        rolesOptions: {
+          ...state.rolesOptions,
+          ...action.payload,
+        },
+      };
+
+    case ConfigurationConstants.Accion.Roles.GET_USER_BY_ROLE_ID:
+      return {
+        ...state,
+        userByRoleId: {
+          ...state.userByRoleId,
+          ...action.payload,
+        },
+      };
+
+    case ConfigurationConstants.Accion.Roles.EDIT_ROLE:
+      return {
+        ...state,
+        editRole: {
+          ...state.editRole,
+          ...action.payload,
+        },
+      };
+    case ConfigurationConstants.Accion.Roles.SET_FILTER_VALUES:
+      return {
+        ...state,
+        filterRole: {
+          ...state.filterRole,
+          values: [...state.filterRole.values, ...action.payload],
+        },
+      };
+    case ConfigurationConstants.Accion.Roles.REMOVE_FILTER_VALUES:
+      return {
+        ...state,
+        filterRole: {
+          ...state.filterRole,
+          values: [...action.payload],
+        },
+      };
+    case ConfigurationConstants.Accion.Roles.SAVE_ROLE_STATUS:
+      return {
+        ...state,
+        saveRole: action.payload,
       };
 
     default:

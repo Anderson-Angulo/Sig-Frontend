@@ -32,18 +32,23 @@ $c-table-item-1: #f3f3f3;
   }
   &.table-users .table-header,
   &.table-users .table-item {
-    grid-template-columns: repeat(5, 1fr) 3rem;
+    grid-template-columns: repeat(6, 1fr) 3rem;
     gap: 10px;
   }
   &.table-users {
     .table-header,
     .table-item {
-      padding: 10px 6px;
+      padding: 10px 12px;
       h3,
       i {
         font-size: 14px;
       }
     }
+  }
+  &.table-units .table-header,
+  &.table-units .table-item {
+    grid-template-columns: repeat(2, 1fr) 12rem;
+    gap: 1rem;
   }
 }
 
@@ -107,23 +112,24 @@ $c-table-item-1: #f3f3f3;
     }
   }
 }
-
+.table-secondary {
+  border-bottom: 1px solid $c-primary;
+}
 /* -------------------------------------  */
 /* ------ TABLE EMPTY -------------------  */
 /* -------------------------------------  */
-.table-main {
-  .table-body-empty {
-    background: #f7f7f7;
-    border: 1px solid $c-primary;
-    padding: 3rem 1rem;
-    text-align: center;
-    & h3,
-    & i {
-      color: $c-primary;
-    }
-    & i {
-      font-size: 3rem;
-    }
+
+.table-body-empty {
+  background: #f7f7f7;
+  border: 1px solid $c-primary;
+  padding: 3rem 1rem;
+  text-align: center;
+  & h3,
+  & i {
+    color: $c-primary;
+  }
+  & i {
+    font-size: 3rem;
   }
 }
 

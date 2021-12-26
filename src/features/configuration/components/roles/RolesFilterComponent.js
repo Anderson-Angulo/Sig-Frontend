@@ -1,29 +1,35 @@
 import { Fragment } from 'react';
-import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
-import { useDispatch } from 'react-redux';
 import { Button } from 'primereact/button';
 import RolesModalFiltroComponent from './RolesModalFilterComponent';
-import { RolesAction } from 'features/configuration/store/actions/RolesAction';
+import PinerComponent from 'shared/components/Piner/PinerComponent';
+import { Panel } from 'primereact/panel';
+import useRoleFilter from 'features/configuration/hooks/roles/useRoleFilter';
 
 const RolesFilterComponent = () => {
-  const dispatch = useDispatch();
+  const {
+    fieldRole,
+    handleChange,
+    disabledBtnSearch,
+    openModal,
+    removePiner,
+    showPiners,
+    filterRole,
+    values,
+  } = useRoleFilter();
 
-  const filterRole = ({ target }) => {
-    dispatch(RolesAction.searchRole(target.value));
-  };
-
-  const openModal = () => {
-    dispatch(RolesAction.toggleModalFilters({ showModal: true }));
-  };
   return (
     <Fragment>
-      <Fieldset legend="FILTRO POR" toggleable>
+      <Panel header="FILTRO POR" toggleable>
         <div className="filter-roles">
           <div className="w-full pt-5">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
-              <InputText id="input-search" onChange={filterRole} />
+              <InputText
+                id="input-search"
+                ref={fieldRole}
+                onChange={handleChange}
+              />
               <label htmlFor="input-search">Buscar por rol</label>
             </span>
           </div>
@@ -33,6 +39,8 @@ const RolesFilterComponent = () => {
                 icon="pi pi-search"
                 type="button"
                 label="Buscar"
+                onClick={filterRole}
+                disabled={disabledBtnSearch}
                 className="btn btn-primary w-full"
               />
               <Button
@@ -52,7 +60,20 @@ const RolesFilterComponent = () => {
             </div>
           </div>
         </div>
-      </Fieldset>
+        {showPiners() && (
+          <div className="filter-piners mt-4">
+            {values.map(({ value, field }, index) => (
+              <PinerComponent
+                name={value}
+                field={field}
+                removePiner={removePiner}
+                key={index}
+              />
+            ))}
+          </div>
+        )}
+      </Panel>
+
       <RolesModalFiltroComponent />
     </Fragment>
   );

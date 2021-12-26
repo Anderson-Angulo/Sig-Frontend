@@ -1,4 +1,9 @@
-const TableHeader = ({ listHeader, currentHeader = '' }) => {
+const TableHeader = ({
+  listHeader,
+  currentHeader = '',
+  showIcon = true,
+  colMain,
+}) => {
   return (
     <div className="table-header">
       {listHeader.map(({ text, name }, index) => {
@@ -6,17 +11,21 @@ const TableHeader = ({ listHeader, currentHeader = '' }) => {
           <div key={index}></div>
         ) : (
           <div
-            className="header-title flex items-center justify-center gap-x-3"
+            className={`header-title flex items-center gap-x-3 ${
+              colMain === name ? 'justify-start' : 'justify-center'
+            }`}
             key={index}
           >
             <h3 className="text uppercase">{text}</h3>
-            <div className="flex flex-col">
-              {currentHeader === name ? (
-                <i className="pi pi-chevron-down icon-small"></i>
-              ) : (
-                <i className="pi pi-chevron-up icon-small"></i>
-              )}
-            </div>
+            {showIcon && (
+              <div className="flex flex-col">
+                {currentHeader === name ? (
+                  <i className="pi pi-chevron-down icon-small"></i>
+                ) : (
+                  <i className="pi pi-chevron-up icon-small"></i>
+                )}
+              </div>
+            )}
           </div>
         );
       })}

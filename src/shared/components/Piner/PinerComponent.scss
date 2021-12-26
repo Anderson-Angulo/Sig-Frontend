@@ -1,0 +1,14 @@
+.piner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background-color: red;
+  width: fit-content;
+  color: #fff;
+  p,
+  i {
+    font-size: 14px;
+  }
+}

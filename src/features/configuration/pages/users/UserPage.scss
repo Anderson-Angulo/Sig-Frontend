@@ -1,6 +1,6 @@
 .user-roles {
   display: grid;
-  grid-template-columns: repeat(2, 8rem);
+  grid-template-columns: repeat(2, 22rem);
   grid-gap: 1rem 3rem;
 }
 
@@ -42,6 +42,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-row-end: 4;
+
   img {
     border-radius: 50%;
     width: 95px;
@@ -55,4 +59,12 @@
     opacity: 1;
     transition: opacity 0.2s;
   }
+}
+
+.item-location {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
