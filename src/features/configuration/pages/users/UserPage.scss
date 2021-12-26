@@ -62,3 +62,11 @@
     transition: opacity 0.2s;
   }
 }
+
+.item-location {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
