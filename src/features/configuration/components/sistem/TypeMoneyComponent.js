@@ -1,6 +1,8 @@
+import useTypeMoney from 'features/configuration/hooks/sistem/useTypeMoney';
 import { RadioButton } from 'primereact/radiobutton';
 
 const TypeMoneyComponent = () => {
+  useTypeMoney();
   return (
     <div className="content-tab-sistem">
       <h2>Tipo de Moneda</h2>
