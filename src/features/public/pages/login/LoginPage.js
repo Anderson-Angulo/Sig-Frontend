@@ -9,9 +9,11 @@ import { Button } from 'primereact/button';
 
 import PublicLayout from 'shared/components/public-layout/PublicLayout';
 import RecoveryPasswordPage from 'features/public/pages/recovery-password/RecoveryPasswordPage';
+import SuccessRecoveryPasswordPage from 'features/public/components/recovery-password/SuccessRecoveryPasswordPage';
 
 import { authAction } from 'core/store/actions/AuthAction';
 import { RecoveryPasswordAction } from 'features/public/store/actions/RecoveryPasswordAction';
+
 import LoginSelectCompanySiteComponent from 'features/public/components/login/LoginSelectCompanySiteComponent';
 
 import './LoginPage.scss';
@@ -28,6 +30,9 @@ const LoginPage = () => {
 
   const loggedIn = useSelector((state) => state.authReducer.loggedIn);
   const loading = useSelector((state) => state.authReducer.loading);
+
+
+  const mostrarFeedback=useSelector((state)=>state.FeedBackReducer.mostrarFeedback)
 
   const mostrarRecuperarContrasena = useSelector(
     (state) => state.RecoveryPasswordReducer.mostrarRecuperarContrasena
@@ -93,7 +98,14 @@ const LoginPage = () => {
                 }}
               />
               <label htmlFor="email">Correo eléctronico</label>
+              
             </span>
+                 {errors.email ? (
+              <>
+                <small className="p-error">{errors.email.message}</small>
+                <br />
+              </>
+            ) : null}
 
             <span className="p-float-label field p-input-icon-right w-full">
               <Controller
@@ -118,6 +130,13 @@ const LoginPage = () => {
               />
               <label htmlFor="password">Contraseña</label>
             </span>
+                {errors.password ? (
+              <>
+                <small className="p-error">{errors.password.message}</small>
+                <br />
+              </>
+            ) : null}
+            
           </div>
 
           <div className="actions">
@@ -137,19 +156,6 @@ const LoginPage = () => {
               </label>
             </div>
 
-            {errors.email ? (
-              <>
-                <small className="p-error">{errors.email.message}</small>
-                <br />
-              </>
-            ) : null}
-
-            {errors.password ? (
-              <>
-                <small className="p-error">{errors.password.message}</small>
-                <br />
-              </>
-            ) : null}
 
             <Button
               type="submit"
@@ -159,6 +165,7 @@ const LoginPage = () => {
             />
           </div>
         </form>
+        <SuccessRecoveryPasswordPage isOpen={mostrarFeedback} />
         <RecoveryPasswordPage isOpen={mostrarRecuperarContrasena} />
         <LoginSelectCompanySiteComponent isOpen={mostrarSeleccionEmpresaSede} />
       </Fragment>

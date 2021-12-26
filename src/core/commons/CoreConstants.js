@@ -24,6 +24,10 @@ export class CoreConstants {
             static get MOSTRAR_MENSAJE() { return '@CORE.TOAST.MOSTRAR'; }
             static get OCULTAR_MENSAJE() { return '@CORE.TOAST.OCULTAR'; }
         }
+        static FeedBack = class {
+            static get MOSTRAR_MENSAJE() { return '@CORE.FEEDBACK.MOSTRAR'; }
+            static get OCULTAR_MENSAJE() { return '@CORE.FEEDBACK.OCULTAR'; }
+        }
 
     }
 

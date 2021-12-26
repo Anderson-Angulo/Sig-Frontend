@@ -11,7 +11,9 @@ import authReducer from '../core/store/reducers/AuthReducer';
 import roleReducer from 'features/configuration/store/reducers/RolesReducer';
 import breadcrumpReducer from '../core/store/reducers/BreadcrumpReducer';
 import toastReducer from './../core/store/reducers/ToastReducer';
+import FeedBackReducer from './../core/store/reducers/FeedBackReducer';
 import toggleSidebarReducer from './configuration/store/reducers/ToggleSidebarReducer';
+
 
 import RrhhRouting from './rrhh/RrhhRouting';
 
@@ -22,6 +24,7 @@ export const AppRouting = () => {
     breadcrumpReducer,
     roleReducer,
     toggleSidebarReducer,
+    FeedBackReducer
   });
 
   var store = configureStore(reducerRegistry);

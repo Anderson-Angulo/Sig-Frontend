@@ -58,17 +58,6 @@ const UserPage = () => {
                 <InputText type="text" id="user_names" />
                 <label htmlFor="user_names">Nombres</label>
               </span>
-              <div className="user-picture">
-                
-                <img src={srcAvatar} alt={usuarioInformation?.nombreCompleto} />
-                <input
-                  type="file"
-                  className="hidden"
-                  ref={inputFile}
-                  onChange={onSelectedImage}
-                />
-            
-              </div>
               <span className="p-float-label w-full">
                 <InputText type="text" id="user_lastname" />
                 <label htmlFor="user_lastname">Apellidos</label>

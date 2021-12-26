@@ -2,6 +2,7 @@ import { PublicConstants } from 'features/public/commons/PublicConstants';
 
 const initialState = {
   mostrarRecuperarContrasena: false,
+  loading:false
 };
 
 const RecoveryPasswordReducer= (state = initialState, action) => {
@@ -13,6 +14,16 @@ const RecoveryPasswordReducer= (state = initialState, action) => {
     case PublicConstants.Accion.RecuperapContrasena.OCULTAR:
       return {
         mostrarRecuperarContrasena: false,
+        loading:false
+      };
+    case PublicConstants.Accion.RecuperapContrasena.REQUEST:
+      return {
+        mostrarRecuperarContrasena: true,
+        loading:true  
+      };
+    case PublicConstants.Accion.RecuperapContrasena.DONE:
+      return {
+        loading:false  
       };
 
     default:

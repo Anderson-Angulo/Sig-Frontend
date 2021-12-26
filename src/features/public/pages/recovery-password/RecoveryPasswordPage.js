@@ -1,4 +1,5 @@
-import { useDispatch } from 'react-redux';
+import {useRef} from "react"
+import { useDispatch,useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
@@ -8,11 +9,12 @@ import 'shared/styles/components/modals.scss';
 
 const RecoveryPasswordPage = ({ isOpen }) => {
   const dispatch = useDispatch();
-
-  /* function handleOcultarContrasena(e) {
-    e.preventDefault();
-
-  } */
+  const emailRef=useRef("")
+  const loading=useSelector((state) => state.RecoveryPasswordReducer.loading);
+  
+  const handlerRequestRecoveryPassword=(email)=>{
+    dispatch(RecoveryPasswordAction.solicitarRecuperacionContrasena(email))
+  }
 
   const onHide = () => {
     dispatch(RecoveryPasswordAction.ocultar());
@@ -42,13 +44,13 @@ const RecoveryPasswordPage = ({ isOpen }) => {
         <div className="fields">
           <span className="p-float-label p-input-icon-right field w-full">
             <i className="pi pi-user" />
-            <InputText id="email" name="email" />
+            <InputText id="email" ref={emailRef} name="email" />
             <label htmlFor="email">Usuario</label>
           </span>
         </div>
 
         <div className="actions">
-          <Button label="Recuperar contraseña" className="btn btn-primary" />
+          <Button loading={loading} onClick={()=>handlerRequestRecoveryPassword(emailRef.current.value)} label="Recuperar contraseña" className="btn btn-primary" />
         </div>
       </div>
     </Dialog>

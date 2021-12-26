@@ -7,7 +7,7 @@ function login(email, password) {
     dispatch({ type: CoreConstants.Accion.Login.REQUEST });
     authService.login(email, password).then(
       (model) => {
-        evaluarLogin(dispatch, model, email, password);
+        evaluarLogin(dispatch, model);
       },
       (error) => {
         dispatch({ type: CoreConstants.Accion.Login.FAILURE, error });
@@ -32,25 +32,19 @@ function validarSesion() {
   };
 }
 
-function evaluarLogin(dispatch, model, email, password) {
+function evaluarLogin(dispatch, model) {
   switch (model.data.status) {
     case CoreConstants.HttpResponse.OK:
       const userInformation = model.data.data;
-      console.log(userInformation);
-
       if (userInformation.empresas.length > 1)
         dispatch({
           type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
-          email,
-          password,
         });
       else if (userInformation.empresas[0].sedes.length > 1)
         dispatch({
           type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
-          email,
-          password,
         });
       else
         dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });

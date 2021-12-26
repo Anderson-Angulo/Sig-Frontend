@@ -7,6 +7,15 @@ export class PublicConstants {
       static get OCULTAR() {
         return '@RECUPERAR-CONTRASENA.OCULTAR';
       }
+      static get REQUEST() {
+        return '@RECUPERAR-CONTRASENA.REQUEST';
+      }
+      static get DONE() {
+        return '@RECUPERAR-CONTRASENA.DONE';
+      }
+      static get FAILURE() {
+        return '@RECUPERAR-CONTRASENA.FAILURE';
+      }
     };
     static SelecEmpresaSede = class {
       static get REQUEST() {
