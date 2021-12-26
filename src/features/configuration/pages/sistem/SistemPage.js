@@ -4,18 +4,10 @@ import SistemColorCorporateComponent from 'features/configuration/components/sis
 import LogoEmpresaComponent from 'features/configuration/components/sistem/logo-empresa/logo-empresa-component';
 import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 import TypeMoneyComponent from 'features/configuration/components/sistem/TypeMoneyComponent';
+import UnitMeasureComponent from 'features/configuration/components/sistem/UnitMeasureComponent';
 import './SistemPage.scss';
 
 const SistemPage = () => {
-  const { updateTitle } = useSetTitlePage();
-
-  useEffect(() => {
-    updateTitle({
-      title: 'Configuración',
-      subtitle: 'Sistema',
-    });
-  }, []);
-
   return (
     <div className="card tabs-sistem">
       <TabView className="tabview-custom" orientation="bottom">
@@ -29,7 +21,7 @@ const SistemPage = () => {
           <TypeMoneyComponent />
         </TabPanel>
         <TabPanel header="Unidad de medida" leftIcon="pi pi-search">
-          <p>Unidad de medida</p>
+          <UnitMeasureComponent />
         </TabPanel>
       </TabView>
     </div>
