@@ -55,27 +55,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
       <Panel header="DATOS GENERALES" toggleable>
-<<<<<<< HEAD
-        <form className="form-custom p-0 my-4 mx-4">
-          <div className="flex items-start gap-3 justify-between mb-6">
-            <div className="field-row">
-              <span className="p-float-label w-full">
-                <InputText type="text" id="user_name" />
-                <label htmlFor="user_name">Usuario</label>
-              </span>
-              <span className="p-float-label w-full">
-                <InputText type="email" id="user_email" />
-                <label htmlFor="user_email">Correo Eléctronico</label>
-              </span>
-              <span className="p-float-label w-full">
-                <InputText type="text" id="user_names" />
-                <label htmlFor="user_names">Nombres</label>
-              </span>
-              <span className="p-float-label w-full">
-                <InputText type="text" id="user_lastname" />
-                <label htmlFor="user_lastname">Apellidos</label>
-              </span>
-=======
         <form className="form-custom p-0 my-4 mx-4" onSubmit={handleSubmit}>
           <div className="flex items-start gap-3 justify-between mb-6 w-full">
             <div className="field-row w-full">
@@ -155,7 +134,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <label htmlFor="user_lastname">Apellidos</label>
                 </span>
               )}
->>>>>>> 3730cf9afcd553ff164fb1e4fb71788e4948c80e
             </div>
             <div className="flex gap-2  justify-end w-2/4">
               {editUser.loading && !loading ? (
