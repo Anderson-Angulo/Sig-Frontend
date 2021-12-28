@@ -45,12 +45,14 @@
   grid-row-start: 2;
   grid-column-start: 2;
   grid-row-end: 4;
+  max-height: 50px;
 
   img {
     border-radius: 50%;
     width: 95px;
     height: 95px;
     object-fit: cover;
+    max-height: 45px;
   }
 }
 
