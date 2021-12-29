@@ -36,3 +36,7 @@ span.p-dropdown-label {
 .p-float-label label {
   margin-top: -0.3rem !important;
 }
+
+.p-float-label input:-webkit-autofill ~ label {
+  top: -15px;
+}
