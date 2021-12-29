@@ -28,6 +28,10 @@ function seleccionar(userInformation, email, password) {
           dispatch({
             type: PublicConstants.Accion.SelecEmpresaSede.OCULTAR,
           });
+          dispatch({
+            type: CoreConstants.Accion.Toast.OCULTAR_MENSAJE,
+          });
+
           switch (model.data.status) {
             case CoreConstants.HttpResponse.OK:
               const userInformation = model.data.data;
@@ -35,7 +39,7 @@ function seleccionar(userInformation, email, password) {
                 type: CoreConstants.Accion.Login.SUCCESS,
                 userInformation,
               });
-              break;
+              return;
             case CoreConstants.HttpResponse.ERROR_FUNTIONAL:
               dispatch({
                 type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
@@ -45,7 +49,7 @@ function seleccionar(userInformation, email, password) {
                   severidad: 'warn',
                 },
               });
-              break;
+              return;
             default:
               if (model.data.status > 1)
                 dispatch({
@@ -56,7 +60,7 @@ function seleccionar(userInformation, email, password) {
                     severidad: 'warn',
                   },
                 });
-              break;
+              return;
           }
         },
         (error) => {

@@ -17,17 +17,19 @@ const axiosMiddleware = (store) => {
   );
   axios.interceptors.response.use(
     (res) => {
-      if (res.data.status == CoreConstants.HttpResponse.REQUIRED_FIELDS)
-        // console.log(res.data.data.join(', '));
+      if (res.data.status == CoreConstants.HttpResponse.REQUIRED_FIELDS) {
         dispatch(toastAction.warn(res.data.message, res.data.data.join(', ')));
+      }
+      // console.log(res.data.data.join(', '));
 
-      if (res.data.status <= CoreConstants.HttpResponse.ERROR_TECHNICAL)
+      if (res.data.status <= CoreConstants.HttpResponse.ERROR_TECHNICAL) {
         dispatch(
           toastAction.error(
             res.status + ' Se produjo un error técnico',
             'Código del error: ' + res.data.transactionId
           )
         );
+      }
 
       return res;
     },

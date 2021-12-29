@@ -5,14 +5,14 @@ import { PublicConstants } from 'features/public/commons/PublicConstants';
 function login(email, password) {
   return (dispatch) => {
     dispatch({ type: CoreConstants.Accion.Login.REQUEST });
-    authService.login(email, password).then(
-      (model) => {
+    authService
+      .login(email, password)
+      .then((model) => {
         evaluarLogin(dispatch, model, email, password);
-      },
-      (error) => {
+      })
+      .catch((error) => {
         dispatch({ type: CoreConstants.Accion.Login.FAILURE, error });
-      }
-    );
+      });
   };
 }
 
@@ -59,7 +59,7 @@ function evaluarLogin(dispatch, model, email, password) {
         type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
         toast: {
           titulo: 'Autenticación',
-          mensaje: 'Las credenciales ingresadas son incorrectas',
+          mensaje: model.data.message,
           severidad: 'warn',
         },
       });
