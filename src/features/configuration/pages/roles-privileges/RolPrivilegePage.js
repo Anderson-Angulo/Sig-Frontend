@@ -42,7 +42,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   };
 
   return (
-    <div className="bg-white p-10 mt-3 rounded-md shadow-md">
+    <div className="bg-white p-10  rounded-md shadow-md">
       <form className="form-custom p-0" onSubmit={handleSubmit}>
         {showField() && (
           <div className="mb-6 w-2/5">
