@@ -1,18 +1,18 @@
 const UsersTableHeader = [
   {
-    text: 'usuario',
+    text: 'Usuario',
     name: 'email',
   },
   {
-    text: 'nombre',
+    text: 'Nombre',
     name: 'firstName',
   },
   {
-    text: 'apellidos',
+    text: 'Apellidos',
     name: 'lastName',
   },
   {
-    text: 'estado',
+    text: 'Estado',
     name: 'status',
   },
   {
@@ -20,7 +20,7 @@ const UsersTableHeader = [
     name: 'creationDate',
   },
   {
-    text: 'ultimo acceso',
+    text: 'Ultimo Acceso',
     name: 'lastLogin',
   },
 ];

@@ -3,23 +3,23 @@ const RoleTableHeader = [
     text: '',
   },
   {
-    text: 'rol',
+    text: 'Rol',
     name: 'roleName',
   },
   {
-    text: 'n° usuarios',
+    text: 'N° Usuarios',
     name: 'quantityUsers',
   },
   {
-    text: 'n° permisos',
+    text: 'N° Permisos',
     name: 'quantityPermissions',
   },
   {
-    text: 'sistema',
+    text: 'Sistema',
     name: 'isSystem',
   },
   {
-    text: 'fecha creación',
+    text: 'Fecha Creación',
     name: 'creationDate',
   },
 ];
@@ -38,7 +38,7 @@ const RoleSubTableHeader = [
     name: 'lastName',
   },
   {
-    text: 'fecha creación',
+    text: 'Fecha Creación',
     name: 'creationDate',
   },
 ];

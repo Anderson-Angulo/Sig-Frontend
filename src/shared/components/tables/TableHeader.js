@@ -16,7 +16,7 @@ const TableHeader = ({
             }`}
             key={index}
           >
-            <h3 className="text uppercase">{text}</h3>
+            <h3 className="text">{text}</h3>
             {showIcon && (
               <div className="flex flex-col">
                 {currentHeader === name ? (
