@@ -49,7 +49,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      history.push('/configuracion/mi-cuenta');
+      history.push('/inicio');
     }
   }, [loggedIn]);
 
