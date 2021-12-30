@@ -29,12 +29,6 @@ const MenuComponent = () => {
     dispatch(authAction.logout());
   };
 
-  /*  const limiteCaracteres = (texto, limite = 20) => {
-    if (texto === undefined || texto === null) return '';
-    if (texto.length < limite) return texto;
-    else return texto.slice(0, limite) + '...';
-  }; */
-
   const toggle = () => dispatch(toggleSidebar.toggle(!isOpen));
 
   return (
@@ -72,18 +66,23 @@ const MenuComponent = () => {
               className="user-sub-options-header"
               style={{ backgroundColor: '#004680' }}
             >
-              <div className="user-picture">
+              <div className="user-photo">
                 <img
                   src={usuarioInformation?.avatar}
                   alt={usuarioInformation?.nombreCompleto}
                 ></img>
               </div>
               <div className="user-info">
-                <h1 title={usuarioInformation?.nombreCompleto}>
-                  {limitCharacters(usuarioInformation?.nombreCompleto)}
-                </h1>
+                <h2 title={usuarioInformation?.nombres}>
+                  {limitCharacters(usuarioInformation?.nombres)}
+                </h2>
+                <h2 title={usuarioInformation?.apellidos}>
+                  {limitCharacters(usuarioInformation?.apellidos)}
+                </h2>
+              </div>
+              <div className="user-email">
                 <p title={usuarioInformation?.correo}>
-                  {limitCharacters(usuarioInformation?.correo, 20)}
+                  {limitCharacters(usuarioInformation?.correo, 32)}
                 </p>
               </div>
             </header>
