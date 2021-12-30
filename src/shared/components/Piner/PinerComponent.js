@@ -2,12 +2,7 @@ import './PinerComponent.scss';
 
 const PinerComponent = ({ name, field, removePiner }) => {
   return (
-    <div
-      className="piner"
-      style={{
-        backgroundColor: '#004680',
-      }}
-    >
+    <div className="piner">
       <p>{name}</p>
       <i
         className="pi pi-times cursor-pointer"

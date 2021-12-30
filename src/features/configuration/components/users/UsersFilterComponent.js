@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react';
 import { Button } from 'primereact/button';
-import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import UsersModalFilterComponent from './UsersModalFilterComponent';
 import { Panel } from 'primereact/panel';
@@ -11,7 +10,7 @@ const UsersFilterComponent = () => {
     <Fragment>
       <Panel header="FILTRO POR" toggleable>
         <div className="filter-users">
-          <div className="w-full pt-5">
+          <div className="w-full ">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
               <InputText id="input-search" />

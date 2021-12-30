@@ -4,11 +4,20 @@
   gap: 12px;
   padding: 6px 10px;
   border-radius: 12px;
-  background-color: red;
+  // background-color: red;
+  border: 1px solid #dee2e6;
   width: fit-content;
-  color: #fff;
+  color: #b3bec9;
+  p {
+    color: #b3bec9;
+  }
   p,
   i {
     font-size: 14px;
+  }
+  i {
+    background-color: #000;
+    border-radius: 50%;
+    padding: 5px;
   }
 }
