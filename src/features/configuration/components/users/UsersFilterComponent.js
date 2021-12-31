@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react';
 import { Button } from 'primereact/button';
-import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import UsersModalFilterComponent from './UsersModalFilterComponent';
 import { Panel } from 'primereact/panel';

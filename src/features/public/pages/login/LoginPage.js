@@ -143,14 +143,15 @@ const LoginPage = () => {
             <a className="link" onClick={() => onMostrarContrasena(this)}>
               Olvidé mi contraseña
             </a>
-            <div className="p-field-checkbox field field-checkbox mt-2 w-full">
+            <div className="p-field-checkbox field field-checkbox mt-2 w-full center">
               <Checkbox
                 inputId="remember"
                 checked={checked}
+                className="accent-color"
                 onChange={(e) => setChecked(e.checked)}
               />
 
-              <label htmlFor="remember" className="label-checkbox">
+              <label htmlFor="remember" className="label-checkbox typing">
                 {' '}
                 Recuérdame
               </label>
