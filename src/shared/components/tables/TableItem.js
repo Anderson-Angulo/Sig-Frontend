@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Skeleton } from 'primereact/skeleton';
 import ChangeTableItem from 'shared/helpers/ChangeTableItem';
 import TableEmpty from './TableEmpty';
+import { classByFieldType } from 'shared/utils/classByFieldType';
 
 const TableItem = ({
   listItem,
@@ -87,9 +88,6 @@ const TableItem = ({
             );
           };
 
-          const isAlignLeft = (index) => {
-            return index === 0 && tableName !== 'sub-table-roles';
-          };
           return (
             <Fragment key={id}>
               <div className="table-item text-center" key={id}>
@@ -101,10 +99,7 @@ const TableItem = ({
                   />
                 )}
                 {values.map((val, i) => (
-                  <p
-                    className={`${isAlignLeft(i) ? 'text-left pl-2' : ''}`}
-                    key={i}
-                  >
+                  <p className={`${classByFieldType(val)}`} key={i}>
                     {val}
                   </p>
                 ))}
