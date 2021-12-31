@@ -39,6 +39,9 @@ body {
 
 .p-invalid {
   border-color: #ff7468 !important;
+  & span.p-inputswitch-slider {
+    background: #fccbc7 !important;
+  }
 }
 
 @import '../base/settings';
