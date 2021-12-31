@@ -32,6 +32,28 @@ const useRoleModal = () => {
   }, [formValues]);
 
   useEffect(() => {
+    let target = { value: '' };
+    if (values.length === 0) {
+      reset({
+        from: null,
+        to: null,
+      });
+      return;
+    } else if (values.length <= 2) {
+      debugger;
+      const fields = values.map((val) => val.field);
+      if (!fields.includes('from')) {
+        target.name = 'from';
+        handleInputChange({ target });
+      }
+      if (!fields.includes('to')) {
+        target.name = 'to';
+        handleInputChange({ target });
+      }
+    }
+  }, [values]);
+
+  useEffect(() => {
     if (loading && showModal) {
       setTimeout(() => {
         closeModal();
