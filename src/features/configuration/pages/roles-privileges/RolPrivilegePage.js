@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
@@ -8,7 +9,6 @@ import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 
 import useRole from 'features/configuration/hooks/roles/useRole';
-import { useSelector } from 'react-redux';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const {

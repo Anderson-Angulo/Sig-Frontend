@@ -42,7 +42,7 @@ const useRole = ({ title }) => {
   }, []);
 
   const accept = () => {
-    dispatch(RolesAction.saveRoleStatus({ status: '' }));
+    dispatch(RolesAction.saveRoleStatus({ status: null }));
     const { description, ...rest } = pageTitle;
     updateTitle(rest);
     history.push('/configuracion/rol-privilegios');
@@ -61,7 +61,7 @@ const useRole = ({ title }) => {
     if (status === 0) {
       setTimeout(() => {
         // setLoadingSave(false);
-        dispatch(RolesAction.saveRoleStatus({ status: '' }));
+        dispatch(RolesAction.saveRoleStatus({ status: null }));
         history.push('/configuracion/rol-privilegios');
       }, 3000);
     }
@@ -142,6 +142,7 @@ const useRole = ({ title }) => {
     const list = [];
     if (roles.name === '') list.push('El nombre del rol es requerido');
     if (roles.actions.length === 0) list.push('Acciones del rol es requerido');
+    dispatch(RolesAction.saveRoleStatus({ status: null }));
     if (list.length >= 1) {
       setErrors({
         ...errors,

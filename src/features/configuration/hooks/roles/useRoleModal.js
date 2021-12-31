@@ -40,7 +40,6 @@ const useRoleModal = () => {
       });
       return;
     } else if (values.length <= 2) {
-      debugger;
       const fields = values.map((val) => val.field);
       if (!fields.includes('from')) {
         target.name = 'from';

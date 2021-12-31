@@ -26,7 +26,7 @@ const initialState = {
     data: {},
   },
   saveRole: {
-    status: '',
+    status: null,
   },
 };
 
