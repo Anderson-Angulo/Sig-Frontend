@@ -1,6 +1,6 @@
 .grid-roles {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   overflow: auto;
   // max-height: 48vh;
   & .rol:nth-child(1),
