@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+
 import { useSelector } from 'react-redux';
 import { Checkbox } from 'primereact/checkbox';
 import { Accordion, AccordionTab } from 'primereact/accordion';
@@ -7,6 +7,7 @@ import { InputSwitch } from 'primereact/inputswitch';
 import { Panel } from 'primereact/panel';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import {useEffect,useState} from "react"
 
 import './UserPage.scss';
 import TableEmpty from 'shared/components/tables/TableEmpty';
@@ -19,24 +20,74 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     loading,
     data: { roles, status, company },
   } = useSelector((state) => state.userReducer.dataManager);
-  const { editUser } = useSelector((state) => state.userReducer);
+
+  const { editUser}  = useSelector((state) => state.userReducer);
+
   const usuarioInformation = useSelector((state) => state.authReducer.user);
+
   const {
     onSelectedImage,
     isUserNew,
     inputFile,
     srcAvatar,
     isAdmin,
-    handleSubmit,
+    setIsAdmin,
     statusName,
     setStatusName,
+    setUserData,
+    userData,
     isCheckedLocation,
     cancelSaveUser,
+    createOrEditUser
   } = useUser({ title });
 
+  const rolesFilter=roles?.filter(r=>r.code !== "ADMIN")
+  const roleAdmin=roles?.filter(r=>r.code === "ADMIN")[0]
+
+  let initialSwitchRole={}
+  const roleKeys=roles?.map(r=>r.id)
+  roleKeys?.forEach(k=>initialSwitchRole[k]=false)
+
+  if(!isUserNew) {
+    const rolesEditUser=editUser?.data?.roles
+    const roleKeysEnable=rolesEditUser?.map(r=>r.id)
+    roleKeysEnable?.forEach(k=>initialSwitchRole[k]=true)
+  }
+
+  
+
+  const [valuesSwitch,setValuesSwitch]=useState(initialSwitchRole)    
+
+  
+
+  const handlerChangeSwitchRole=(e)=>{
+    if(e.target.name=== 1 && e.target.value === false)
+    {
+      setIsAdmin(false)
+    }
+    else if(e.target.name=== 1 && e.target.value === true){
+      roleKeys?.forEach(k=>valuesSwitch[k]=false)
+      setIsAdmin(true)
+    } 
+
+    setValuesSwitch({
+      ...valuesSwitch,
+      [e.target.name]:e.target.value
+    })
+  }
+
+  const handlerChange=(e)=>{
+    setUserData({
+      ...userData,
+      [e.target.name]:e.target.value
+    })
+  }
+
+ 
   const SkeletonCustom = ({ width = '100%' }) => {
     return <Skeleton width={width} height="2.2rem" />;
   };
+
 
   const StatusComponent = ({ text, isActive = false }) => {
     return (
@@ -52,11 +103,12 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     );
   };
 
+
   return (
-    <div className="bg-white p-10 rounded-md shadow-md">
+    <div className="bg-white p-10 mt-3 rounded-md shadow-md">
+     <form className="form-custom p-0 my-4 mx-4" onSubmit={createOrEditUser} onChange={handlerChange} >
       <Panel header="DATOS GENERALES" toggleable>
-        <form className="form-custom p-0 my-4 mx-4" onSubmit={handleSubmit}>
-          <div className="flex items-start gap-3 justify-between mb-6 w-full">
+           <div className="flex items-start gap-3 justify-between mb-6 w-full">
             <div className="field-row w-full">
               {editUser.loading ? (
                 <SkeletonCustom />
@@ -65,6 +117,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <InputText
                     type="text"
                     id="user_name"
+                    name="email"
                     defaultValue={!isUserNew ? editUser?.data?.email : ''}
                   />
                   <label htmlFor="user_name">Usuario</label>
@@ -87,6 +140,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <InputText
                     type="text"
                     id="user_names"
+                    name="firstName"
                     defaultValue={!isUserNew ? editUser?.data?.firstName : ''}
                   />
                   <label htmlFor="user_names">Nombres</label>
@@ -107,10 +161,12 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
 
                     <img
                       src={
+                        
                         srcAvatar === ''
                           ? '/images/decorations/avatar.png'
                           : srcAvatar
                       }
+                      className="avatar"
                       alt={isUserNew ? '' : usuarioInformation?.nombreCompleto}
                     />
                     <input
@@ -129,6 +185,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <InputText
                     type="text"
                     id="user_lastname"
+                    name="lastName"
                     defaultValue={!isUserNew ? editUser?.data?.lastName : ''}
                   />
                   <label htmlFor="user_lastname">Apellidos</label>
@@ -156,25 +213,36 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
               )}
             </div>
           </div>
-        </form>
+       
+       
+        
       </Panel>
       {!loading && roles?.length === 0 && (
         <div className="mt-4">
           <TableEmpty textAditional="Listado de Roles no encontrado" />
         </div>
       )}
-      {!loading && roles?.length > 0 && !isAdmin && (
-        <Panel header="ROLES" toggleable className="mt-3">
-          <div className="user-roles py-2 px-5">
-            {roles.map(({ description }, index) => (
+      {
+
+      }
+     <Panel header="ROLES" toggleable className="mt-3">
+        <div className="user-roles py-2 px-5">
+          <div className="flex items-center gap-6">
+            <InputSwitch name={roleAdmin?.id} checked={valuesSwitch[roleAdmin?.id]} onChange={handlerChangeSwitchRole} />
+            <p title={roleAdmin?.description}>{limitCharacters(roleAdmin?.description, 28)} </p>
+          </div>
+          {!loading && roles?.length > 0 && (
+            <>
+            {rolesFilter.map(({ description,id }, index) => (
               <div className="flex items-center gap-6" key={index}>
-                <InputSwitch />
+                <InputSwitch disabled={isAdmin} name={id} checked={valuesSwitch[id]} onChange={handlerChangeSwitchRole} />
                 <p title={description}>{limitCharacters(description, 28)} </p>
               </div>
             ))}
-          </div>
-        </Panel>
-      )}
+            </>
+          )}
+        </div>  
+      </Panel>
 
       {!loading && company?.length === 0 && (
         <div className="mt-4">
@@ -245,6 +313,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
           className="btn btn-primary mt-4"
         />
       </div>
+    </form>
     </div>
   );
 };

@@ -43,9 +43,7 @@ const getDataMaster = () => {
   return (dispatch) => {
     dispatch(setDateMasters({ loading: true }));
     UserService.getDataMaster().then(({ data }) => {
-      // const { data, ...rest } = data;
       dispatch(setDateMasters({ loading: false, ...data.data }));
-      console.log(data);
     });
   };
 };

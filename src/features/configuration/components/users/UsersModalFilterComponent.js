@@ -1,34 +1,43 @@
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { Checkbox } from 'primereact/checkbox';
-
 import { Button } from 'primereact/button';
+import useUserFilter from 'features/configuration/hooks/users/useUserFilter';
 
 const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
-  const opciones = [
-    { opcion: 'Empresa' },
-    { opcion: 'Empresa 1' },
-    { opcion: 'Empresa 2' },
-  ];
-  const sedes = [{ sede: 'Sede 1' }, { sede: 'Sede 2' }, { sede: 'Sede 3' }];
-  const roles = [{ rol: 'Rol 1' }, { rol: 'Rol 2' }, { rol: 'Rol 3' }];
+  const {
+    companiesOptions,
+    rolesOptions,
+    locationsOptions,
+    advancedfilter,
+    handlerChangeModalFilter,
+    values
+  } = useUserFilter()
 
+  const companies = companiesOptions
+  const locations = locationsOptions
+  const roles = rolesOptions
+  
   const styleLabel = {
     color: '#004680',
     fontWeight: 600,
     marginBottom: '5px',
   };
 
+ 
+
   if (isOpen) {
     return (
+      
       <div className="modal-filtro shadow-md">
-        <form className="form-modal px-8 py-4">
+        <form className="form-modal px-8 py-4"  onSubmit={advancedfilter}>
           <header className="header mb-4">
             <div className="icon-closed cursor-pointer" onClick={closeModal}>
               <i className="pi pi-times"></i>
             </div>
             <div className="title text-left">
               <h3 className="mb-2 font-bold modal-filtro-title">Filtrar</h3>
+             
             </div>
           </header>
           <div className="body">
@@ -50,11 +59,14 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               <div className="w-full">
                 <span className="p-float-label">
                   <Dropdown
-                    options={opciones}
-                    optionLabel="opcion"
+                    value={values.companyId}
+                    onChange={handlerChangeModalFilter}
+                    name="companyId"
+                    options={companies}
+                    optionLabel="company"
                     filter
                     showClear
-                    filterBy="opcion"
+                    filterBy="company"
                     className="w-full"
                   />
 
@@ -66,11 +78,14 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               <div className="w-full">
                 <span className="p-float-label">
                   <Dropdown
-                    options={sedes}
-                    optionLabel="sede"
+                    name="locationId"
+                    value={values.locationId}
+                    onChange={handlerChangeModalFilter}
+                    options={locations}
+                    optionLabel="location"
                     filter
                     showClear
-                    filterBy="sede"
+                    filterBy="location"
                     className="w-full"
                   />
 
@@ -82,11 +97,14 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               <div className="w-full">
                 <span className="p-float-label">
                   <Dropdown
+                    name="roleId"
+                    value={values.roleId}
+                    onChange={handlerChangeModalFilter} 
                     options={roles}
-                    optionLabel="rol"
+                    optionLabel="role"
                     filter
                     showClear
-                    filterBy="rol"
+                    filterBy="role"
                     className="w-full"
                   />
 
@@ -118,7 +136,7 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               onClick={closeModal}
             />
             <Button
-              type="button"
+              type="submit"
               label="Buscar"
               className="btn btn-primary mt-4"
             />

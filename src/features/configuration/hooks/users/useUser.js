@@ -1,3 +1,4 @@
+import  {UserService}  from 'features/configuration/services/UserService';
 import { UsersAction } from 'features/configuration/store/actions/UsersAction';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,14 +14,21 @@ const useUser = ({ title }) => {
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   const { editUser } = useSelector((state) => state.userReducer);
+  const {email,firstName,lastName}=editUser.data
+  const [userData, setUserData] = useState({email,firstName,lastName})
 
   const [srcAvatar, setSrcAvatar] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [statusName, setStatusName] = useState('');
-  const [locationsIds, setLocationsIds] = useState([]);
-
+  const [locationIds, setLocationIds] = useState([]);
+  const [roleIds, setRoleIds] = useState([]);
+  
   const { updateTitle } = useSetTitlePage();
+
+
   const isUserNew = title === 'Nuevo Usuario';
+
+
   useEffect(() => {
     updateTitle({
       title: 'Configuración',
@@ -36,9 +44,8 @@ const useUser = ({ title }) => {
 
   useEffect(() => {
     const { data } = dataManager;
-
     const cantList =
-      data.roles.length + data.status.length + data.company.length;
+      data?.roles?.length + data?.status?.length + data?.company?.length;
     if (cantList === 0) dispatch(UsersAction.getDataMaster());
   }, []);
 
@@ -58,12 +65,14 @@ const useUser = ({ title }) => {
       else setIsAdmin(false);
       setStatusName(data.statusName);
 
-      const locationsIDS = [];
-      data?.companies.forEach(({ locations }) => {
-        locations.forEach(({ id }) => locationsIDS.push(id));
-      });
+      const locationsIDS = data?.companies?.map(({ locations }) => {
+        return locations.map((location) => location.id);
+      })[0];
 
-      setLocationsIds(locationsIDS);
+      const RolesIDS = data?.roles?.map(role => role.id);
+
+      setLocationIds(locationsIDS);
+      setRoleIds(RolesIDS);
     }
   }, [editUser]);
 
@@ -75,34 +84,59 @@ const useUser = ({ title }) => {
       return;
     }
     const fr = new FileReader();
+    console.log(fr)
     fr.onloadend = () => setSrcAvatar(fr.result);
     fr.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  
 
   const isCheckedLocation = ({ id }) => {
-    if (isUserNew && locationsIds.length === 0) return false;
-    else if (locationsIds.length > 0) return locationsIds.includes(id);
+    if (isUserNew && locationIds.length === 0) return false;
+    else if (locationIds.length > 0) return locationIds.includes(id);
     return false;
   };
 
   const cancelSaveUser = () => {
     history.push('/configuracion/usuarios');
   };
+
+
+  const createOrEditUser=(e)=>{
+    e.preventDefault()
+    let userId=params.id || null
+    userId = userId !== null && parseInt(userId) 
+    const {status}=dataManager.data
+    const statusId=status.find(s=>s.description === statusName)?.id
+    const payload={
+      ...userData,
+      userId,
+      statusId,
+      roleIds,
+      locationIds,
+    }
+    
+    
+    console.log("DATA: ",payload)
+    // UserService.saveUser(payload).then(model=>{
+    //   console.log(model)
+    // })
+  }
+
   return {
     onSelectedImage,
     isUserNew,
     inputFile,
     srcAvatar,
     isAdmin,
+    setIsAdmin,
     statusName,
-    handleSubmit,
     setStatusName,
+    setUserData,
+    userData,
     isCheckedLocation,
     cancelSaveUser,
+    createOrEditUser
   };
 };
 
