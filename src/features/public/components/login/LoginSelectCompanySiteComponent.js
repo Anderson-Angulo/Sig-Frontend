@@ -52,6 +52,7 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
   }
 
   const onSelectEmpresa = (e) => {
+    setValue('sede', null, { shouldValidate: true });
     if (e !== null && e !== undefined) {
       const currentEmpresa = empresas.filter((c) => {
         return c.id === e.id;
@@ -59,11 +60,12 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
       setSedes(currentEmpresa[0].sedes);
     } else {
       setSedes([]);
-      setValue('sede', null, { shouldValidate: true });
     }
   };
 
   const onHide = () => {
+    // setValue('empresa', false);
+    // setValue('sede', null, { shouldValidate: false });
     dispatch(LoginSelectCompanySiteComponentAction.ocultar());
   };
 
@@ -128,32 +130,35 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
               />
             )}
 
-            <Controller
-              control={control}
-              render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <Dropdown
-                  options={sedes}
-                  optionLabel="nombre"
-                  filter
-                  showClear
-                  filterBy="nombre"
-                  value={value}
-                  placeholder="Seleccione una sede"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  className={errors.sede ? 'p-invalid w-full' : 'w-full'}
-                  inputRef={ref}
-                  {...register('sede', {
-                    required: 'La sede es un campo requerido',
-                  })}
-                />
-              )}
-              name="sede"
-              control={control}
-            />
+            {/* {JSON.stringify(errors.empresa, null, 3)} */}
+            {sedes.length > 0 && (
+              <Controller
+                control={control}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                }) => (
+                  <Dropdown
+                    options={sedes}
+                    optionLabel="nombre"
+                    filter
+                    showClear
+                    filterBy="nombre"
+                    value={value}
+                    placeholder="Seleccione una sede"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    className={errors.sede ? 'p-invalid w-full' : 'w-full'}
+                    inputRef={ref}
+                    {...register('sede', {
+                      required: 'La sede es un campo requerido',
+                    })}
+                  />
+                )}
+                name="sede"
+                control={control}
+              />
+            )}
           </div>
 
           {errors.empresa ? (
@@ -162,7 +167,7 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
               <br />
             </>
           ) : null}
-          {errors.sede ? (
+          {errors.sede && sedes.length > 0 ? (
             <>
               <small className="p-error">{errors.sede.message}</small>
               <br />
@@ -173,7 +178,7 @@ const LoginSelectCompanySiteComponent = ({ isOpen }) => {
             <Button
               label="Cancelar"
               type="button"
-              onClick={() => onHide()}
+              onClick={onHide}
               className="btn btn-secondary"
             />
             <Button

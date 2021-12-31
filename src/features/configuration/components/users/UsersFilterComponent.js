@@ -10,7 +10,7 @@ const UsersFilterComponent = () => {
     <Fragment>
       <Panel header="FILTRO POR" toggleable>
         <div className="filter-users">
-          <div className="w-full pt-5">
+          <div className="w-full ">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
               <InputText id="input-search" />

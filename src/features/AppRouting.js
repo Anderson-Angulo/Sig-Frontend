@@ -15,8 +15,8 @@ import toastReducer from './../core/store/reducers/ToastReducer';
 import FeedBackReducer from './../core/store/reducers/FeedBackReducer';
 import toggleSidebarReducer from './configuration/store/reducers/ToggleSidebarReducer';
 
-
 import RrhhRouting from './rrhh/RrhhRouting';
+import PageHomePage from 'shared/pages/home/PageHomePage';
 
 export const AppRouting = () => {
   var reducerRegistry = new ReducerRegistry({
@@ -46,6 +46,9 @@ export const AppRouting = () => {
               component={() => PublicoRouting(reducerRegistry)}
             />
             <PrivateLayout>
+              <RequireAuth path="/inicio">
+                <Route path={`/inicio`} component={PageHomePage} />
+              </RequireAuth>
               <RequireAuth path="/configuracion">
                 <Route
                   path={`/configuracion`}

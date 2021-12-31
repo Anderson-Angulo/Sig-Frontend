@@ -5,14 +5,14 @@ import { PublicConstants } from 'features/public/commons/PublicConstants';
 function login(email, password) {
   return (dispatch) => {
     dispatch({ type: CoreConstants.Accion.Login.REQUEST });
-    authService.login(email, password).then(
-      (model) => {
-        evaluarLogin(dispatch, model);
-      },
-      (error) => {
+    authService
+      .login(email, password)
+      .then((model) => {
+        evaluarLogin(dispatch, model, email, password);
+      })
+      .catch((error) => {
         dispatch({ type: CoreConstants.Accion.Login.FAILURE, error });
-      }
-    );
+      });
   };
 }
 
@@ -32,7 +32,7 @@ function validarSesion() {
   };
 }
 
-function evaluarLogin(dispatch, model) {
+function evaluarLogin(dispatch, model, email, password) {
   switch (model.data.status) {
     case CoreConstants.HttpResponse.OK:
       const userInformation = model.data.data;
@@ -40,11 +40,15 @@ function evaluarLogin(dispatch, model) {
         dispatch({
           type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
+          email,
+          password,
         });
       else if (userInformation.empresas[0].sedes.length > 1)
         dispatch({
           type: PublicConstants.Accion.SelecEmpresaSede.MOSTRAR,
           userInformation,
+          email,
+          password,
         });
       else
         dispatch({ type: CoreConstants.Accion.Login.SUCCESS, userInformation });
@@ -55,7 +59,7 @@ function evaluarLogin(dispatch, model) {
         type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
         toast: {
           titulo: 'Autenticación',
-          mensaje: 'Las credenciales ingresadas son incorrectas',
+          mensaje: model.data.message,
           severidad: 'warn',
         },
       });

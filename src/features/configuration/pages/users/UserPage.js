@@ -103,7 +103,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     );
   };
 
-  
+
   return (
     <div className="bg-white p-10 mt-3 rounded-md shadow-md">
      <form className="form-custom p-0 my-4 mx-4" onSubmit={createOrEditUser} onChange={handlerChange} >

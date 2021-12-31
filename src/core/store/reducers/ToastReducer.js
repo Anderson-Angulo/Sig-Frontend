@@ -14,6 +14,10 @@ export default (state = initialState, action) => {
           life: 5000,
         },
       };
+    case CoreConstants.Accion.Toast.OCULTAR_MENSAJE:
+      return {
+        toast: null,
+      };
     default:
       return state;
   }

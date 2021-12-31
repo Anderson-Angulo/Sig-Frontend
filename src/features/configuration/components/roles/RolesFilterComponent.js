@@ -22,7 +22,7 @@ const RolesFilterComponent = () => {
     <Fragment>
       <Panel header="FILTRO POR" toggleable>
         <div className="filter-roles">
-          <div className="w-full pt-5">
+          <div className="w-full">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
               <InputText
@@ -32,6 +32,18 @@ const RolesFilterComponent = () => {
               />
               <label htmlFor="input-search">Buscar por rol</label>
             </span>
+            {showPiners() && (
+              <div className="filter-piners mt-3">
+                {values.map(({ value, field }, index) => (
+                  <PinerComponent
+                    name={value}
+                    field={field}
+                    removePiner={removePiner}
+                    key={index}
+                  />
+                ))}
+              </div>
+            )}
           </div>
           <div className="filter-users-action">
             <div className="flex gap-3 w-full">
@@ -60,18 +72,6 @@ const RolesFilterComponent = () => {
             </div>
           </div>
         </div>
-        {showPiners() && (
-          <div className="filter-piners mt-4">
-            {values.map(({ value, field }, index) => (
-              <PinerComponent
-                name={value}
-                field={field}
-                removePiner={removePiner}
-                key={index}
-              />
-            ))}
-          </div>
-        )}
       </Panel>
 
       <RolesModalFiltroComponent />

@@ -31,8 +31,9 @@ const LoginPage = () => {
   const loggedIn = useSelector((state) => state.authReducer.loggedIn);
   const loading = useSelector((state) => state.authReducer.loading);
 
-
-  const mostrarFeedback=useSelector((state)=>state.FeedBackReducer.mostrarFeedback)
+  const mostrarFeedback = useSelector(
+    (state) => state.FeedBackReducer.mostrarFeedback
+  );
 
   const mostrarRecuperarContrasena = useSelector(
     (state) => state.RecoveryPasswordReducer.mostrarRecuperarContrasena
@@ -48,7 +49,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      history.push('/configuracion/mi-cuenta');
+      history.push('/inicio');
     }
   }, [loggedIn]);
 
@@ -64,7 +65,7 @@ const LoginPage = () => {
     <PublicLayout page="login">
       <Fragment>
         <form className="form-custom" onSubmit={handleSubmit(onSubmit)}>
-          <header className="header">
+          <header className="header mb-2">
             <img
               src="/images/logos/main-dark-logo.png"
               className="w-full logo"
@@ -93,21 +94,26 @@ const LoginPage = () => {
                   pattern: {
                     value: /^\S+@\S+\.\S+$/,
                     message:
-                      'El correo eléctronico no tiene un formato correcto',
+                      'El formato de correo ingresado es invalido. Por favor verifique.',
                   },
                 }}
               />
               <label htmlFor="email">Correo eléctronico</label>
-              
             </span>
-                 {errors.email ? (
+            {errors.email ? (
               <>
-                <small className="p-error">{errors.email.message}</small>
+                <small className="p-error block mt-2">
+                  {errors.email.message}
+                </small>
                 <br />
               </>
             ) : null}
 
-            <span className="p-float-label field p-input-icon-right w-full">
+            <span
+              className={`p-float-label field p-input-icon-right w-full ${
+                errors.email ? 'mt-2' : ''
+              }`}
+            >
               <Controller
                 control={control}
                 render={({
@@ -130,13 +136,12 @@ const LoginPage = () => {
               />
               <label htmlFor="password">Contraseña</label>
             </span>
-                {errors.password ? (
+            {errors.password ? (
               <>
                 <small className="p-error">{errors.password.message}</small>
                 <br />
               </>
             ) : null}
-            
           </div>
 
           <div className="actions">
@@ -156,7 +161,6 @@ const LoginPage = () => {
                 Recuérdame
               </label>
             </div>
-
 
             <Button
               type="submit"
