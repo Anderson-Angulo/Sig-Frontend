@@ -1,4 +1,4 @@
-import  {UserService}  from 'features/configuration/services/UserService';
+import { UserService } from 'features/configuration/services/UserService';
 import { UsersAction } from 'features/configuration/store/actions/UsersAction';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,20 +14,18 @@ const useUser = ({ title }) => {
   const usuarioInformation = useSelector((state) => state.authReducer.user);
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   const { editUser } = useSelector((state) => state.userReducer);
-  const {email,firstName,lastName}=editUser.data
-  const [userData, setUserData] = useState({email,firstName,lastName})
+  const { email, firstName, lastName } = editUser.data;
+  const [userData, setUserData] = useState({ email, firstName, lastName });
 
   const [srcAvatar, setSrcAvatar] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [statusName, setStatusName] = useState('');
   const [locationIds, setLocationIds] = useState([]);
   const [roleIds, setRoleIds] = useState([]);
-  
+
   const { updateTitle } = useSetTitlePage();
 
-
   const isUserNew = title === 'Nuevo Usuario';
-
 
   useEffect(() => {
     updateTitle({
@@ -69,7 +67,7 @@ const useUser = ({ title }) => {
         return locations.map((location) => location.id);
       })[0];
 
-      const RolesIDS = data?.roles?.map(role => role.id);
+      const RolesIDS = data?.roles?.map((role) => role.id);
 
       setLocationIds(locationsIDS);
       setRoleIds(RolesIDS);
@@ -84,12 +82,10 @@ const useUser = ({ title }) => {
       return;
     }
     const fr = new FileReader();
-    console.log(fr)
+    console.log(fr);
     fr.onloadend = () => setSrcAvatar(fr.result);
     fr.readAsDataURL(file);
   };
-
-  
 
   const isCheckedLocation = ({ id }) => {
     if (isUserNew && locationIds.length === 0) return false;
@@ -101,27 +97,31 @@ const useUser = ({ title }) => {
     history.push('/configuracion/usuarios');
   };
 
+  const createOrEditUser = (e) => {
+    e.preventDefault();
 
-  const createOrEditUser=(e)=>{
-    e.preventDefault()
-    let userId=params.id || null
-    userId = userId !== null && parseInt(userId) 
-    const {status}=dataManager.data
-    const statusId=status.find(s=>s.description === statusName)?.id
-    const payload={
+    /* Validar si tiene avatar *Validar  */
+
+    /*  if (inputFile.current !== null && srcAvatar !== '') {
+      console.log('No tiene imagen agregado ');
+    } */
+    let userId = params.id || null;
+    userId = userId !== null && parseInt(userId);
+    const { status } = dataManager.data;
+    const statusId = status.find((s) => s.description === statusName)?.id;
+    const payload = {
       ...userData,
       userId,
       statusId,
       roleIds,
       locationIds,
-    }
-    
-    
-    console.log("DATA: ",payload)
+    };
+
+    console.log('DATA: ', payload);
     // UserService.saveUser(payload).then(model=>{
     //   console.log(model)
     // })
-  }
+  };
 
   return {
     onSelectedImage,
@@ -136,7 +136,8 @@ const useUser = ({ title }) => {
     userData,
     isCheckedLocation,
     cancelSaveUser,
-    createOrEditUser
+    createOrEditUser,
+    setSrcAvatar,
   };
 };
 

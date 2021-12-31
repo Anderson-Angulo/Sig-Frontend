@@ -12,15 +12,16 @@
   max-width: 650px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 3fr;
   grid-gap: 1.8rem 1rem;
 }
 
 .foreground-user-picture {
   position: absolute;
-  width: 95px;
-  height: 95px;
-  max-width: 95px;
-  max-height: 95px;
+  width: 90px;
+  height: 100px;
+  max-width: 90px;
+  max-height: 90px;
   // top: 0;
   // left: 0;
   display: flex;
@@ -38,14 +39,22 @@
 }
 
 .user-picture {
-  position: relative;
+  /* position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   grid-row-start: 2;
   grid-column-start: 2;
   grid-row-end: 4;
-  max-height: 50px;
+  max-height: 50px; */
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
 
   img {
     border-radius: 50%;
@@ -54,16 +63,16 @@
     object-fit: cover;
     max-height: 80px;
     &.avatar {
-      width: 80px;
-      height: 80px;
-      max-height: 80px;
-      max-width: 80px;
+      width: 90px;
+      height: 90px;
+      max-height: 90px;
+      max-width: 90px;
     }
   }
 }
 
-.user-picture:hover {
-  .foreground-user-picture {
+.user-picture {
+  .foreground-user-picture:hover {
     opacity: 1;
     transition: opacity 0.2s;
   }
