@@ -48,6 +48,14 @@ const RoleTableActions = [
     text: 'Editar',
     name: 'role-edit',
   },
+  {
+    text: 'Eliminar',
+    name: 'role-eliminar',
+  },
+  {
+    text: 'Resetear Clave',
+    name: 'role-reset-pass',
+  },
 ];
 
 export const RolesTableData = {
