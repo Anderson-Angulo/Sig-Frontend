@@ -153,6 +153,7 @@ const saveRoleStatus = (payload) => {
 
 const saveRole = (role) => {
   return (dispatch) => {
+    dispatch(saveRoleStatus({ status: '' }));
     RoleService.saveRole(role)
       .then(({ data }) => {
         const status = data?.status ?? '';

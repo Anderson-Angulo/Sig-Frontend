@@ -8,6 +8,7 @@ import Message from 'shared/components/messages/Message';
 import './RolePrivilege.scss';
 
 import useRole from 'features/configuration/hooks/roles/useRole';
+import { useSelector } from 'react-redux';
 
 const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   const {
@@ -21,7 +22,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     options,
     isChecked,
     handleCheckbox,
-    loadingSave,
+
     visible,
     setVisible,
     accept,
@@ -29,6 +30,9 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   } = useRole({
     title,
   });
+
+  const { status } = useSelector((state) => state.roleReducer.saveRole);
+
   const OptionSkeleton = () => {
     const subSkeletons = [1, 2, 3, 4];
     return (
@@ -105,13 +109,13 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
             label="Cancelar"
             className="btn btn-secondary mt-4"
             onClick={() => setVisible(true)}
-            disabled={loadingSave}
+            disabled={status === ''}
           />
           <Button
             icon="pi pi-save"
             type="submit"
             label="Guardar"
-            loading={loadingSave}
+            loading={status === ''}
             className="btn btn-primary mt-4"
           />
         </div>

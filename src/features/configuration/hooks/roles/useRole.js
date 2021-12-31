@@ -13,7 +13,6 @@ const useRole = ({ title }) => {
     (state) => state.roleReducer.rolesOptions
   );
 
-  const [loadingSave, setLoadingSave] = useState(false);
   const editRole = useSelector((state) => state.roleReducer.editRole);
   const { status } = useSelector((state) => state.roleReducer.saveRole);
   const [errors, setErrors] = useState({
@@ -61,12 +60,10 @@ const useRole = ({ title }) => {
   useEffect(() => {
     if (status === 0) {
       setTimeout(() => {
-        setLoadingSave(false);
+        // setLoadingSave(false);
         dispatch(RolesAction.saveRoleStatus({ status: '' }));
         history.push('/configuracion/rol-privilegios');
       }, 3000);
-    } else {
-      setLoadingSave(false);
     }
   }, [status]);
 
@@ -158,6 +155,7 @@ const useRole = ({ title }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(RolesAction.saveRoleStatus({ status: '' }));
     setErrors({
       showInRole: false,
       showInActions: false,
@@ -165,7 +163,7 @@ const useRole = ({ title }) => {
     });
 
     if (hasErrorsFields()) return;
-    setLoadingSave(true);
+
     dispatch(RolesAction.saveRole(roles));
   };
 
@@ -190,7 +188,6 @@ const useRole = ({ title }) => {
     isChecked,
     handleCheckbox,
     setVisible,
-    loadingSave,
     visible,
     accept,
     reject,
