@@ -17,6 +17,7 @@ import toggleSidebarReducer from './configuration/store/reducers/ToggleSidebarRe
 
 import RrhhRouting from './rrhh/RrhhRouting';
 import PageHomePage from 'shared/pages/home/PageHomePage';
+import { HashRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 export const AppRouting = () => {
   var reducerRegistry = new ReducerRegistry({
@@ -34,36 +35,46 @@ export const AppRouting = () => {
   return (
     <>
       <Provider store={store}>
+
+
         <Router>
-          <Switch>
-            <Route
-              path={`/seguridad`}
-              component={() => PublicoRouting(reducerRegistry)}
-            />
-            <Route
-              exact
-              path={`/`}
-              component={() => PublicoRouting(reducerRegistry)}
-            />
-            <PrivateLayout>
-              <RequireAuth path="/inicio">
-                <Route path={`/inicio`} component={PageHomePage} />
-              </RequireAuth>
-              <RequireAuth path="/configuracion">
-                <Route
-                  path={`/configuracion`}
-                  component={() => ConfiguracionRouting(reducerRegistry)}
-                />
-              </RequireAuth>
-              <RequireAuth path="/rrhh">
-                <Route
-                  path={`/rrhh`}
-                  component={() => RrhhRouting(reducerRegistry)}
-                />
-              </RequireAuth>
-            </PrivateLayout>
-          </Switch>
+
+          <HashRouter>
+
+            <Switch>
+              <Route
+                path={`/seguridad`}
+                component={() => PublicoRouting(reducerRegistry)}
+              />
+              <Route
+                exact
+                path={`/`}
+                component={() => PublicoRouting(reducerRegistry)}
+              />
+              <PrivateLayout>
+                <RequireAuth path="/inicio">
+                  <Route path={`/inicio`} component={PageHomePage} />
+                </RequireAuth>
+                <RequireAuth path="/configuracion">
+                  <Route
+                    path={`/configuracion`}
+                    component={() => ConfiguracionRouting(reducerRegistry)}
+                  />
+                </RequireAuth>
+                <RequireAuth path="/rrhh">
+                  <Route
+                    path={`/rrhh`}
+                    component={() => RrhhRouting(reducerRegistry)}
+                  />
+                </RequireAuth>
+              </PrivateLayout>
+            </Switch>
+
+          </HashRouter>
+
         </Router>
+
+
       </Provider>
     </>
   );
