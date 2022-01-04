@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.p-datatable-thead {
+    background-color: #dee2e6;
+    color           : #4f5467;
+    font-weight     : 500;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    background : #DEE2E6;
+    padding    : 10px 10px;
+    font-weight: 400;
+    font-size  : 14px;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    /* padding  : 7px 10px; */
+    font-size: 13px;
+}
+
+.p-datatable-tbody>tr.p-row-odd {
+    background-color: #F3F3F3;
+}
+
+.filter {
+    display              : grid;
+    grid-template-columns: 1fr 16rem;
+    grid-gap             : 3rem;
+    gap                  : 3rem;
+}
