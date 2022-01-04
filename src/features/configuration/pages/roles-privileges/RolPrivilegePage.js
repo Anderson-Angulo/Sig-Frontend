@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
-import { Checkbox } from 'primereact/checkbox';
 import { Skeleton } from 'primereact/skeleton';
 import { InputText } from 'primereact/inputtext';
 

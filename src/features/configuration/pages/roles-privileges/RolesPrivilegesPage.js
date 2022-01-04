@@ -9,6 +9,8 @@ import RolesTableComponent from 'features/configuration/components/roles/RolesTa
 import { RolesAction } from '../../store/actions/RolesAction';
 import 'shared/styles/components/tables.scss';
 import useSetTitlePage from 'shared/hooks/useSetTitlePage';
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import useRoleTable from 'features/configuration/hooks/roles/useRoleTable';
 
 const RolesPrivilegioPage = () => {
   const history = useHistory();
@@ -16,6 +18,8 @@ const RolesPrivilegioPage = () => {
 
   const rolesInformation = useSelector((state) => state.roleReducer.roles);
   const { updateTitle } = useSetTitlePage();
+  const { isOpen } = useSelector((state) => state.roleReducer.deleteRoleModal);
+  const { cancelDelete, confirmDelete } = useRoleTable();
 
   useEffect(() => {
     updateTitle({
@@ -45,7 +49,18 @@ const RolesPrivilegioPage = () => {
           history.push('/configuracion/rol-privilegios/nuevo');
         }}
       />
+
       <RolesTableComponent />
+
+      <ConfirmDialog
+        visible={isOpen}
+        onHide={cancelDelete}
+        message="¿Está seguro que desea eliminar el registro?"
+        header="Eliminar"
+        icon="pi pi-trash"
+        accept={confirmDelete}
+        reject={cancelDelete}
+      />
     </Fragment>
   );
 };

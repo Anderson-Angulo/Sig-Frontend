@@ -9,6 +9,7 @@ const useRoleTable = () => {
   const roles = useSelector((state) => state.roleReducer.roles);
   const currentRole = useSelector((state) => state.roleReducer.userByRoleId);
 
+  const { roleId } = useSelector((state) => state.roleReducer.deleteRoleModal);
   const [options, setOptions] = useState({
     currentID: '',
     showOptions: false,
@@ -30,11 +31,36 @@ const useRoleTable = () => {
     setOptions({ ...options, showOptions: false });
   };
 
+  const confirmDelete = () => {
+    dispatch(RolesAction.deleteRoleModal(roleId));
+  };
+
+  const cancelDelete = (action) => {
+    if (action === 'cancel') {
+      console.log('cancelDelete');
+
+      dispatch(
+        RolesAction.showDeleteRoleModal({
+          isOpen: false,
+          roleId: '',
+        })
+      );
+    }
+  };
+
   const currentAction = (action) => {
-    if (action === 'role-edit')
+    if (action === 'role-edit') {
       history.push(
         `/configuracion/rol-privilegios/editar/${options.currentID}`
       );
+    } else if (action === 'role-eliminar') {
+      dispatch(
+        RolesAction.showDeleteRoleModal({
+          isOpen: true,
+          roleId: options.currentID,
+        })
+      );
+    }
   };
   return {
     roles,
@@ -43,6 +69,8 @@ const useRoleTable = () => {
     closeActions,
     currentAction,
     currentRole,
+    cancelDelete,
+    confirmDelete,
   };
 };
 

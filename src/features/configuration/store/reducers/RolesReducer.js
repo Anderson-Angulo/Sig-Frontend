@@ -28,6 +28,11 @@ const initialState = {
   saveRole: {
     status: null,
   },
+  deleteRoleModal: {
+    isOpen: false,
+    roleId: '',
+    isLoading: false,
+  },
 };
 
 export default (state = initialState, action) => {
@@ -96,6 +101,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         saveRole: action.payload,
+      };
+    case ConfigurationConstants.Accion.Roles.SHOW_DELETE_ROLE_MODAL:
+      return {
+        ...state,
+        deleteRoleModal: {
+          ...state.deleteRoleModal,
+          ...action.payload,
+        },
       };
 
     default:
