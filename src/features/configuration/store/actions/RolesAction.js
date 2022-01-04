@@ -7,11 +7,13 @@ const setRoles = ({
   data = [],
   currentData = [],
   pagination = {},
+  currentCol = 'roleName',
+  order = 'asc',
 }) => {
   return (dispatch) =>
     dispatch({
       type: ConfigurationConstants.Accion.Roles.SETLIST,
-      payload: { loading, data, currentData, pagination },
+      payload: { loading, data, currentData, pagination, currentCol, order },
     });
 };
 
@@ -37,7 +39,13 @@ const getRoles = (fields) => {
           pagination: { ...rest },
         };
 
-        if (fields.columnOrder) objFields.currentCol = fields.columnOrder;
+        if (fields.fields?.columnOrder) {
+          objFields.currentCol = fields.fields.columnOrder;
+        }
+        if (fields.fields?.order) {
+          objFields.order = fields.fields.order;
+        }
+
         dispatch(setRoles(objFields));
       },
       () => dispatch(setRoles({ loading: false }))

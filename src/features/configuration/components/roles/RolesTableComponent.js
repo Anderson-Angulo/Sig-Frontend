@@ -18,6 +18,10 @@ const RolesTableComponent = () => {
     closeActions,
     currentAction,
     currentRole,
+    nextPage,
+    previousPage,
+    changeRow,
+    changeOrientation,
   } = useRoleTable();
 
   return (
@@ -26,6 +30,8 @@ const RolesTableComponent = () => {
         <TableHeader
           listHeader={RoleTableHeader}
           currentHeader={roles.currentCol}
+          order={roles.order}
+          changeOrientation={changeOrientation}
           colMain="roleName"
         />
         <TableItem
@@ -61,7 +67,11 @@ const RolesTableComponent = () => {
         {roles.data.length > 0 && (
           <TablePagination
             currentPage={roles.pagination.currentPage}
-            pageSize={roles.pagination.pageCount}
+            pageCount={roles.pagination.pageCount}
+            pageSize={roles.pagination.pageSize}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            changeRow={changeRow}
           />
         )}
       </div>

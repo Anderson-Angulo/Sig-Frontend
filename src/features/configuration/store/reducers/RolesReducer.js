@@ -7,6 +7,7 @@ const initialState = {
     loading: false,
     pagination: {},
     currentCol: 'roleName',
+    order: 'asc',
   },
   filterRole: {
     showModal: false,
