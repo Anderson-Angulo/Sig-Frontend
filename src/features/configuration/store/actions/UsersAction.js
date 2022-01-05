@@ -1,5 +1,34 @@
 import { ConfigurationConstants } from 'features/configuration/commons/ConfigurationConstants';
 import { UserService } from 'features/configuration/services/UserService';
+import { toastAction } from 'core/store/actions/ToastAction';
+
+
+
+const saveUserStatus = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Users.SAVE_USER_STATUS,
+      payload,
+    });
+  };
+};
+
+const saveUser = (user) => {
+  return (dispatch) => {
+    dispatch(saveUserStatus({ status: '' }));
+    UserService.saveUser(user)
+      .then(({ data }) => {
+        const status = data?.status ?? '';
+        if (status === 2) {
+          dispatch(toastAction.error('Error', data.message));
+        } else if (status === 0) {
+          dispatch(toastAction.success('Success', '¡Registro éxitoso!'));
+        }
+        dispatch(saveUserStatus({ status }));
+      })
+      .catch(() => {});
+  };
+};
 
 const setUsers = ({
   loading = true,
@@ -75,4 +104,5 @@ export const UsersAction = {
   getUsers,
   getDataMaster,
   getUser,
+  saveUser
 };

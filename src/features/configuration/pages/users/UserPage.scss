@@ -85,3 +85,16 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.state-field {
+  width: 2 00px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+}
+.state-field span {
+  font-size: 0.9rem;
+  color: rgba($color: #000000, $alpha: 0.3);
+}

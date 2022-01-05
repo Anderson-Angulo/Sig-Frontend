@@ -17,58 +17,35 @@ import useUser from 'features/configuration/hooks/users/useUser';
 const UserPage = ({ title = 'Nuevo Usuario' }) => {
   const {
     loading,
-    data: { roles, status, company },
+    data: { roles, company },
   } = useSelector((state) => state.userReducer.dataManager);
 
-  const { editUser } = useSelector((state) => state.userReducer);
 
-  const usuarioInformation = useSelector((state) => state.authReducer.user);
-
-  const {
+    const {
     onSelectedImage,
     isUserNew,
     inputFile,
     srcAvatar,
     isAdmin,
-    setIsAdmin,
-    statusName,
-    setStatusName,
     setUserData,
+    isActive,
+    setIsActive,
     userData,
     isCheckedLocation,
+    isCheckedRole,
     cancelSaveUser,
     createOrEditUser,
     setSrcAvatar,
+    handleRoleChange,
+    handleLocationChange
   } = useUser({ title });
+
+  const { editUser } = useSelector((state) => state.userReducer);
 
   const rolesFilter = roles?.filter((r) => r.code !== 'ADMIN');
   const roleAdmin = roles?.filter((r) => r.code === 'ADMIN')[0];
+  const roleAdminId=roleAdmin?.id
 
-  let initialSwitchRole = {};
-  const roleKeys = roles?.map((r) => r.id);
-  roleKeys?.forEach((k) => (initialSwitchRole[k] = false));
-
-  if (!isUserNew) {
-    const rolesEditUser = editUser?.data?.roles;
-    const roleKeysEnable = rolesEditUser?.map((r) => r.id);
-    roleKeysEnable?.forEach((k) => (initialSwitchRole[k] = true));
-  }
-
-  const [valuesSwitch, setValuesSwitch] = useState(initialSwitchRole);
-
-  const handlerChangeSwitchRole = (e) => {
-    if (e.target.name === 1 && e.target.value === false) {
-      setIsAdmin(false);
-    } else if (e.target.name === 1 && e.target.value === true) {
-      roleKeys?.forEach((k) => (valuesSwitch[k] = false));
-      setIsAdmin(true);
-    }
-
-    setValuesSwitch({
-      ...valuesSwitch,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handlerChange = (e) => {
     setUserData({
@@ -81,19 +58,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     return <Skeleton width={width} height="2.2rem" />;
   };
 
-  const StatusComponent = ({ text, isActive = false }) => {
-    return (
-      <div
-        className="p-2 border rounded-md px-4 cursor-pointer"
-        style={{
-          ...(isActive ? { backgroundColor: '#004680', color: '#fff' } : {}),
-        }}
-        onClick={() => setStatusName(text)}
-      >
-        <p>{text}</p>
-      </div>
-    );
-  };
 
   return (
     <div className="bg-white p-8 mt-3 rounded-md shadow-md">
@@ -113,7 +77,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                     type="text"
                     id="user_name"
                     name="email"
-                    defaultValue={!isUserNew ? editUser?.data?.email : ''}
+                    defaultValue={!isUserNew ? userData.email : ''}
                   />
                   <label htmlFor="user_name">Usuario</label>
                 </span>
@@ -136,7 +100,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                     type="text"
                     id="user_name"
                     name="email"
-                    defaultValue={!isUserNew ? editUser?.data?.email : ''}
+                    defaultValue={!isUserNew ? userData.email : ''}
                   />
                   <label htmlFor="user_name">Usuario</label>
                 </span>
@@ -163,13 +127,13 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
 
                       <img
                         src={
-                          srcAvatar === ''
+                          srcAvatar === null
                             ? '/images/decorations/avatar.png'
                             : srcAvatar
                         }
                         className="avatar"
                         alt={
-                          isUserNew ? '' : usuarioInformation?.nombreCompleto
+                          isUserNew ? '' : editUser?.data?.avatar
                         }
                       />
                       <input
@@ -178,13 +142,13 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                         ref={inputFile}
                         onChange={onSelectedImage}
                       />
-                      {srcAvatar !== '' && (
+                      {srcAvatar !== null && (
                         <Button
                           label="Eliminar foto"
                           icon="pi pi-trash"
                           className="p-button-secondary p-button-outlined"
                           onClick={() => {
-                            setSrcAvatar('');
+                            setSrcAvatar(null);
                           }}
                         />
                       )}
@@ -200,7 +164,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                     type="text"
                     id="user_lastname"
                     name="lastName"
-                    defaultValue={!isUserNew ? editUser?.data?.lastName : ''}
+                    defaultValue={!isUserNew ? userData.lastName : ''}
                   />
                   <label htmlFor="user_lastname">Apellidos</label>
                 </span>
@@ -213,17 +177,15 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <SkeletonCustom width="30%" />
                 </>
               ) : (
-                <>
-                  {status?.map((s, i) => {
-                    return (
-                      <StatusComponent
-                        key={i}
-                        text={s.description}
-                        isActive={s.description === statusName}
-                      />
-                    );
-                  })}
-                </>
+                <div className="state-field" >
+                  <span htmlFor="user_state">Estado</span>
+                  <InputSwitch
+                    checked={isActive}
+                    onChange={e=>setIsActive(e.value)}
+                  />  
+                  {isActive ? "ACTIVO"  :  "INACTIVO"}
+                </div>
+                 
               )}
             </div>
           </div>
@@ -238,13 +200,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
           <div className="user-roles py-2 px-5">
             <div className="flex items-center gap-6">
               <InputSwitch
-                name={roleAdmin?.id}
-                checked={valuesSwitch[roleAdmin?.id]}
-                onChange={handlerChangeSwitchRole}
+                name={roleAdminId}
+                checked={isCheckedRole({id:roleAdminId})}
+                onChange={handleRoleChange}
               />
               <p title={roleAdmin?.description}>
                 {limitCharacters(roleAdmin?.description, 28)}{' '}
               </p>
+             
             </div>
             {!loading && roles?.length > 0 && (
               <>
@@ -253,8 +216,8 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                     <InputSwitch
                       disabled={isAdmin}
                       name={id}
-                      checked={valuesSwitch[id]}
-                      onChange={handlerChangeSwitchRole}
+                      checked={isCheckedRole({id})}
+                      onChange={handleRoleChange}
                     />
                     <p title={description}>
                       {limitCharacters(description, 28)}{' '}
@@ -304,7 +267,9 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                         <div className="item-location mb-1" key={index}>
                           <p>{name}</p>
                           <Checkbox
+                            name={id}
                             checked={isCheckedLocation({ id })}
+                            onChange={handleLocationChange}
                           ></Checkbox>
                         </div>
                       ))}
