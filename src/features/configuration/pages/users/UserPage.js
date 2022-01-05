@@ -20,8 +20,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     data: { roles, company },
   } = useSelector((state) => state.userReducer.dataManager);
 
-
-    const {
+  const {
     onSelectedImage,
     isUserNew,
     inputFile,
@@ -37,15 +36,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     createOrEditUser,
     setSrcAvatar,
     handleRoleChange,
-    handleLocationChange
+    handleLocationChange,
   } = useUser({ title });
 
   const { editUser } = useSelector((state) => state.userReducer);
 
   const rolesFilter = roles?.filter((r) => r.code !== 'ADMIN');
   const roleAdmin = roles?.filter((r) => r.code === 'ADMIN')[0];
-  const roleAdminId=roleAdmin?.id
-
+  const roleAdminId = roleAdmin?.id;
 
   const handlerChange = (e) => {
     setUserData({
@@ -58,9 +56,8 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     return <Skeleton width={width} height="2.2rem" />;
   };
 
-
   return (
-    <div className="bg-white p-8 mt-3 rounded-md shadow-md">
+    <div className="bg-white">
       <form
         className="form-custom p-0"
         onSubmit={createOrEditUser}
@@ -132,9 +129,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                             : srcAvatar
                         }
                         className="avatar"
-                        alt={
-                          isUserNew ? '' : editUser?.data?.avatar
-                        }
+                        alt={isUserNew ? '' : editUser?.data?.avatar}
                       />
                       <input
                         type="file"
@@ -177,15 +172,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <SkeletonCustom width="30%" />
                 </>
               ) : (
-                <div className="state-field" >
+                <div className="state-field">
                   <span htmlFor="user_state">Estado</span>
                   <InputSwitch
                     checked={isActive}
-                    onChange={e=>setIsActive(e.value)}
-                  />  
-                  {isActive ? "ACTIVO"  :  "INACTIVO"}
+                    onChange={(e) => setIsActive(e.value)}
+                  />
+                  {isActive ? 'ACTIVO' : 'INACTIVO'}
                 </div>
-                 
               )}
             </div>
           </div>
@@ -201,13 +195,12 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
             <div className="flex items-center gap-6">
               <InputSwitch
                 name={roleAdminId}
-                checked={isCheckedRole({id:roleAdminId})}
+                checked={isCheckedRole({ id: roleAdminId })}
                 onChange={handleRoleChange}
               />
               <p title={roleAdmin?.description}>
                 {limitCharacters(roleAdmin?.description, 28)}{' '}
               </p>
-             
             </div>
             {!loading && roles?.length > 0 && (
               <>
@@ -216,7 +209,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                     <InputSwitch
                       disabled={isAdmin}
                       name={id}
-                      checked={isCheckedRole({id})}
+                      checked={isCheckedRole({ id })}
                       onChange={handleRoleChange}
                     />
                     <p title={description}>

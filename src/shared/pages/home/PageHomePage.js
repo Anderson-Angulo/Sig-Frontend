@@ -7,11 +7,10 @@ const PageHomePage = () => {
   useEffect(() => {
     updateTitle({
       title: 'Inicio',
-      subtitle: 'Inicio',
     });
   }, []);
 
-  return <div>INICIO</div>;
+  return <div></div>;
 };
 
 export default PageHomePage;
