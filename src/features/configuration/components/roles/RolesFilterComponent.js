@@ -21,7 +21,7 @@ const RolesFilterComponent = () => {
   return (
     <Fragment>
       <Panel header="FILTRO POR" toggleable>
-        <div className="filter-roles">
+        <div className="filter-roles mt-3">
           <div className="w-full">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />

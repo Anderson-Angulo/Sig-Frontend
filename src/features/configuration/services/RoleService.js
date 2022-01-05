@@ -34,10 +34,15 @@ const saveRole = (role) => {
   return apiService.post('Role/Save', role, 'admin');
 };
 
+const deleteRole = (roleId) => {
+  return apiService.get(`Role/RemoveRole?roleId=${roleId}`, 'admin');
+};
+
 export const RoleService = {
   getRoles,
   getRolesOptions,
   getUserByRoleId,
   getRoleById,
   saveRole,
+  deleteRole,
 };

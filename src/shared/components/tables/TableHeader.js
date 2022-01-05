@@ -3,6 +3,8 @@ const TableHeader = ({
   currentHeader = '',
   showIcon = true,
   colMain,
+  order,
+  changeOrientation,
 }) => {
   return (
     <div className="table-header">
@@ -19,10 +21,16 @@ const TableHeader = ({
             <h3 className="text">{text}</h3>
             {showIcon && (
               <div className="flex flex-col">
-                {currentHeader === name ? (
-                  <i className="pi pi-chevron-down icon-small"></i>
+                {currentHeader === name && order === 'asc' ? (
+                  <i
+                    className="pi pi-chevron-down icon-small cursor-pointer"
+                    onClick={() => changeOrientation({ name, order: 'desc' })}
+                  ></i>
                 ) : (
-                  <i className="pi pi-chevron-up icon-small"></i>
+                  <i
+                    className="pi pi-chevron-up icon-small cursor-pointer"
+                    onClick={() => changeOrientation({ name, order: 'asc' })}
+                  ></i>
                 )}
               </div>
             )}
