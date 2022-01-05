@@ -6,7 +6,7 @@ const TypeMoneyComponent = () => {
   return (
     <div className="content-tab-sistem">
       <h2>Tipo de Moneda</h2>
-      <p className="description mb-3">
+      <p className="description mb-3 mt-5 font-semibold">
         Aquí puedes seleccionar la moneda qué por defecto utilizará la
         aplicación.
       </p>
