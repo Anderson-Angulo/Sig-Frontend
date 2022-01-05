@@ -9,12 +9,11 @@ const useUser = ({ title }) => {
   const history = useHistory();
   const params = useParams();
   const inputFile = useRef(null);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   let { editUser } = useSelector((state) => state.userReducer);
 
-  
-  const [isActive,setIsActive]=useState(false)
+  const [isActive, setIsActive] = useState(false);
   const [srcAvatar, setSrcAvatar] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [locationIds, setLocationIds] = useState([]);
@@ -22,58 +21,57 @@ const useUser = ({ title }) => {
 
   const { updateTitle } = useSetTitlePage();
 
-  let isUserNew=title === 'Nuevo Usuario';
+  let isUserNew = title === 'Nuevo Usuario';
 
-  const { email, firstName, lastName, statusName} = editUser?.data;
+  const { email, firstName, lastName, statusName } = editUser?.data;
 
-  let initialUserData={
-    email:  null,
+  let initialUserData = {
+    email: null,
     firstName: null,
-    lastName:null ,
-  }
+    lastName: null,
+  };
 
   const [userData, setUserData] = useState(initialUserData);
 
-
-  const handleLocationChange=(e)=>{
-    if(e.target.checked) setLocationIds([...locationIds,e.target.name])
-    else{
-      const newLocationIds = locationIds.filter(l=>l !== e.target.name)
-      setLocationIds(newLocationIds)
+  const handleLocationChange = (e) => {
+    if (e.target.checked) setLocationIds([...locationIds, e.target.name]);
+    else {
+      const newLocationIds = locationIds.filter((l) => l !== e.target.name);
+      setLocationIds(newLocationIds);
     }
-  }
+  };
 
-  const handleRoleChange=(e)=>{
-    if(e.target.value) setRoleIds([...roleIds,e.target.name])
-    else{
-      const newRoleIds = roleIds.filter(r=>r !== e.target.name)
-      setRoleIds(newRoleIds)
+  const handleRoleChange = (e) => {
+    if (e.target.value) setRoleIds([...roleIds, e.target.name]);
+    else {
+      const newRoleIds = roleIds.filter((r) => r !== e.target.name);
+      setRoleIds(newRoleIds);
     }
-  }
+  };
 
-  useEffect(()=>{
-    roleIds.indexOf(1) !== -1 ? setIsAdmin(true) : setIsAdmin(false)
-  },[roleIds])
+  useEffect(() => {
+    roleIds.indexOf(1) !== -1 ? setIsAdmin(true) : setIsAdmin(false);
+  }, [roleIds]);
 
-  useEffect(()=>{
-    if(isUserNew){
-      setIsActive(false)
-      setIsAdmin(false)
-    }else{
-      setUserData({email,firstName,lastName})
+  useEffect(() => {
+    if (isUserNew) {
+      setIsActive(false);
+      setIsAdmin(false);
+    } else {
+      setUserData({ email, firstName, lastName });
     }
-  },[])
+  }, []);
 
-  useEffect(()=>{
-    !isUserNew && setIsActive(statusName === "ACTIVO")
-  },[statusName])
-
+  useEffect(() => {
+    !isUserNew && setIsActive(statusName === 'ACTIVO');
+  }, [statusName]);
 
   useEffect(() => {
     updateTitle({
       title: 'Configuración',
       subtitle: 'Gestión de Usuarios',
       description: title,
+      previousUrl: '/configuracion/usuarios',
     });
   }, []);
 
@@ -108,12 +106,11 @@ const useUser = ({ title }) => {
         return locations.map((location) => location.id);
       })[0];
 
-      const rolesIDs=data?.roles?.map(r=>r.id)
+      const rolesIDs = data?.roles?.map((r) => r.id);
       setLocationIds(locationsIDs);
-      setRoleIds(rolesIDs)
+      setRoleIds(rolesIDs);
     }
   }, [editUser]);
-
 
   const onSelectedImage = ({ target }) => {
     const file = target.files[0];
@@ -131,17 +128,15 @@ const useUser = ({ title }) => {
     else if (locationIds?.length > 0) return locationIds.includes(id);
     return false;
   };
-  
+
   const isCheckedRole = ({ id }) => {
-    if (isUserNew && roleIds?.length === 0){
-      return false
-    }  
-    else if (roleIds?.length > 0){
+    if (isUserNew && roleIds?.length === 0) {
+      return false;
+    } else if (roleIds?.length > 0) {
       return roleIds.includes(id);
     }
     return false;
   };
-  
 
   const cancelSaveUser = () => {
     history.push('/configuracion/usuarios');
@@ -150,9 +145,9 @@ const useUser = ({ title }) => {
   const createOrEditUser = (e) => {
     e.preventDefault();
     const userId = parseInt(params.id) || null;
-    const avatar=srcAvatar
+    const avatar = srcAvatar;
     const { status } = dataManager.data;
-    const statusName= isActive ? "ACTIVO" : "INACTIVO"
+    const statusName = isActive ? 'ACTIVO' : 'INACTIVO';
     const statusId = status.find((s) => s.description === statusName)?.id;
 
     const payload = {
@@ -165,7 +160,7 @@ const useUser = ({ title }) => {
     };
 
     console.log('DATA: ', payload);
-    UsersAction.saveUser(payload)
+    UsersAction.saveUser(payload);
   };
 
   return {
@@ -185,7 +180,7 @@ const useUser = ({ title }) => {
     createOrEditUser,
     setSrcAvatar,
     handleLocationChange,
-    handleRoleChange
+    handleRoleChange,
   };
 };
 

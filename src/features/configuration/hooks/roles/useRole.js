@@ -35,6 +35,7 @@ const useRole = ({ title }) => {
     title: 'Configuración',
     subtitle: 'Roles y Privilegios',
     description,
+    previousUrl: '/configuracion/rol-privilegios',
   };
 
   useEffect(() => {
