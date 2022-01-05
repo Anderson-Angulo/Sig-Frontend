@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
 import LogoInputFile from './components/logo-input-file/logo-input-file';
 import './logo-empresa-component.scss';
+import useSetTitlePage from 'shared/hooks/useSetTitlePage';
 
 const LogoEmpresaComponent = () => {
   const [files, setFiles] = useState({ dark: null, light: null });
+
+  const { updateTitle } = useSetTitlePage();
+
+  useEffect(() => {
+    updateTitle({
+      title: 'Configuración',
+      subtitle: 'Sistema',
+      description: 'Logos de Empresa',
+    });
+  }, []);
 
   const handlerSubmit = (e) => {
     e.preventDefault();
