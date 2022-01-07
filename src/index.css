@@ -31,3 +31,11 @@
     grid-gap             : 3rem;
     gap                  : 3rem;
 }
+
+.p-field-checkbox {
+    font-size: 14px;
+}
+
+.p-inputtext {
+    color: #495057;
+}

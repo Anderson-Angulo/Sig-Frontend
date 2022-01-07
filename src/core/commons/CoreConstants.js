@@ -6,8 +6,12 @@ export class CoreConstants {
         static get ERROR_TECHNICAL() { return -1; }
 
     }
+    static TypeView = class {
+        static get CANVA() { return 'CANVA'; }
+        static get LIST() { return 'LIST'; }
+    }
     static Accion = class {
-        
+
         static Login = class {
             static get REQUEST() { return '@AUTH.LOGIN_REQUEST'; }
             static get SUCCESS() { return '@AUTH.LOGIN_SUCCESS'; }

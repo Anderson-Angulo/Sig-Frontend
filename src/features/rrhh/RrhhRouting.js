@@ -1,8 +1,7 @@
 import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import PersonPage from './pages/people/PersonPage';
-import PeoplePage from './pages/people/PeoplePage';
-import WorkstationPage from './pages/workstation/WorkstationPage';
+import PeoplePage from './pages/people/PeoplePage'; 
 import SearchDepartmentPage from './pages/department/SearchDepartmentPage';
 import PositionsPage from './pages/positions/PositionsPage';
 import PositionPage from './pages/positions/PositionPage';

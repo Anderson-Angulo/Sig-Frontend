@@ -15,10 +15,7 @@ const FilterComponent = () => {
                     <div className="w-full">
                         <span className="p-float-label p-input-icon-left w-full">
                             <i className="pi pi-search" />
-                            <InputText
-                                id="input-search"
-
-                            />
+                            <InputText id="input-search" />
                             <label htmlFor="input-search">Buscar por deartamento</label>
                         </span>
                         {(
