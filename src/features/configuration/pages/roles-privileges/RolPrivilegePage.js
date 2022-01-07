@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
-import { Checkbox } from 'primereact/checkbox';
 import { Skeleton } from 'primereact/skeleton';
 import { InputText } from 'primereact/inputtext';
 
@@ -24,7 +23,6 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     options,
     isChecked,
     handleCheckbox,
-
     visible,
     setVisible,
     accept,
@@ -48,7 +46,7 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
   };
 
   return (
-    <div className="bg-white p-8  rounded-md shadow-md">
+    <div className="bg-white  ">
       <form className="form-custom p-0" onSubmit={handleSubmit}>
         <Panel header={title} toggleable>
           {showField() && (

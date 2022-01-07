@@ -1,13 +1,12 @@
-@import "../base/settings";
+@import '../base/settings';
 
 button {
   border-radius: 6px;
   font-size: 0.9rem !important;
   outline: none;
-  padding: 6px 10px !important;
+  padding: 4px 6px !important;
   transition: background-color 0.3s ease;
-  // max-width: initial;
-  // width: 100%;
+
   &.p-button {
     min-width: 120px;
   }

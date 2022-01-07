@@ -30,6 +30,9 @@ export class ConfigurationConstants {
       static get SAVE_ROLE_STATUS() {
         return '@ROLES.SAVE-ROLE-STATUS';
       }
+      static get SHOW_DELETE_ROLE_MODAL() {
+        return `@ROLES.SHOW-DELETE-ROLE-MODAL`;
+      }
     };
     static Users = class {
       static get SET_LIST() {
@@ -40,6 +43,18 @@ export class ConfigurationConstants {
       }
       static get GET_USER() {
         return '@USERS.GET-USER';
+      }
+           static get EDIT_USER() {
+        return '@USERS.EDIT-USER';
+      }
+      static get SET_FILTER_VALUES() {
+        return '@USERS.SET-FILTER-VALUES';
+      }
+      static get REMOVE_FILTER_VALUES() {
+        return '@USERS.REMOVE-FILTER-VALUES';
+      }
+      static get SAVE_USER_STATUS() {
+        return '@USERS.SAVE-USER-STATUS';
       }
     };
   };

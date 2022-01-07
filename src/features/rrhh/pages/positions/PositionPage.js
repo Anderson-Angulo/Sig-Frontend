@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 
 const PositionPage = ({ title = 'NUEVO CARGO' }) => {
   return (
-    <div className="bg-white p-8  rounded-md shadow-md">
+    <div className="bg-white ">
       <form className="form-custom p-0" onSubmit={null}>
         <Panel header={title} toggleable>
           <div className="mb-6 w-2/5 mt-5">
@@ -15,7 +15,7 @@ const PositionPage = ({ title = 'NUEVO CARGO' }) => {
                 id="position_name"
                 value={null}
                 onChange={null}
-                className=''
+                className=""
               />
               <label htmlFor="rol_name">Nombre del cargo*</label>
             </span>
@@ -27,18 +27,19 @@ const PositionPage = ({ title = 'NUEVO CARGO' }) => {
                 id="position_name"
                 value={null}
                 onChange={null}
-                className=''
+                className=""
               />
               <label htmlFor="position_name">Descripción*</label>
             </span>
           </div>
           <div className="mb-6 w-4/5 mt-5">
             <span className="p-float-label w-full">
-              <InputNumber 
-                id="employees_quantity" 
-                value={null} 
-                onValueChange={null} 
-                className=''/>
+              <InputNumber
+                id="employees_quantity"
+                value={null}
+                onValueChange={null}
+                className=""
+              />
               <label htmlFor="employees_quantity">Nro. Empleados*</label>
             </span>
           </div>
@@ -60,7 +61,7 @@ const PositionPage = ({ title = 'NUEVO CARGO' }) => {
         </Panel>
       </form>
     </div>
-  )
+  );
 };
 
 export default PositionPage;

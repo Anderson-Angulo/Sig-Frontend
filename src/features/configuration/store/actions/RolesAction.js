@@ -7,11 +7,13 @@ const setRoles = ({
   data = [],
   currentData = [],
   pagination = {},
+  currentCol = 'roleName',
+  order = 'asc',
 }) => {
   return (dispatch) =>
     dispatch({
       type: ConfigurationConstants.Accion.Roles.SETLIST,
-      payload: { loading, data, currentData, pagination },
+      payload: { loading, data, currentData, pagination, currentCol, order },
     });
 };
 
@@ -37,7 +39,13 @@ const getRoles = (fields) => {
           pagination: { ...rest },
         };
 
-        if (fields.columnOrder) objFields.currentCol = fields.columnOrder;
+        if (fields.fields?.columnOrder) {
+          objFields.currentCol = fields.fields.columnOrder;
+        }
+        if (fields.fields?.order) {
+          objFields.order = fields.fields.order;
+        }
+
         dispatch(setRoles(objFields));
       },
       () => dispatch(setRoles({ loading: false }))
@@ -168,6 +176,41 @@ const saveRole = (role) => {
   };
 };
 
+const showDeleteRoleModal = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ConfigurationConstants.Accion.Roles.SHOW_DELETE_ROLE_MODAL,
+      payload,
+    });
+  };
+};
+
+const deleteRoleModal = (roleId) => {
+  return (dispatch, getState) => {
+    RoleService.deleteRole(roleId)
+      .then(({ data }) => {
+        if (data.status === 0) {
+          dispatch(
+            showDeleteRoleModal({
+              isOpen: false,
+              roleId: '',
+            })
+          );
+          dispatch(getRoles({ change: false }));
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          showDeleteRoleModal({
+            isLoading: false,
+            isOpen: false,
+            roleId: '',
+          })
+        );
+      });
+  };
+};
+
 export const RolesAction = {
   getRoles,
   toggleModalFilters,
@@ -178,4 +221,6 @@ export const RolesAction = {
   removeFilterValues,
   saveRole,
   saveRoleStatus,
+  showDeleteRoleModal,
+  deleteRoleModal,
 };

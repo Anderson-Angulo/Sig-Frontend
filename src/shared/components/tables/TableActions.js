@@ -5,7 +5,7 @@ const TableActions = ({ closeActions, setSelectedOption, actions }) => {
         className="pi pi-times absolute cursor-pointer rounded-full flex items-center"
         onClick={closeActions}
       ></i>
-      <div className="item-selected-actions flex flex-col">
+      <div className="item-selected-actions flex flex-col items-baseline">
         {actions.map((action, i) => (
           <button key={i} onClick={() => setSelectedOption(action.name)}>
             {action.text}

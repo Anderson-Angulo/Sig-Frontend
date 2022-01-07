@@ -22,7 +22,7 @@ const PublicRouting = (reducerRegistry) => {
       <Route exact path={`${path}/inicio-sesion`} component={Login} />
       <Route
         exact
-        path={`${path}/nueva-contrasena/:token`}
+        path={`${path}/recuperar-contrasena/:token`}
         component={NewPasswordPage}
       />
       <Route component={Login} />

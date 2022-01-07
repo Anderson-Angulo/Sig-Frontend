@@ -12,22 +12,4 @@
   align-items: center;
   justify-content: center;
 }
-.typing {
-  display: inline-block;
-  white-space: nowrap;
-  border-right: 2px solid;
-  width: 12ch;
-  overflow: hidden;
-  animation: typing 2s steps(10), blink 0.5s infinite step-end alternate;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-}
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
+/*  */
