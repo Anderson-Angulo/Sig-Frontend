@@ -61,3 +61,16 @@ body {
 .mt-2 {
   margin-top: 0.5rem !important;
 }
+
+.p-inputswitch {
+  width: 2.4rem;
+  height: 1.3rem;
+}
+.p-inputswitch .p-inputswitch-slider:before {
+  margin-top: -0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+.p-inputswitch-checked.p-inputswitch .p-inputswitch-slider:before {
+  left: 0;
+}

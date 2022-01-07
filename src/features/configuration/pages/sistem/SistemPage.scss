@@ -1,18 +1,46 @@
 .tabs-sistem {
-  background: red;
+  .p-tabview-nav-content {
+    height: 100%;
+  }
   .tabview-custom {
     display: grid;
     grid-template-columns: 11rem 1fr;
+    min-height: 100vh;
+    height: 100%;
 
     & ul {
       display: flex;
       flex-direction: column;
+      height: 100%;
+      border-right: 1px solid #004680 !important;
+      z-index: 1;
+      & li {
+        position: relative;
+      }
+      & li.p-tabview-selected::after {
+        display: block;
+        content: '';
+        width: 3px;
+        height: 46.41px;
+        position: absolute;
+        top: 0;
+        right: -2px;
+        z-index: 4;
+        background-color: rgb(255, 255, 255);
+      }
+      & li.p-tabview-selected {
+        border: 1px solid #004680;
+        border-bottom: 3px solid #004680;
+      }
     }
   }
   .p-tabview-nav-link {
     gap: 12px;
     box-shadow: none !important;
     border: 0 !important;
+  }
+  .p-tabview .p-tabview-panels {
+    padding-top: 0;
   }
   .p-tabview-title,
   i {
@@ -30,5 +58,11 @@
   }
   .item-actions button {
     padding: 0 !important;
+  }
+  .p-tabview .p-tabview-nav {
+    border: 0;
+  }
+  .p-tabview .p-tabview-panels {
+    border-radius: 0;
   }
 }

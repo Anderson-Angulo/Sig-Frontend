@@ -88,7 +88,7 @@ const UnitMeasureComponent = () => {
   return (
     <div className="content-tab-sistem">
       <h2>Unidad de Medida</h2>
-      <p className="description mb-3">
+      <p className="description mt-5 mb-3 font-semibold">
         Aquí puedes crear y editar las unidades que utilizará la aplicación.
       </p>
       <Button

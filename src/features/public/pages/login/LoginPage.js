@@ -156,7 +156,7 @@ const LoginPage = () => {
                 onChange={(e) => setChecked(e.checked)}
               />
 
-              <label htmlFor="remember" className="label-checkbox typing">
+              <label htmlFor="remember" className="label-checkbox">
                 {' '}
                 Recuérdame
               </label>

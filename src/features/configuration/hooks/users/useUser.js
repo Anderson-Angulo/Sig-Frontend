@@ -9,7 +9,7 @@ const useUser = ({ title }) => {
   const history = useHistory();
   const params = useParams();
   const inputFile = useRef(null);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   const { editUser } = useSelector((state) => state.userReducer);
   const {register,setError,clearErrors,handleSubmit,formState:{errors}}=useForm()
@@ -92,15 +92,16 @@ const useUser = ({ title }) => {
     }
   },[editUser.data])
 
-  useEffect(()=>{
-    !isUserNew && setIsActive(statusName === "ACTIVO")
-  },[statusName])
+  useEffect(() => {
+    roleIds.indexOf(1) !== -1 ? setIsAdmin(true) : setIsAdmin(false);
+  }, [roleIds]);
 
   useEffect(() => {
     updateTitle({
       title: 'Configuración',
       subtitle: 'Gestión de Usuarios',
       description: title,
+      previousUrl: '/configuracion/usuarios',
     });
   }, []);
 
@@ -120,9 +121,9 @@ const useUser = ({ title }) => {
         return locations.map((location) => location.id);
       })[0];
 
-      const rolesIDs=data?.roles?.map(r=>r.id)
+      const rolesIDs = data?.roles?.map((r) => r.id);
       setLocationIds(locationsIDs);
-      setRoleIds(rolesIDs)
+      setRoleIds(rolesIDs);
     }
   }, [editUser]);
 
@@ -173,22 +174,20 @@ const useUser = ({ title }) => {
   
 
   const isCheckedRole = ({ id }) => {
-    if (isUserNew && roleIds?.length === 0){
-      return false
-    }  
-    else if (roleIds?.length > 0){
+    if (isUserNew && roleIds?.length === 0) {
+      return false;
+    } else if (roleIds?.length > 0) {
       return roleIds.includes(id);
     }
     return false;
   };
-  
 
   const createOrEditUser = (data) => {
     let formData=new FormData()
     const userId = parseInt(params.id) || null;
-    const avatar=srcAvatar
+    const avatar = srcAvatar;
     const { status } = dataManager.data;
-    const statusName= isActive ? "ACTIVO" : "INACTIVO"
+    const statusName = isActive ? 'ACTIVO' : 'INACTIVO';
     const statusId = status.find((s) => s.description === statusName)?.id;
 
     const payload = {

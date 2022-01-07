@@ -21,7 +21,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     data: { roles, company },
   } = useSelector((state) => state.userReducer.dataManager);
 
-
   const {
     onSelectedImage,
     isUserNew,
@@ -76,9 +75,8 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     return <Skeleton width={width} height="2.2rem" />;
   };
 
-
   return (
-    <div className="bg-white p-8 mt-3 rounded-md shadow-md">
+    <div className="bg-white">
       <form
         className="form-custom p-0"
         onSubmit={handleSubmit(createOrEditUser)}
@@ -214,7 +212,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <SkeletonCustom width="30%" />
                 </>
               ) : (
-                <div className="state-field" >
+                <div className="state-field">
                   <span htmlFor="user_state">Estado</span>
                   <InputSwitch
                     checked={isActive}
@@ -223,7 +221,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   />  
                   {isActive ? "ACTIVO"  :  "INACTIVO"}
                 </div>
-                 
               )}
             </div>
           </div>
@@ -239,14 +236,13 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
             <div className="flex items-center gap-6">
               <InputSwitch
                 name={roleAdminId}
-                checked={isCheckedRole({id:roleAdminId})}
+                checked={isCheckedRole({ id: roleAdminId })}
                 onChange={handleRoleChange}
                 className={errors?.role ? 'p-invalid ' : ''}
               />
               <p title={roleAdmin?.description}>
                 {limitCharacters(roleAdmin?.description, 28)}{' '}
               </p>
-             
             </div>
             {!loading && roles?.length > 0 && (
               <>
