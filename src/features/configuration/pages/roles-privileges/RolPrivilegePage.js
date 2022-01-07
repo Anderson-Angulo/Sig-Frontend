@@ -23,7 +23,6 @@ const RolPrivilegioPage = ({ title = 'NUEVO ROL' }) => {
     options,
     isChecked,
     handleCheckbox,
-
     visible,
     setVisible,
     accept,

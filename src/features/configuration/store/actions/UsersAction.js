@@ -14,8 +14,10 @@ const saveUserStatus = (payload) => {
 };
 
 const saveUser = (user) => {
+  console.log("USER: ",user)
   return (dispatch) => {
     dispatch(saveUserStatus({ status: '' }));
+    
     UserService.saveUser(user)
       .then(({ data }) => {
         const status = data?.status ?? '';
@@ -104,5 +106,6 @@ export const UsersAction = {
   getUsers,
   getDataMaster,
   getUser,
-  saveUser
+  saveUser,
+  saveUserStatus
 };

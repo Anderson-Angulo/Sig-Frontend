@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import { Checkbox } from 'primereact/checkbox';
 import { Accordion, AccordionTab } from 'primereact/accordion';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Skeleton } from 'primereact/skeleton';
 import { InputSwitch } from 'primereact/inputswitch';
 import { Panel } from 'primereact/panel';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { useEffect, useState } from 'react';
+import Message from 'shared/components/messages/Message';
 
 import './UserPage.scss';
 import TableEmpty from 'shared/components/tables/TableEmpty';
@@ -21,7 +22,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
   } = useSelector((state) => state.userReducer.dataManager);
 
 
-    const {
+  const {
     onSelectedImage,
     isUserNew,
     inputFile,
@@ -33,18 +34,35 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     userData,
     isCheckedLocation,
     isCheckedRole,
-    cancelSaveUser,
     createOrEditUser,
     setSrcAvatar,
     handleRoleChange,
-    handleLocationChange
-  } = useUser({ title });
+    handleLocationChange,
+    register,
+    handleSubmit,
+    errors,
+    handleClick,
+    visible,
+    setVisible,
+    accept,
+    reject,
+    disabledButtonState,
+    editUser
+} = useUser({ title });
 
-  const { editUser } = useSelector((state) => state.userReducer);
-
+ 
   const rolesFilter = roles?.filter((r) => r.code !== 'ADMIN');
   const roleAdmin = roles?.filter((r) => r.code === 'ADMIN')[0];
   const roleAdminId=roleAdmin?.id
+  const {data}=editUser
+
+ 
+  const messages=[]
+  for(let prop in errors ){
+    if(errors.hasOwnProperty(prop)){
+      messages.push(errors[prop].message)
+    }
+  }
 
 
   const handlerChange = (e) => {
@@ -63,7 +81,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
     <div className="bg-white p-8 mt-3 rounded-md shadow-md">
       <form
         className="form-custom p-0"
-        onSubmit={createOrEditUser}
+        onSubmit={handleSubmit(createOrEditUser)}
         onChange={handlerChange}
       >
         <Panel header="DATOS GENERALES" toggleable>
@@ -74,10 +92,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
               ) : (
                 <span className="p-float-label w-full">
                   <InputText
+                    {...register("userName",{
+                      required:{value:true,message:"El campo Username es requerido"}
+                    })}
                     type="text"
                     id="user_name"
-                    name="email"
-                    defaultValue={!isUserNew ? userData.email : ''}
+                    name="userName"
+                    className={errors?.userName ? 'p-invalid w-full' : 'w-full'}
+                    value={userData?.userName}
                   />
                   <label htmlFor="user_name">Usuario</label>
                 </span>
@@ -87,7 +109,15 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                 <SkeletonCustom />
               ) : (
                 <span className="p-float-label w-full">
-                  <InputText type="email" id="user_email" />
+                  <InputText
+                    {...register("email",{
+                      required:{value:true,message:"El campo Email es requerido"}
+                    })}
+                    type="email" 
+                    id="user_email"
+                    name="email"
+                    className={errors?.email ? 'p-invalid w-full' : 'w-full'}
+                    value={userData?.email}/>
                   <label htmlFor="user_email">Correo Eléctronico</label>
                 </span>
               )}
@@ -97,20 +127,24 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
               ) : (
                 <span className="p-float-label w-full">
                   <InputText
+                     {...register("firstName",{
+                      required:{value:true,message:"El campo Firstname es requerido"}
+                    })}
                     type="text"
-                    id="user_name"
-                    name="email"
-                    defaultValue={!isUserNew ? userData.email : ''}
+                    id="user_firstname"
+                    name="firstName"
+                    className={errors?.firstName ? 'p-invalid w-full' : 'w-full'}
+                    value={userData?.firstName }
                   />
-                  <label htmlFor="user_name">Usuario</label>
+                  <label htmlFor="user_firstname">Nombres</label>
                 </span>
+
               )}
 
               <div className="user-picture">
                 {editUser.loading ? (
                   <Skeleton shape="circle" size="6rem"></Skeleton>
                 ) : (
-                  <>
                     <div
                       className={`${
                         srcAvatar !== ''
@@ -133,7 +167,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                         }
                         className="avatar"
                         alt={
-                          isUserNew ? '' : editUser?.data?.avatar
+                          isUserNew ? '' : data?.avatar
                         }
                       />
                       <input
@@ -153,7 +187,6 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                         />
                       )}
                     </div>
-                  </>
                 )}
               </div>
               {editUser.loading ? (
@@ -161,10 +194,14 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
               ) : (
                 <span className="p-float-label w-full">
                   <InputText
+                    {...register("lastName",{
+                      required:{value:true,message:"El campo Lastname es requerido"}
+                    })}
                     type="text"
                     id="user_lastname"
                     name="lastName"
-                    defaultValue={!isUserNew ? userData.lastName : ''}
+                    className={errors?.lastName ? 'p-invalid w-full' : 'w-full'}
+                    value={ userData?.lastName }
                   />
                   <label htmlFor="user_lastname">Apellidos</label>
                 </span>
@@ -181,6 +218,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                   <span htmlFor="user_state">Estado</span>
                   <InputSwitch
                     checked={isActive}
+                    disabled={disabledButtonState}
                     onChange={e=>setIsActive(e.value)}
                   />  
                   {isActive ? "ACTIVO"  :  "INACTIVO"}
@@ -203,6 +241,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                 name={roleAdminId}
                 checked={isCheckedRole({id:roleAdminId})}
                 onChange={handleRoleChange}
+                className={errors?.role ? 'p-invalid ' : ''}
               />
               <p title={roleAdmin?.description}>
                 {limitCharacters(roleAdmin?.description, 28)}{' '}
@@ -217,6 +256,7 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                       disabled={isAdmin}
                       name={id}
                       checked={isCheckedRole({id})}
+                      className={errors?.role ? 'p-invalid ' : ''}
                       onChange={handleRoleChange}
                     />
                     <p title={description}>
@@ -264,12 +304,13 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
                         })}
                       </h3>
                       {c.locations.map(({ id, name }, index) => (
-                        <div className="item-location mb-1" key={index}>
+                        <div  className="item-location mb-1" key={index}>
                           <p>{name}</p>
                           <Checkbox
                             name={id}
                             checked={isCheckedLocation({ id })}
                             onChange={handleLocationChange}
+                            className={errors?.location ? 'p-invalid ' : ''}
                           ></Checkbox>
                         </div>
                       ))}
@@ -284,23 +325,36 @@ const UserPage = ({ title = 'Nuevo Usuario' }) => {
             ))}
           </Panel>
         )}
+            {(messages.length > 0) && (
+            <Message messages={messages} status="error" />
+          )}
 
         <div className="flex justify-end gap-4 mt-3">
           <Button
             icon="pi pi-times"
             type="button"
             label="Cancelar"
-            onClick={cancelSaveUser}
+            onClick={() => setVisible(true)}
             className="btn btn-secondary mt-4"
           />
           <Button
             icon="pi pi-save"
             type="submit"
             label="Guardar"
+            onClick={handleClick}
             className="btn btn-primary mt-4"
           />
         </div>
       </form>
+      <ConfirmDialog
+        visible={visible}
+        onHide={() => setVisible(false)}
+        message="¿Está seguro que desea cancelar?"
+        header="Cancelar"
+        icon="pi pi-exclamation-triangle"
+        accept={accept}
+        reject={reject}
+      />
     </div>
   );
 };
