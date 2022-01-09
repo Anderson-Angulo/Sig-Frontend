@@ -7,6 +7,11 @@ const initialState = {
     pagination: {},
     currentCol: 'firstName',
   },
+  filteredUsers:{
+    showModal: false,
+    disabledBtn: true,
+    values: [],
+  },
   editUser: {
     loading: false,
     data: {},
@@ -28,6 +33,14 @@ export default (state = initialState, action) => {
         ...state,
         users: {
           ...state.users,
+          ...action.payload,
+        },
+      };
+    case ConfigurationConstants.Accion.Users.SET_FILTER_VALUES:
+      return {
+        ...state,
+        filteredUsers: {
+          ...state.filteredUsers,
           ...action.payload,
         },
       };

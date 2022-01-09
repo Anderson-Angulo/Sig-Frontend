@@ -32,7 +32,7 @@ const useUser = ({ title }) => {
     description,
   };
 
-  const {userName, email, firstName, lastName, statusName} = editUser?.data;
+  const {userName, email, firstName, lastName} = editUser?.data;
 
   const [userData, setUserData] = useState(null);
 
@@ -113,7 +113,7 @@ const useUser = ({ title }) => {
   useEffect(() => {
     const { data } = editUser;
     if (!isUserNew && Object.values(data).length > 0) {
-      const roles = data?.roles?.map((role) => role.code.toUpperCase());
+      const roles = data?.roles?.map((role) => role?.code?.toUpperCase());
       if (roles?.includes('ADMIN')) setIsAdmin(true);
       else setIsAdmin(false);
 

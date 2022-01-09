@@ -6,28 +6,18 @@ const useUserFilter=()=>{
   const dataManager = useSelector((state) => state.userReducer.dataManager);
   const dispatch = useDispatch()
   const [valueSearch, setValueSearch] = useState(null);
+  const [companyIdValue, setCompanyIdValue] = useState(null);
   const { data } = dataManager;
-  
+   const { loading } = useSelector((state) => state.userReducer.users);
 
   const [values,setValues]=useState({
     locationId:null,
     companyId:null,
-    roleId:null
+    roleId:null,
+    statusId:null
   })
 
-  const initialState={
-      page:0,
-      pageSize:0,
-      columnOrder:null,	
-      order:null,
-      fromDate:null,	
-      toDate:null,
-      companyId:null,
-      locationId:null,
-      roleId:null	
-  }
-
-  const [valuesAvancedSearch,setValuesAvancedSearch]=useState(initialState)
+  const [valuesAvancedSearch,setValuesAvancedSearch]=useState({})
 
   useEffect(() => {
     const cantList =
@@ -36,51 +26,63 @@ const useUserFilter=()=>{
   }, []);
 
 
+
+
   const getIdForCompany=(name)=>{
     const companies=data.company
     const companyId=companies.find(c=>c.businessName===name)?.id
-    return companyId
-  }
-  const getIdForLocation=(name)=>{
+    return companyId || null
+  } 
+  const getIdForLocation=(name,companyId)=>{
     const companies=data.company
-    let locationId
-    companies.find(c=>{
-        locationId=c.locations.find(l=>l.name===name)?.id
+    const company=companies.find(c=>{
+        return c?.id===companyId
     })
-    return locationId
+    const locationId=company?.locations.find(l=>l.name===name)?.id
+    return locationId || null
   }
   const getIdForRole=(name)=>{
     const companies=data.roles
     const roleId=companies.find(c=>c.description===name)?.id
-    return roleId
+    return roleId || null
   }
 
+  const getIdForState=(name)=>{
+    const status=data?.status
+    const statusId=status?.find(s=>s?.description?.toUpperCase()===name?.toUpperCase())?.id
+    return statusId || null
+  } 
+
   const setValue=(e)=>{
-    const name=e.target.name
-    if(name==="companyId"){
-      return getIdForCompany(e.value?.company)
+    const target=e.target
+    if(target.name==="companyId"){
+      const companyIdValue=getIdForCompany(e.value?.company)
+      setCompanyIdValue(companyIdValue)
+      return companyIdValue
     }
-    else if(name==="locationId"){
-      return getIdForLocation(e.value?.location)
+    else if(target.name==="locationId"){
+      return getIdForLocation(e.value?.location,companyIdValue)
     }
-    else if(name==="roleId"){
+    else if(target.name==="roleId"){
       return getIdForRole(e.value?.role)
+    }
+    else if(target.name==="statusId"){
+      return getIdForState( target.value === values.statusId ? null : target.value)
     }
     return e.target.value
   }
 
   const handlerChangeModalFilter=(e)=>{
-      setValues({
-        ...values,
-        [e.target.name]:e.value
-      })
+      setValues(prevValues=>({
+        ...prevValues,
+        [e.target.name]: e.value === prevValues.statusId ? null : e.value
+      }))
       setValuesAvancedSearch({
         ...valuesAvancedSearch,
         [e.target.name]:setValue(e)
       })
   }
 
-  
 
 
   const rolesValues=data?.roles?.map(r=>r.description)
@@ -94,7 +96,7 @@ const useUserFilter=()=>{
 
   const advancedfilter=(e)=>{
     e.preventDefault()
-    console.log("Busqueda Avanzada")  
+    dispatch(UsersAction.getUsers({ change: true, fields: valuesAvancedSearch }));
   }
 
   const simpleFilter=()=>{
@@ -114,7 +116,9 @@ const useUserFilter=()=>{
     handlerChangeModalFilter,
     advancedfilter,
     simpleFilter,
-    values
+    values,
+    setValues,
+    loading
   }
 }
 

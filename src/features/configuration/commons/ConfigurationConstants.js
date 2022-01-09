@@ -44,7 +44,7 @@ export class ConfigurationConstants {
       static get GET_USER() {
         return '@USERS.GET-USER';
       }
-           static get EDIT_USER() {
+      static get EDIT_USER() {
         return '@USERS.EDIT-USER';
       }
       static get SET_FILTER_VALUES() {

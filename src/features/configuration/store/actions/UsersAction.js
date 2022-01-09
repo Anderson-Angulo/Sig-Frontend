@@ -1,6 +1,7 @@
 import { ConfigurationConstants } from 'features/configuration/commons/ConfigurationConstants';
 import { UserService } from 'features/configuration/services/UserService';
 import { toastAction } from 'core/store/actions/ToastAction';
+import {CoreConstants} from 'core/commons/CoreConstants'
 
 
 
@@ -31,6 +32,7 @@ const saveUser = (user) => {
       .catch(() => {});
   };
 };
+
 
 const setUsers = ({
   loading = true,
@@ -101,11 +103,94 @@ const getUser = (userId) => {
       });
   };
 };
+const setFilterValues = (payload) => {
+  return (dispatch, getState) => {
+    // let { values } = getState().roleReducer.filterRole;
+    // if (values.length > 0) {
+    //   const fields = payload.map(({ field }) => field);
+    //   const removeValues = values.filter((val) => fields.includes(val.field));
+    //   if (removeValues.length > 0) {
+    //     removeValues.forEach(({ field }) => {
+    //       dispatch(removeFilterValues(field));
+    //     });
+    //   }
+    // }
+    dispatch({
+      type: ConfigurationConstants.Accion.Users.SET_FILTER_VALUES,
+      payload,
+    });
+  };
+};
+
+const removeFilterValues = (field) => {
+  return (dispatch, getState) => {
+    let { values } = getState().roleReducer.filterRole;
+
+    let payload = [];
+    if (values.length > 0)
+      payload = values.filter((val) => val.field !== field);
+
+    dispatch({
+      type: ConfigurationConstants.Accion.Users.REMOVE_FILTER_VALUES,
+      payload,
+    });
+  };
+}
+
+function getResetPassword(userId) {
+  return (dispatch) => {
+    // dispatch({type:ConfigurationConstants.Accion.Users.REQUEST})
+    UserService.resetPassword(userId).then(
+      (model) => {
+        evaluarResetPassword(dispatch,model)
+        // evaluarSolitudRecuperarContrasena(dispatch, model);
+      },
+    );
+  };
+}
+function evaluarResetPassword(dispatch,model){
+      if(model.data.status===CoreConstants.HttpResponse.OK){
+          return dispatch({
+          type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
+          toast: {
+            titulo: 'Resetear Contraseña',
+            mensaje: "Se le envio un correo al usuario respectivo para resetear su contraseña",
+            severidad: 'success',
+          },
+        });
+      }
+      else if(model.data.status === CoreConstants.HttpResponse.ERROR_FUNTIONAL){
+          return dispatch({
+          type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
+          toast: {
+            titulo: 'Resetear Contraseña',
+            mensaje: model.data.message,
+            severidad: 'warn',
+          },
+        });
+      }
+      else if(model.data.status === CoreConstants.HttpResponse.ERROR_TECHNICAL){
+        return dispatch({
+          type: CoreConstants.Accion.Toast.MOSTRAR_MENSAJE,
+          toast: {
+            titulo: 'Resetear Contraseña',
+            mensaje: model.data.message,
+            severidad: 'danger',
+          },
+        });
+      }
+}
+
+
+
 
 export const UsersAction = {
   getUsers,
   getDataMaster,
   getUser,
   saveUser,
-  saveUserStatus
+  saveUserStatus,
+  removeFilterValues,
+  setFilterValues,
+  getResetPassword
 };

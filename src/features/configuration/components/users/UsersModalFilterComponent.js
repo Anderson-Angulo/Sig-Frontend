@@ -1,8 +1,8 @@
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
-import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import useUserFilter from 'features/configuration/hooks/users/useUserFilter';
+import { Checkbox } from 'primereact/checkbox';
 
 const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
   const {
@@ -11,8 +11,14 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
     locationsOptions,
     advancedfilter,
     handlerChangeModalFilter,
-    values
+    values,
+    setValues,
+    loading
   } = useUserFilter()
+
+  const clearModal=()=>{
+    setValues(null)
+  }
 
   const companies = companiesOptions
   const locations = locationsOptions
@@ -28,7 +34,6 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
 
   if (isOpen) {
     return (
-      
       <div className="modal-filtro shadow-md">
         <form className="form-modal px-8 py-4"  onSubmit={advancedfilter}>
           <header className="header mb-4">
@@ -44,13 +49,21 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
             <div className="flex gap-4 pt-3">
               <div className="w-full">
                 <span className="p-float-label">
-                  <Calendar id="desde" />
+                  <Calendar 
+                    value={values?.fromDate}
+                    onChange={handlerChangeModalFilter}
+                    name="fromDate"
+                    id="desde" />     
                   <label htmlFor="desde">Desde</label>
                 </span>
               </div>
               <div className="w-full">
                 <span className="p-float-label">
-                  <Calendar id="hasta" />
+                  <Calendar
+                    value={values?.toDate}
+                    onChange={handlerChangeModalFilter}
+                    name="toDate"
+                    id="hasta" />
                   <label htmlFor="hasta">Hasta</label>
                 </span>
               </div>
@@ -59,7 +72,7 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               <div className="w-full">
                 <span className="p-float-label">
                   <Dropdown
-                    value={values.companyId}
+                    value={values?.companyId}
                     onChange={handlerChangeModalFilter}
                     name="companyId"
                     options={companies}
@@ -69,7 +82,6 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
                     filterBy="company"
                     className="w-full"
                   />
-
                   <label htmlFor="dropdown">Por Empresa</label>
                 </span>
               </div>
@@ -79,7 +91,7 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
                 <span className="p-float-label">
                   <Dropdown
                     name="locationId"
-                    value={values.locationId}
+                    value={values?.locationId}
                     onChange={handlerChangeModalFilter}
                     options={locations}
                     optionLabel="location"
@@ -98,7 +110,7 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
                 <span className="p-float-label">
                   <Dropdown
                     name="roleId"
-                    value={values.roleId}
+                    value={values?.roleId}
                     onChange={handlerChangeModalFilter} 
                     options={roles}
                     optionLabel="role"
@@ -107,7 +119,6 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
                     filterBy="role"
                     className="w-full"
                   />
-
                   <label htmlFor="dropdown">Por Rol</label>
                 </span>
               </div>
@@ -117,11 +128,11 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
                 <h3 style={styleLabel}>Por Estado</h3>
                 <div className="flex gap-3">
                   <div className="flex gap-3">
-                    <Checkbox value="Activo"></Checkbox>
+                    <Checkbox name="statusId" onChange={handlerChangeModalFilter} value="ACTIVO"  checked={values?.statusId==="ACTIVO"}  />
                     <p>Activo</p>
                   </div>
                   <div className="flex gap-3">
-                    <Checkbox value="Inactivo"></Checkbox>
+                    <Checkbox  name="statusId" onChange={handlerChangeModalFilter} value="INACTIVO" checked={values?.statusId==="INACTIVO"}  />
                     <p>Inactivo</p>
                   </div>
                 </div>
@@ -133,11 +144,12 @@ const UsersModalFilterComponent = ({ isOpen = false, closeModal }) => {
               type="button"
               label="Limpiar Filtro"
               className="btn btn-secondary mt-4"
-              onClick={closeModal}
+              onClick={clearModal}
             />
             <Button
               type="submit"
               label="Buscar"
+              loading={loading}
               className="btn btn-primary mt-4"
             />
           </div>

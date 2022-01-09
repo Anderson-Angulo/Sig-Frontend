@@ -3,9 +3,11 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import UsersModalFilterComponent from './UsersModalFilterComponent';
 import { Panel } from 'primereact/panel';
+import useUserFilter from 'features/configuration/hooks/users/useUserFilter';
 
 const UsersFilterComponent = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const {valueSearch,setValueSearch,simpleFilter}=useUserFilter()
   return (
     <Fragment>
       <Panel header="FILTRO POR" toggleable>
@@ -13,7 +15,10 @@ const UsersFilterComponent = () => {
           <div className="w-full ">
             <span className="p-float-label p-input-icon-left w-full">
               <i className="pi pi-search" />
-              <InputText id="input-search" />
+              <InputText 
+                onChange={e=>setValueSearch(e.target.value)}
+                values={valueSearch}
+                id="input-search" />
               <label htmlFor="input-search">Buscar por usuario o nombres</label>
             </span>
           </div>
@@ -23,6 +28,8 @@ const UsersFilterComponent = () => {
                 icon="pi pi-search"
                 type="button"
                 label="Buscar"
+                disabled={!valueSearch}
+                onClick={simpleFilter}
                 className="btn btn-primary w-full"
               />
               <Button

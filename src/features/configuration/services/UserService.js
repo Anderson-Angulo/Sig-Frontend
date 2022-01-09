@@ -46,6 +46,7 @@ const removeUser = (userId) => {
   return apiService.get(`User/RemoveUser?userId=${userId}`, 'admin');
 };
 
+
 export const UserService = {
   getDataMaster,
   userSearch,

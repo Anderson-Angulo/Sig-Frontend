@@ -26,6 +26,7 @@ const toggleModalFilters = (payload) => {
 };
 
 const getRoles = (fields) => {
+  console.log(fields)
   return (dispatch) => {
     dispatch(setRoles({ loading: true }));
     RoleService.getRoles(fields).then(

@@ -66,14 +66,14 @@ const useRoleModal = () => {
     e.preventDefault();
 
     const fields = formValues;
-
+  console.log(formValues)
     if (values.length > 0) {
       const fieldName = values.filter((val) => val.field === 'name');
       if (fieldName.length > 0) fields.name = fieldName[0].value;
     }
     dispatch(RolesAction.getRoles({ change: true, fields: formValues }));
-    const arrValues = [];
 
+    const arrValues = [];
     if (formValues.from)
       arrValues.push({
         field: 'from',
@@ -87,7 +87,6 @@ const useRoleModal = () => {
         value: moment(formValues.to).format('DD/MM/YYYY'),
         date: formValues.to,
       });
-
     if (arrValues.length > 0) dispatch(RolesAction.setFilterValues(arrValues));
   };
   return {
